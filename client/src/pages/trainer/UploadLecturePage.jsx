@@ -16,6 +16,9 @@ import {
   RefreshCw,
   Loader2,
   ExternalLink,
+  Sparkles,
+  MessageSquare,
+  Briefcase,
 } from 'lucide-react';
 import toast from 'react-hot-toast';
 
@@ -36,6 +39,28 @@ function formatCurrentKolkataTime() {
   return `${datePart}, ${timePart}`;
 }
 
+const CATEGORIES = [
+  {
+    id: 'AI Lectures',
+    name: 'AI Lectures',
+    description: 'Artificial Intelligence, Machine Learning & Tools',
+    icon: Sparkles,
+  },
+  {
+    id: 'Communication Skill Lectures',
+    name: 'Communication Skill Lectures',
+    description: 'Soft skills, presentation, corporate communication',
+    icon: MessageSquare,
+  },
+  {
+    id: 'Job Portal Optimization + Resume Building Session',
+    name: 'Job Portal & Resume',
+    fullName: 'Job Portal Optimization + Resume Building Session',
+    description: 'LinkedIn, Naukri, resume building & ATS prep',
+    icon: Briefcase,
+  },
+];
+
 export default function UploadLecturePage() {
   const navigate = useNavigate();
   const socket = useSocket();
@@ -43,13 +68,10 @@ export default function UploadLecturePage() {
   const [batches, setBatches] = useState([]);
   const [loadingBatches, setLoadingBatches] = useState(true);
 
-  // Form states in EXACT required order:
-  // 1. Choose action ("Upload Video")
-  // 2. Select Batch
-  // 3. Video Name
-  // 4. Google Drive link
+  // Form states
   const [action, setAction] = useState('Upload Video');
   const [selectedBatch, setSelectedBatch] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState('AI Lectures');
   const [videoName, setVideoName] = useState('');
   const [driveLink, setDriveLink] = useState('');
   const [isPublished, setIsPublished] = useState(true);
@@ -123,6 +145,7 @@ export default function UploadLecturePage() {
       setSubmitting(true);
       const res = await uploadLecture({
         batchId: selectedBatch,
+        category: selectedCategory,
         title: videoName.trim(),
         driveLink: driveLink.trim(),
         isPublished,
@@ -221,10 +244,53 @@ export default function UploadLecturePage() {
             )}
           </div>
 
-          {/* STEP 3: Video Name */}
+          {/* STEP 3: Select Category */}
           <div>
             <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1.5">
-              Step 3: Video Name
+              Step 3: Select Lecture Track / Category
+            </label>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+              {CATEGORIES.map((cat) => {
+                const Icon = cat.icon;
+                const isSelected = selectedCategory === (cat.fullName || cat.id);
+                return (
+                  <button
+                    key={cat.id}
+                    type="button"
+                    onClick={() => setSelectedCategory(cat.fullName || cat.id)}
+                    className={`flex flex-col items-start p-3.5 rounded-xl border-2 text-left transition-all cursor-pointer ${
+                      isSelected
+                        ? 'border-indigo-600 bg-indigo-50/80 shadow-md shadow-indigo-500/10 dark:border-indigo-500 dark:bg-indigo-950/50'
+                        : 'border-slate-200 bg-white hover:border-slate-300 dark:border-slate-700 dark:bg-slate-800 dark:hover:border-slate-600'
+                    }`}
+                  >
+                    <div className="flex items-center gap-2 mb-1.5">
+                      <div
+                        className={`p-1.5 rounded-lg ${
+                          isSelected
+                            ? 'bg-indigo-600 text-white'
+                            : 'bg-slate-100 text-slate-600 dark:bg-slate-700 dark:text-slate-300'
+                        }`}
+                      >
+                        <Icon className="h-4 w-4" />
+                      </div>
+                      <span className="text-xs font-bold text-slate-900 dark:text-white">
+                        {cat.name}
+                      </span>
+                    </div>
+                    <p className="text-[11px] text-slate-500 dark:text-slate-400 leading-snug">
+                      {cat.description}
+                    </p>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* STEP 4: Video Name */}
+          <div>
+            <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1.5">
+              Step 4: Video Name
             </label>
             <Input
               placeholder="e.g. Day 14: React Hooks & Custom Hook Architecture"
@@ -234,10 +300,10 @@ export default function UploadLecturePage() {
             />
           </div>
 
-          {/* STEP 4: Google Drive link */}
+          {/* STEP 5: Google Drive link */}
           <div>
             <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1.5">
-              Step 4: Google Drive Link
+              Step 5: Google Drive Link
             </label>
             <Input
               icon={LinkIcon}

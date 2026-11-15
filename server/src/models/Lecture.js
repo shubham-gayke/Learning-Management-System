@@ -8,6 +8,16 @@ const lectureSchema = new mongoose.Schema(
       ref: 'Batch',
       required: true,
     },
+    category: {
+      type: String,
+      enum: [
+        'AI Lectures',
+        'Communication Skill Lectures',
+        'Job Portal Optimization + Resume Building Session',
+      ],
+      default: 'AI Lectures',
+      required: true,
+    },
     driveFileId: { type: String },
     driveLink: { type: String },
     recordedAt: { type: Date, default: Date.now },
@@ -40,6 +50,7 @@ const lectureSchema = new mongoose.Schema(
 );
 
 lectureSchema.index({ batch: 1 });
+lectureSchema.index({ category: 1 });
 lectureSchema.index({ status: 1 });
 
 /**

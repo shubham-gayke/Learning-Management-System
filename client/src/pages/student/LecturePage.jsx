@@ -141,11 +141,27 @@ export default function LecturePage() {
 
       {/* Lecture Title Header */}
       <div>
+        <div className="flex flex-wrap items-center gap-2 mb-2">
+          <span className="rounded-md bg-indigo-50 px-2.5 py-0.5 text-xs font-bold text-indigo-700 dark:bg-indigo-950/70 dark:text-indigo-300">
+            Batch {lecture.batch?.name}
+          </span>
+          <span
+            className={`rounded-md px-2.5 py-0.5 text-xs font-bold ${
+              lecture.category === 'Communication Skill Lectures'
+                ? 'bg-emerald-50 text-emerald-700 dark:bg-emerald-950/70 dark:text-emerald-300'
+                : lecture.category === 'Job Portal Optimization + Resume Building Session'
+                ? 'bg-amber-50 text-amber-700 dark:bg-amber-950/70 dark:text-amber-300'
+                : 'bg-cyan-50 text-cyan-700 dark:bg-cyan-950/70 dark:text-cyan-300'
+            }`}
+          >
+            {lecture.category || 'AI Lectures'}
+          </span>
+        </div>
         <h1 className="text-xl sm:text-2xl font-extrabold text-slate-900 dark:text-white">
           {lecture.title}
         </h1>
         <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
-          Batch {lecture.batch?.name} · Shubham Gayke
+          Instructor: Shubham Gayke
         </p>
       </div>
 

@@ -20,11 +20,18 @@ const router = Router();
 
 // ── Validation Schemas ────────────────────────────────────────────────
 
+const LECTURE_CATEGORIES = [
+  'AI Lectures',
+  'Communication Skill Lectures',
+  'Job Portal Optimization + Resume Building Session',
+];
+
 const createLectureSchema = {
   body: z.object({
     batchId: z.string().min(1, 'Batch is required'),
     title: z.string().trim().min(1, 'Video name is required'),
     driveLink: z.string().trim().min(1, 'Google Drive link is required'),
+    category: z.enum(LECTURE_CATEGORIES).optional().default('AI Lectures'),
     isPublished: z.boolean().optional().default(true),
   }),
 };
@@ -35,6 +42,7 @@ const updateLectureSchema = {
     title: z.string().trim().min(1).optional(),
     isPublished: z.boolean().optional(),
     batchId: z.string().optional(),
+    category: z.enum(LECTURE_CATEGORIES).optional(),
   }),
 };
 
@@ -50,9 +58,12 @@ router.get(
   requireAuth,
   catchAsync(async (req, res) => {
     const isTrainer = req.user.role === 'trainer';
-    const { batch, search, page = 1, limit = 20 } = req.query;
+    const { batch, search, category, page = 1, limit = 20 } = req.query;
 
     const filter = {};
+    if (category && category !== 'all') {
+      filter.category = category;
+    }
 
     if (isTrainer) {
       if (batch) filter.batch = new mongoose.Types.ObjectId(batch);
@@ -147,7 +158,7 @@ router.post(
   requireRole('trainer'),
   validate(createLectureSchema),
   catchAsync(async (req, res) => {
-    const { batchId, title, driveLink, isPublished } = req.body;
+    const { batchId, title, driveLink, isPublished, category } = req.body;
 
     const batch = await Batch.findById(batchId);
     if (!batch) {
@@ -168,6 +179,7 @@ router.post(
     const lecture = await Lecture.create({
       title,
       batch: batch._id,
+      category: category || 'AI Lectures',
       driveFileId: fileId,
       driveLink,
       recordedAt,
@@ -200,11 +212,12 @@ router.patch(
   requireRole('trainer'),
   validate(updateLectureSchema),
   catchAsync(async (req, res) => {
-    const { title, isPublished, batchId } = req.body;
+    const { title, isPublished, batchId, category } = req.body;
     const update = {};
     if (title !== undefined) update.title = title;
     if (isPublished !== undefined) update.isPublished = isPublished;
     if (batchId !== undefined) update.batch = batchId;
+    if (category !== undefined) update.category = category;
 
     const lecture = await Lecture.findByIdAndUpdate(req.params.id, update, {
       new: true,

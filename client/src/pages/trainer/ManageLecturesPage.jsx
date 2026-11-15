@@ -63,10 +63,12 @@ export default function ManageLecturesPage() {
   // Filters
   const [search, setSearch] = useState('');
   const [selectedBatch, setSelectedBatch] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState('');
 
   // Edit Title Modal
   const [editingLecture, setEditingLecture] = useState(null);
   const [editTitle, setEditTitle] = useState('');
+  const [editCategory, setEditCategory] = useState('AI Lectures');
   const [editPublished, setEditPublished] = useState(true);
   const [savingEdit, setSavingEdit] = useState(false);
 
@@ -88,6 +90,7 @@ export default function ManageLecturesPage() {
       const params = {};
       if (search.trim()) params.search = search.trim();
       if (selectedBatch) params.batch = selectedBatch;
+      if (selectedCategory) params.category = selectedCategory;
 
       const res = await getLectures(params);
       setLectures(res.data?.lectures || []);
@@ -106,7 +109,7 @@ export default function ManageLecturesPage() {
 
   useEffect(() => {
     fetchLectures();
-  }, [selectedBatch]);
+  }, [selectedBatch, selectedCategory]);
 
   const handleSearchSubmit = (e) => {
     e.preventDefault();
@@ -157,6 +160,7 @@ export default function ManageLecturesPage() {
   const handleOpenEdit = (lec) => {
     setEditingLecture(lec);
     setEditTitle(lec.title);
+    setEditCategory(lec.category || 'AI Lectures');
     setEditPublished(lec.isPublished);
   };
 
@@ -167,6 +171,7 @@ export default function ManageLecturesPage() {
       setSavingEdit(true);
       await updateLecture(editingLecture._id, {
         title: editTitle.trim(),
+        category: editCategory,
         isPublished: editPublished,
       });
       toast.success('Lecture updated');
@@ -303,7 +308,7 @@ export default function ManageLecturesPage() {
           </Button>
         </form>
 
-        <div className="flex items-center gap-2">
+        <div className="flex flex-wrap items-center gap-2">
           <Filter className="h-4 w-4 text-slate-400" />
           <select
             value={selectedBatch}
@@ -316,6 +321,19 @@ export default function ManageLecturesPage() {
                 {b.name}
               </option>
             ))}
+          </select>
+
+          <select
+            value={selectedCategory}
+            onChange={(e) => setSelectedCategory(e.target.value)}
+            className="rounded-xl border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 dark:border-slate-700 dark:bg-slate-800 dark:text-white"
+          >
+            <option value="">All Categories</option>
+            <option value="AI Lectures">AI Lectures</option>
+            <option value="Communication Skill Lectures">Communication Skill Lectures</option>
+            <option value="Job Portal Optimization + Resume Building Session">
+              Job Portal & Resume
+            </option>
           </select>
         </div>
       </div>
@@ -349,6 +367,17 @@ export default function ManageLecturesPage() {
                   <div className="flex flex-wrap items-center gap-2">
                     <span className="rounded-md bg-indigo-50 px-2.5 py-0.5 text-xs font-bold text-indigo-700 dark:bg-indigo-950/70 dark:text-indigo-300">
                       {lec.batch?.name || 'Batch'}
+                    </span>
+                    <span
+                      className={`rounded-md px-2.5 py-0.5 text-xs font-bold ${
+                        lec.category === 'Communication Skill Lectures'
+                          ? 'bg-emerald-50 text-emerald-700 dark:bg-emerald-950/70 dark:text-emerald-300'
+                          : lec.category === 'Job Portal Optimization + Resume Building Session'
+                          ? 'bg-amber-50 text-amber-700 dark:bg-amber-950/70 dark:text-amber-300'
+                          : 'bg-cyan-50 text-cyan-700 dark:bg-cyan-950/70 dark:text-cyan-300'
+                      }`}
+                    >
+                      {lec.category || 'AI Lectures'}
                     </span>
                     <span
                       className={`rounded-full px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider ${
@@ -464,6 +493,22 @@ export default function ManageLecturesPage() {
             onChange={(e) => setEditTitle(e.target.value)}
             required
           />
+          <div>
+            <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
+              Category / Track
+            </label>
+            <select
+              value={editCategory}
+              onChange={(e) => setEditCategory(e.target.value)}
+              className="w-full rounded-xl border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 dark:border-slate-700 dark:bg-slate-800 dark:text-white"
+            >
+              <option value="AI Lectures">AI Lectures</option>
+              <option value="Communication Skill Lectures">Communication Skill Lectures</option>
+              <option value="Job Portal Optimization + Resume Building Session">
+                Job Portal Optimization + Resume Building Session
+              </option>
+            </select>
+          </div>
           <div className="flex items-center gap-2">
             <input
               type="checkbox"
