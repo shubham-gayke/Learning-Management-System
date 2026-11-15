@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
+import api from '../../api/axios';
 import { getLecture, getProgress, saveProgress } from '../../api/lectures';
 import { useAuth } from '../../contexts/AuthContext';
 import CustomVideoPlayer from '../../components/player/CustomVideoPlayer';
@@ -29,6 +30,10 @@ export default function LecturePage() {
   const [error, setError] = useState(null);
   const [initialProgress, setInitialProgress] = useState(0);
 
+  // Player mode: 'lms' | 'drive'
+  const [playerMode, setPlayerMode] = useState('lms');
+  const [embedUrl, setEmbedUrl] = useState('');
+
   // Active Tab
   const [activeTab, setActiveTab] = useState('notes'); // 'notes' | 'ask' | 'info'
 
@@ -56,6 +61,15 @@ export default function LecturePage() {
           const pos = progRes.value.data?.lastPosition || 0;
           setInitialProgress(pos);
         }
+
+        // Fetch Google Drive embed URL as resilient backup
+        api
+          .get(`/api/stream/${id}/embed`)
+          .then((res) => {
+            const url = res.data?.data?.embedUrl;
+            if (url) setEmbedUrl(url);
+          })
+          .catch(() => {});
       } catch (err) {
         setError('An unexpected error occurred.');
       } finally {
@@ -117,26 +131,65 @@ export default function LecturePage() {
 
   return (
     <div className="space-y-6">
-      {/* Back button link */}
-      <div className="flex items-center gap-2">
+      {/* Top action row: Back link + Player mode switcher */}
+      <div className="flex flex-wrap items-center justify-between gap-3">
         <Link
           to="/dashboard"
-          className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-500 hover:text-indigo-600 dark:text-slate-400 dark:hover:text-indigo-400"
+          className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-500 hover:text-cyan-600 dark:text-slate-400 dark:hover:text-cyan-400"
         >
           <ChevronLeft className="h-4 w-4" /> Back to All Lectures
         </Link>
+
+        {embedUrl && (
+          <div className="inline-flex items-center gap-1 rounded-xl bg-slate-100 p-1 dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700/80">
+            <button
+              type="button"
+              onClick={() => setPlayerMode('lms')}
+              className={`rounded-lg px-3 py-1 text-xs font-bold transition-all cursor-pointer ${
+                playerMode === 'lms'
+                  ? 'bg-white text-cyan-700 shadow-sm dark:bg-slate-700 dark:text-cyan-300'
+                  : 'text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-200'
+              }`}
+            >
+              LMS Player
+            </button>
+            <button
+              type="button"
+              onClick={() => setPlayerMode('drive')}
+              className={`rounded-lg px-3 py-1 text-xs font-bold transition-all cursor-pointer ${
+                playerMode === 'drive'
+                  ? 'bg-white text-cyan-700 shadow-sm dark:bg-slate-700 dark:text-cyan-300'
+                  : 'text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-200'
+              }`}
+            >
+              Drive Player
+            </button>
+          </div>
+        )}
       </div>
 
       {/* Video Container (Mobile Sticky at top: sticky top-14 z-30 on mobile, standard on md+) */}
       <div className="sticky top-14 md:static z-20 -mx-4 sm:mx-0 bg-black sm:rounded-2xl overflow-hidden shadow-2xl">
-        <CustomVideoPlayer
-          ref={playerRef}
-          src={streamSrc}
-          user={user}
-          initialProgress={initialProgress}
-          onProgressUpdate={handleProgressUpdate}
-          title={lecture.title}
-        />
+        {playerMode === 'drive' && embedUrl ? (
+          <div className="relative aspect-video w-full">
+            <iframe
+              src={embedUrl}
+              title={lecture.title}
+              className="absolute inset-0 h-full w-full border-0"
+              allow="autoplay; fullscreen"
+              allowFullScreen
+            />
+          </div>
+        ) : (
+          <CustomVideoPlayer
+            ref={playerRef}
+            src={streamSrc}
+            user={user}
+            initialProgress={initialProgress}
+            onProgressUpdate={handleProgressUpdate}
+            title={lecture.title}
+          />
+        )}
       </div>
 
       {/* Lecture Title Header */}

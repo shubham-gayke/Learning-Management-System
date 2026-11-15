@@ -461,6 +461,7 @@ const CustomVideoPlayer = forwardRef(function CustomVideoPlayer(
       <video
         ref={videoRef}
         playsInline
+        crossOrigin="use-credentials"
         controls={false}
         controlsList="nodownload noremoteplayback"
         disablePictureInPicture
@@ -471,6 +472,10 @@ const CustomVideoPlayer = forwardRef(function CustomVideoPlayer(
         onPause={() => setIsPlaying(false)}
         onWaiting={() => setIsBuffering(true)}
         onPlaying={() => setIsBuffering(false)}
+        onError={() => {
+          setIsBuffering(false);
+          setError('Failed to load video stream. Please check connection or retry.');
+        }}
         onTimeUpdate={() => {
           if (videoRef.current) {
             setCurrentTime(videoRef.current.currentTime);

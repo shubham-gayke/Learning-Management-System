@@ -38,6 +38,64 @@ async function verifyStreamAccess(req, res, next) {
   next();
 }
 
+// In-memory cache for resolved Google Drive stream sessions (fileId -> { url, cookies, expiresAt })
+const driveStreamCache = new Map();
+
+async function getDriveStreamSession(fileId) {
+  const cached = driveStreamCache.get(fileId);
+  if (cached && cached.expiresAt > Date.now()) {
+    return cached;
+  }
+
+  const userAgent =
+    'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36';
+
+  const initialUrl = `https://drive.usercontent.google.com/download?id=${fileId}&export=download`;
+  const initialRes = await fetch(initialUrl, {
+    headers: { 'User-Agent': userAgent },
+  });
+
+  const contentType = initialRes.headers.get('content-type') || '';
+  const cookies = initialRes.headers.get('set-cookie') || '';
+
+  // If directly a video stream
+  if (!contentType.includes('text/html')) {
+    const session = {
+      url: initialUrl,
+      cookies,
+      expiresAt: Date.now() + 15 * 60 * 1000,
+    };
+    driveStreamCache.set(fileId, session);
+    return session;
+  }
+
+  // Virus scan warning page for large videos (> 25MB): extract uuid and cookies
+  const html = await initialRes.text();
+  const uuidMatch =
+    html.match(/name="uuid"\s+value="([^"]+)"/i) || html.match(/uuid=([a-zA-Z0-9-]+)/i);
+
+  if (uuidMatch) {
+    const uuid = uuidMatch[1];
+    const confirmUrl = `https://drive.usercontent.google.com/download?id=${fileId}&export=download&confirm=t&uuid=${uuid}`;
+    const session = {
+      url: confirmUrl,
+      cookies,
+      expiresAt: Date.now() + 15 * 60 * 1000,
+    };
+    driveStreamCache.set(fileId, session);
+    return session;
+  }
+
+  // Fallback try with confirm=t
+  const session = {
+    url: `https://drive.usercontent.google.com/download?id=${fileId}&export=download&confirm=t`,
+    cookies,
+    expiresAt: Date.now() + 5 * 60 * 1000,
+  };
+  driveStreamCache.set(fileId, session);
+  return session;
+}
+
 /**
  * GET /:lectureId/video — Secure video streaming proxy with HTTP Range support.
  * Plays directly inside the LMS custom player with NO Drive redirects or link exposure.
@@ -52,31 +110,34 @@ router.get(
       throw new AppError('Video source ID missing.', 404);
     }
 
-    // Direct Google Drive usercontent download URL
-    const targetUrl = `https://drive.usercontent.google.com/download?id=${fileId}&export=download`;
+    let session = await getDriveStreamSession(fileId);
 
-    const requestHeaders = {
-      'User-Agent':
-        'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+    const userAgent =
+      'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36';
+
+    const buildHeaders = (sess) => {
+      const h = { 'User-Agent': userAgent };
+      if (sess.cookies) h.Cookie = sess.cookies;
+      if (req.headers.range) h.Range = req.headers.range;
+      return h;
     };
 
-    // Forward range header for instant seeking
-    if (req.headers.range) {
-      requestHeaders.Range = req.headers.range;
-    }
-
-    const driveRes = await fetch(targetUrl, {
-      headers: requestHeaders,
+    let driveRes = await fetch(session.url, {
+      headers: buildHeaders(session),
     });
 
+    // If response returned HTML (e.g. session token invalidated), flush cache and retry once
+    const contentType = driveRes.headers.get('content-type') || '';
+    if (contentType.includes('text/html') || (!driveRes.ok && driveRes.status !== 206)) {
+      driveStreamCache.delete(fileId);
+      session = await getDriveStreamSession(fileId);
+      driveRes = await fetch(session.url, {
+        headers: buildHeaders(session),
+      });
+    }
+
     if (!driveRes.ok && driveRes.status !== 206) {
-      // Fallback try with confirm=t
-      const fallbackUrl = `https://drive.usercontent.google.com/download?id=${fileId}&export=download&confirm=t`;
-      const fallbackRes = await fetch(fallbackUrl, { headers: requestHeaders });
-      if (!fallbackRes.ok && fallbackRes.status !== 206) {
-        throw new AppError('Unable to stream video from Google Drive.', 502);
-      }
-      return forwardStream(fallbackRes, res);
+      throw new AppError('Unable to stream video from Google Drive.', 502);
     }
 
     return forwardStream(driveRes, res);
@@ -216,6 +277,28 @@ router.get(
       'Cache-Control': 'public, max-age=3600',
     });
     storageService.driver.getReadStream(`${req.lecture.hlsPath}/${rendition}/${file}`).pipe(res);
+  })
+);
+
+/**
+ * GET /:lectureId/embed — Return Google Drive embed URL
+ */
+router.get(
+  '/:lectureId/embed',
+  requireAuth,
+  verifyStreamAccess,
+  catchAsync(async (req, res) => {
+    const fileId = req.lecture.driveFileId;
+    if (!fileId) {
+      throw new AppError('Video ID missing.', 404);
+    }
+
+    res.json({
+      success: true,
+      data: {
+        embedUrl: `https://drive.google.com/file/d/${fileId}/preview`,
+      },
+    });
   })
 );
 
