@@ -1,0 +1,249 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ─── Modern Color Scheme System ─── */
+:root {
+  color-scheme: light dark;
+
+  /* ═════════════════════════════════════════════════════════════════════
+     GLACIER THEME TOKENS: Sub-Zero Arctic Ice, Crystalline Cyan & Sky
+     ═════════════════════════════════════════════════════════════════════ */
+  --theme-primary: #06b6d4;
+  --theme-primary-hover: #0891b2;
+  --theme-primary-light: #22d3ee;
+  --theme-primary-bg: #ecfeff;
+  --theme-accent: #0ea5e9;
+  --theme-glow: rgba(6, 182, 212, 0.45);
+  --theme-bg-dark: #030d17;
+  --theme-card-dark: #071729;
+  --theme-border-dark: #0e3052;
+  --theme-gradient: linear-gradient(135deg, #06b6d4 0%, #0ea5e9 50%, #3b82f6 100%);
+}
+
+/* ─── Custom Theme ─── */
+@theme {
+  --color-primary: #06B6D4;
+  --color-primary-light: #22D3EE;
+  --color-primary-dark: #0891B2;
+  --color-primary-50: #ECFEFF;
+  --color-primary-100: #CFFAFE;
+  --color-primary-200: #A5F3FC;
+  --color-accent: #0EA5E9;
+  --color-accent-light: #38BDF8;
+  --color-accent-dark: #0284C7;
+  --color-surface: #FFFFFF;
+  --color-surface-dark: #071729;
+  --color-muted: #94A3B8;
+  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+}
+
+/* ─── Base Styles ─── */
+@layer base {
+  *,
+  *::before,
+  *::after {
+    scrollbar-width: thin;
+    scrollbar-color: #06b6d433 transparent;
+  }
+
+  .dark *,
+  .dark *::before,
+  .dark *::after {
+    scrollbar-color: #0e3052 transparent;
+  }
+
+  *::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  *::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  *::-webkit-scrollbar-thumb {
+    background-color: #a5f3fc;
+    border-radius: 9999px;
+  }
+
+  .dark *::-webkit-scrollbar-thumb {
+    background-color: #0e3052;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    background-color: #f0f9ff;
+    color: #0f172a;
+    transition: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+      color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .dark body,
+  :where(.dark) body {
+    background-color: var(--theme-bg-dark, #030d17);
+    color: #f0f9ff;
+  }
+
+  /* Adaptive Glacier Dark Surfaces */
+  .dark .dark\:bg-slate-800,
+  :where(.dark) .dark\:bg-slate-800,
+  .dark .dark\:bg-slate-800\/90,
+  :where(.dark) .dark\:bg-slate-800\/90,
+  .dark .bg-slate-800,
+  :where(.dark) .bg-slate-800 {
+    background-color: var(--theme-card-dark, #071729) !important;
+  }
+
+  .dark .dark\:bg-slate-900,
+  :where(.dark) .dark\:bg-slate-900,
+  .dark .bg-slate-900,
+  :where(.dark) .bg-slate-900 {
+    background-color: var(--theme-bg-dark, #030d17) !important;
+  }
+
+  .dark .dark\:border-slate-800,
+  :where(.dark) .dark\:border-slate-800,
+  .dark .dark\:border-slate-700,
+  :where(.dark) .dark\:border-slate-700,
+  .dark .dark\:border-slate-700\/80,
+  :where(.dark) .dark\:border-slate-700\/80 {
+    border-color: var(--theme-border-dark, #0e3052) !important;
+  }
+}
+
+/* ─── Custom Utilities ─── */
+@layer utilities {
+  .theme-btn-primary {
+    background: var(--theme-gradient, linear-gradient(135deg, #06b6d4 0%, #0ea5e9 50%, #3b82f6 100%));
+    box-shadow: 0 4px 14px -2px var(--theme-glow, rgba(6, 182, 212, 0.45));
+    transition: all 0.25s cubic-bezier(0.2, 0, 0, 1);
+  }
+  .theme-btn-primary:hover {
+    box-shadow: 0 8px 24px 0 var(--theme-glow, rgba(6, 182, 212, 0.65));
+    filter: brightness(1.08);
+  }
+
+  .gradient-primary {
+    background: var(--theme-gradient, linear-gradient(135deg, #06b6d4 0%, #0ea5e9 50%, #3b82f6 100%));
+  }
+
+  .gradient-primary-subtle {
+    background: linear-gradient(135deg, #ecfeff 0%, #f0f9ff 50%, #e0f2fe 100%);
+  }
+
+  .dark .gradient-primary-subtle {
+    background: linear-gradient(135deg, #041424 0%, #07213a 50%, #06192d 100%);
+  }
+
+  .gradient-text {
+    background: var(--theme-gradient, linear-gradient(135deg, #06b6d4 0%, #0ea5e9 50%, #3b82f6 100%));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .glass {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+  }
+
+  .dark .glass {
+    background: rgba(3, 13, 23, 0.85);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+  }
+
+  /* Ultra-smooth Card Hover with Glacier ice glow */
+  .card-hover {
+    transition: transform 0.25s cubic-bezier(0.2, 0, 0, 1),
+      box-shadow 0.25s cubic-bezier(0.2, 0, 0, 1),
+      border-color 0.25s cubic-bezier(0.2, 0, 0, 1);
+  }
+
+  .card-hover:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 16px 32px -8px var(--theme-glow, rgba(6, 182, 212, 0.25)),
+      0 6px 12px -4px rgba(15, 23, 42, 0.06);
+    border-color: #06b6d4 !important;
+  }
+
+  .dark .card-hover:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 16px 36px -8px var(--theme-glow, rgba(6, 182, 212, 0.4)),
+      0 6px 16px -4px rgba(0, 0, 0, 0.4);
+    border-color: #22d3ee !important;
+  }
+
+  .glow-pill {
+    position: relative;
+    transition: all 0.25s ease;
+  }
+  .glow-pill:hover {
+    box-shadow: 0 0 20px -3px var(--theme-glow, rgba(6, 182, 212, 0.4));
+  }
+
+  .animate-fade-in {
+    animation: fadeIn 0.3s ease-out;
+  }
+
+  .animate-slide-up {
+    animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .animate-slide-down {
+    animation: slideDown 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .animate-scale-in {
+    animation: scaleIn 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+}
+
+/* ─── Keyframes ─── */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
