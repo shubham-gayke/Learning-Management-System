@@ -186,7 +186,6 @@ export default function App() {
         <Route path="lectures" element={<ManageLecturesPage />} />
         <Route path="students" element={<StudentsPage />} />
         <Route path="questions" element={<QAInboxPage />} />
-        <Route path="profile" element={<ProfilePage />} />
       </Route>
 
       {/* Catch-all */}
