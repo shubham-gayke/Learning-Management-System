@@ -17,37 +17,70 @@ const BATCH_NAMES = ['B-26', 'B-27', 'B-28', 'B-29', 'B-30', 'B-31'];
 async function seed() {
   await connectDB();
 
-  // ── 1. Seed Trainer ──────────────────────────────────────────────
-  if (!env.TRAINER_EMAIL || !env.TRAINER_PASSWORD) {
-    console.warn(
-      '⚠️  TRAINER_EMAIL and TRAINER_PASSWORD are not set. Skipping trainer seed.'
-    );
-  } else {
-    const passwordHash = await User.hashPassword(env.TRAINER_PASSWORD);
+  // ── 1. Seed Trainers ─────────────────────────────────────────────
+  const trainersToSeed = [
+    {
+      firstName: env.TRAINER_FIRST_NAME || 'Shubham',
+      lastName: env.TRAINER_LAST_NAME || 'Gayke',
+      email: (env.TRAINER_EMAIL || 'trainer@mentoresolution.com').toLowerCase(),
+      password: env.TRAINER_PASSWORD || 'Trainer@123456',
+      role: 'trainer',
+      allowedCategories: undefined, // full access to all lecture categories
+      canUploadNotes: true,
+    },
+    {
+      firstName: 'Shrikant',
+      lastName: 'Somwanshi',
+      email: 'shrikant.somwanshi@mentoresolution.com',
+      password: 'Trainer@123456',
+      role: 'trainer',
+      allowedCategories: ['Linux Lectures', 'AWS Lectures'],
+      canUploadNotes: true,
+    },
+    {
+      firstName: 'Suraj',
+      lastName: 'Bele',
+      email: 'suraj.bele@mentoresolution.com',
+      password: 'Trainer@123456',
+      role: 'trainer',
+      allowedCategories: ['DevOps Lectures'],
+      canUploadNotes: false,
+    },
+  ];
 
-    const trainer = await User.findOneAndUpdate(
-      { email: env.TRAINER_EMAIL.toLowerCase() },
+  let primaryTrainer = null;
+
+  for (const t of trainersToSeed) {
+    const passwordHash = await User.hashPassword(t.password);
+    const trainerDoc = await User.findOneAndUpdate(
+      { email: t.email },
       {
-        firstName: env.TRAINER_FIRST_NAME,
-        lastName: env.TRAINER_LAST_NAME,
-        email: env.TRAINER_EMAIL.toLowerCase(),
+        firstName: t.firstName,
+        lastName: t.lastName,
+        email: t.email,
         passwordHash,
-        role: 'trainer',
+        role: t.role,
+        allowedCategories: t.allowedCategories,
+        canUploadNotes: t.canUploadNotes,
       },
       { upsert: true, new: true, setDefaultsOnInsert: true }
     );
+    if (!primaryTrainer) primaryTrainer = trainerDoc;
+    console.log(
+      `✅ Trainer seeded: ${trainerDoc.firstName} ${trainerDoc.lastName} (${trainerDoc.email}) [Categories: ${
+        trainerDoc.allowedCategories?.join(', ') || 'ALL'
+      }, Notes: ${trainerDoc.canUploadNotes}]`
+    );
+  }
 
-    console.log(`✅ Trainer seeded: ${trainer.firstName} ${trainer.lastName} (${trainer.email})`);
-
-    // ── 2. Seed Batches ────────────────────────────────────────────
-    for (const name of BATCH_NAMES) {
-      const batch = await Batch.findOneAndUpdate(
-        { name },
-        { name, trainer: trainer._id },
-        { upsert: true, new: true, setDefaultsOnInsert: true }
-      );
-      console.log(`  📦 Batch seeded: ${batch.name}`);
-    }
+  // ── 2. Seed Batches ────────────────────────────────────────────
+  for (const name of BATCH_NAMES) {
+    const batch = await Batch.findOneAndUpdate(
+      { name },
+      { name, trainer: primaryTrainer._id },
+      { upsert: true, new: true, setDefaultsOnInsert: true }
+    );
+    console.log(`  📦 Batch seeded: ${batch.name}`);
   }
 
   console.log('\n🌱 Seeding complete.');

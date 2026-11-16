@@ -110,6 +110,23 @@ router.post(
       throw new AppError('Lecture not found.', 404);
     }
 
+    // Permission check for notes upload
+    if (req.user.role === 'trainer') {
+      if (req.user.canUploadNotes === false) {
+        throw new AppError('Forbidden: You do not have permission to upload notes.', 403);
+      }
+      if (
+        Array.isArray(req.user.allowedCategories) &&
+        req.user.allowedCategories.length > 0 &&
+        !req.user.allowedCategories.includes(lecture.category)
+      ) {
+        throw new AppError(
+          `Forbidden: You are only authorized to upload notes for: ${req.user.allowedCategories.join(', ')}`,
+          403
+        );
+      }
+    }
+
     let noteType = type || (driveLink ? 'drive_link' : 'text');
     let fileId = null;
 
@@ -225,6 +242,24 @@ router.delete(
     const note = await Note.findById(req.params.id);
     if (!note) {
       throw new AppError('Note not found.', 404);
+    }
+
+    if (req.user.role === 'trainer') {
+      if (req.user.canUploadNotes === false) {
+        throw new AppError('Forbidden: You do not have permission to manage notes.', 403);
+      }
+      const lecture = await Lecture.findById(note.lecture);
+      if (
+        lecture &&
+        Array.isArray(req.user.allowedCategories) &&
+        req.user.allowedCategories.length > 0 &&
+        !req.user.allowedCategories.includes(lecture.category)
+      ) {
+        throw new AppError(
+          `Forbidden: You are only authorized to manage notes for: ${req.user.allowedCategories.join(', ')}`,
+          403
+        );
+      }
     }
 
     // Delete file from GridFS if present

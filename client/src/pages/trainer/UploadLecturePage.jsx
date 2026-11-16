@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { getBatches } from '../../api/batches';
 import { uploadLecture, retryLecture } from '../../api/lectures';
 import { useSocket } from '../../contexts/SocketContext';
+import { useAuth } from '../../contexts/AuthContext';
 import Button from '../../components/common/Button';
 import Input from '../../components/common/Input';
 import {
@@ -85,17 +86,37 @@ const CATEGORIES = [
 export default function UploadLecturePage() {
   const navigate = useNavigate();
   const socket = useSocket();
+  const { user } = useAuth();
 
   const [batches, setBatches] = useState([]);
   const [loadingBatches, setLoadingBatches] = useState(true);
 
+  // Filter categories based on trainer permissions
+  const allowedCategories = user?.allowedCategories;
+  const availableCategories =
+    Array.isArray(allowedCategories) && allowedCategories.length > 0
+      ? CATEGORIES.filter((c) => allowedCategories.includes(c.id))
+      : CATEGORIES;
+
   // Form states
   const [action, setAction] = useState('Upload Video');
   const [selectedBatch, setSelectedBatch] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState('Linux Lectures');
+  const [selectedCategory, setSelectedCategory] = useState(
+    availableCategories[0]?.id || 'Linux Lectures'
+  );
   const [videoName, setVideoName] = useState('');
   const [driveLink, setDriveLink] = useState('');
   const [isPublished, setIsPublished] = useState(true);
+
+  // Keep selectedCategory in sync if availableCategories changes
+  useEffect(() => {
+    if (
+      availableCategories.length > 0 &&
+      !availableCategories.some((c) => (c.fullName || c.id) === selectedCategory)
+    ) {
+      setSelectedCategory(availableCategories[0]?.fullName || availableCategories[0]?.id || 'Linux Lectures');
+    }
+  }, [availableCategories, selectedCategory]);
 
   // Read-only server timestamp display
   const [kolkataTimestamp, setKolkataTimestamp] = useState(formatCurrentKolkataTime());
@@ -244,9 +265,14 @@ export default function UploadLecturePage() {
 
           {/* STEP 2: Select Batch */}
           <div>
-            <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1.5">
-              Step 2: Select Batch
-            </label>
+            <div className="flex items-center justify-between mb-1.5">
+              <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                Step 2: Select Target Batch
+              </label>
+              <span className="text-[11px] font-semibold text-cyan-600 dark:text-cyan-400">
+                All {batches.length} Batches Accessible
+              </span>
+            </div>
             {loadingBatches ? (
               <div className="h-11 rounded-xl bg-slate-100 animate-pulse dark:bg-slate-700" />
             ) : (
@@ -267,11 +293,26 @@ export default function UploadLecturePage() {
 
           {/* STEP 3: Select Category */}
           <div>
-            <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1.5">
-              Step 3: Select Lecture Track / Category
-            </label>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-              {CATEGORIES.map((cat) => {
+            <div className="flex items-center justify-between mb-1.5">
+              <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                Step 3: Select Lecture Track / Category
+              </label>
+              {Array.isArray(allowedCategories) && allowedCategories.length > 0 && (
+                <span className="inline-flex items-center gap-1 text-[11px] font-bold text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 px-2.5 py-0.5 rounded-full border border-emerald-500/20">
+                  Assigned Track{allowedCategories.length > 1 ? 's' : ''}: {allowedCategories.join(', ')}
+                </span>
+              )}
+            </div>
+            <div
+              className={`grid gap-3 ${
+                availableCategories.length === 1
+                  ? 'grid-cols-1 max-w-sm'
+                  : availableCategories.length === 2
+                  ? 'grid-cols-1 sm:grid-cols-2 max-w-xl'
+                  : 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3'
+              }`}
+            >
+              {availableCategories.map((cat) => {
                 const Icon = cat.icon;
                 const isSelected = selectedCategory === (cat.fullName || cat.id);
                 return (

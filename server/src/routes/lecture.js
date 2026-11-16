@@ -71,6 +71,21 @@ router.get(
     if (isTrainer) {
       if (batch) filter.batch = new mongoose.Types.ObjectId(batch);
       if (search) filter.title = new RegExp(search, 'i');
+      if (Array.isArray(req.user.allowedCategories) && req.user.allowedCategories.length > 0) {
+        if (category && category !== 'all') {
+          if (!req.user.allowedCategories.includes(category)) {
+            throw new AppError(
+              `Forbidden: You are not authorized to view ${category}. Allowed: ${req.user.allowedCategories.join(', ')}`,
+              403
+            );
+          }
+          filter.category = category;
+        } else {
+          filter.category = { $in: req.user.allowedCategories };
+        }
+      } else if (category && category !== 'all') {
+        filter.category = category;
+      }
     } else {
       // Student rule: ONLY own batch
       if (!req.user.batch) {
@@ -82,6 +97,9 @@ router.get(
       filter.batch = req.user.batch;
       filter.isPublished = true;
       filter.status = 'ready';
+      if (category && category !== 'all') {
+        filter.category = category;
+      }
       if (search) filter.title = new RegExp(search, 'i');
     }
 
@@ -91,6 +109,7 @@ router.get(
     const [lectures, total] = await Promise.all([
       Lecture.find(filter)
         .populate('batch', 'name')
+        .populate('createdBy', 'firstName lastName')
         .sort({ recordedAt: -1 })
         .skip(skip)
         .limit(take),
@@ -124,7 +143,9 @@ router.get(
   '/:id',
   requireAuth,
   catchAsync(async (req, res) => {
-    const lecture = await Lecture.findById(req.params.id).populate('batch', 'name');
+    const lecture = await Lecture.findById(req.params.id)
+      .populate('batch', 'name')
+      .populate('createdBy', 'firstName lastName');
     if (!lecture) {
       throw new AppError('Lecture not found.', 404);
     }
@@ -162,6 +183,21 @@ router.post(
   validate(createLectureSchema),
   catchAsync(async (req, res) => {
     const { batchId, title, driveLink, isPublished, category } = req.body;
+    const lectureCategory = category || 'Linux Lectures';
+
+    // Verify trainer track authorization
+    if (
+      req.user.role === 'trainer' &&
+      Array.isArray(req.user.allowedCategories) &&
+      req.user.allowedCategories.length > 0
+    ) {
+      if (!req.user.allowedCategories.includes(lectureCategory)) {
+        throw new AppError(
+          `Forbidden: You are only authorized to upload videos for: ${req.user.allowedCategories.join(', ')}`,
+          403
+        );
+      }
+    }
 
     const batch = await Batch.findById(batchId);
     if (!batch) {
@@ -182,7 +218,7 @@ router.post(
     const lecture = await Lecture.create({
       title,
       batch: batch._id,
-      category: category || 'Linux Lectures',
+      category: lectureCategory,
       driveFileId: fileId,
       driveLink,
       recordedAt,
@@ -216,6 +252,31 @@ router.patch(
   validate(updateLectureSchema),
   catchAsync(async (req, res) => {
     const { title, isPublished, batchId, category } = req.body;
+
+    const existingLecture = await Lecture.findById(req.params.id);
+    if (!existingLecture) {
+      throw new AppError('Lecture not found.', 404);
+    }
+
+    if (
+      req.user.role === 'trainer' &&
+      Array.isArray(req.user.allowedCategories) &&
+      req.user.allowedCategories.length > 0
+    ) {
+      if (!req.user.allowedCategories.includes(existingLecture.category)) {
+        throw new AppError(
+          `Forbidden: You are only authorized to modify lectures in: ${req.user.allowedCategories.join(', ')}`,
+          403
+        );
+      }
+      if (category && !req.user.allowedCategories.includes(category)) {
+        throw new AppError(
+          `Forbidden: You cannot change category to ${category}. Authorized: ${req.user.allowedCategories.join(', ')}`,
+          403
+        );
+      }
+    }
+
     const update = {};
     if (title !== undefined) update.title = title;
     if (isPublished !== undefined) update.isPublished = isPublished;
@@ -225,11 +286,9 @@ router.patch(
     const lecture = await Lecture.findByIdAndUpdate(req.params.id, update, {
       new: true,
       runValidators: true,
-    }).populate('batch', 'name');
-
-    if (!lecture) {
-      throw new AppError('Lecture not found.', 404);
-    }
+    })
+      .populate('batch', 'name')
+      .populate('createdBy', 'firstName lastName');
 
     res.status(200).json({ success: true, data: { lecture } });
   })
@@ -246,6 +305,19 @@ router.delete(
     const lecture = await Lecture.findById(req.params.id);
     if (!lecture) {
       throw new AppError('Lecture not found.', 404);
+    }
+
+    if (
+      req.user.role === 'trainer' &&
+      Array.isArray(req.user.allowedCategories) &&
+      req.user.allowedCategories.length > 0
+    ) {
+      if (!req.user.allowedCategories.includes(lecture.category)) {
+        throw new AppError(
+          `Forbidden: You are only authorized to delete lectures in: ${req.user.allowedCategories.join(', ')}`,
+          403
+        );
+      }
     }
 
     // 1. Delete HLS storage directory

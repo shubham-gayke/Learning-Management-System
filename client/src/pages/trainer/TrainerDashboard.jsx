@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { getTrainerStats } from '../../api/students';
 import { getBatches } from '../../api/batches';
 import { useSocket } from '../../contexts/SocketContext';
+import { useAuth } from '../../contexts/AuthContext';
 import { 
   Users, 
   Video, 
@@ -47,6 +48,7 @@ function formatVideoTimestamp(seconds) {
 
 export default function TrainerDashboard() {
   const socket = useSocket();
+  const { user } = useAuth();
   const [stats, setStats] = useState(null);
   const [recentQuestions, setRecentQuestions] = useState([]);
   const [batches, setBatches] = useState([]);
@@ -206,8 +208,18 @@ export default function TrainerDashboard() {
               </span>
             </div>
             <p className="text-xs sm:text-sm text-cyan-200/90 max-w-xl">
-              Welcome, Shubham Gayke! Here is an overview of your batches, lectures, and students.
+              Welcome, {user?.firstName ? `${user.firstName} ${user.lastName}` : 'Trainer'}! Here is an overview of your batches, lectures, and students.
             </p>
+            {Array.isArray(user?.allowedCategories) && user.allowedCategories.length > 0 && (
+              <div className="pt-1.5 flex flex-wrap items-center gap-2">
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-cyan-400/20 text-cyan-200 border border-cyan-400/30">
+                  🎯 Assigned Track{user.allowedCategories.length > 1 ? 's' : ''}: {user.allowedCategories.join(', ')}
+                </span>
+                <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold bg-white/10 text-cyan-100 border border-white/20">
+                  📁 Notes Upload: {user.canUploadNotes ? 'Enabled' : 'Disabled (Videos Only)'}
+                </span>
+              </div>
+            )}
           </div>
           <div className="flex flex-wrap gap-3">
             <Link to="/trainer/upload">

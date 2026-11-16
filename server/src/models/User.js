@@ -26,6 +26,16 @@ const userSchema = new mongoose.Schema(
       enum: ['trainer', 'student'],
       default: 'student',
     },
+    // Allowed lecture tracks/categories for trainers (undefined/null = full access)
+    allowedCategories: {
+      type: [String],
+      default: undefined,
+    },
+    // Whether this trainer has permission to upload notes/resources
+    canUploadNotes: {
+      type: Boolean,
+      default: true,
+    },
     batch: { type: mongoose.Schema.Types.ObjectId, ref: 'Batch', default: null },
     batchChangesUsed: { type: Number, default: 0, max: 1 },
     batchHistory: [batchHistorySchema],

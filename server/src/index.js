@@ -28,35 +28,66 @@ import Batch from './models/Batch.js';
 async function seedOnStartup() {
   const BATCH_NAMES = ['B-26', 'B-27', 'B-28', 'B-29', 'B-30', 'B-31'];
 
-  if (!env.TRAINER_EMAIL || !env.TRAINER_PASSWORD) {
-    console.warn('⚠️  Trainer env vars not set — skipping auto-seed.');
-    return;
-  }
+  const trainersToSeed = [
+    {
+      firstName: env.TRAINER_FIRST_NAME || 'Shubham',
+      lastName: env.TRAINER_LAST_NAME || 'Gayke',
+      email: (env.TRAINER_EMAIL || 'trainer@mentoresolution.com').toLowerCase(),
+      password: env.TRAINER_PASSWORD || 'Trainer@123456',
+      role: 'trainer',
+      allowedCategories: undefined, // full access
+      canUploadNotes: true,
+    },
+    {
+      firstName: 'Shrikant',
+      lastName: 'Somwanshi',
+      email: 'shrikant.somwanshi@mentoresolution.com',
+      password: 'Trainer@123456',
+      role: 'trainer',
+      allowedCategories: ['Linux Lectures', 'AWS Lectures'],
+      canUploadNotes: true,
+    },
+    {
+      firstName: 'Suraj',
+      lastName: 'Bele',
+      email: 'suraj.bele@mentoresolution.com',
+      password: 'Trainer@123456',
+      role: 'trainer',
+      allowedCategories: ['DevOps Lectures'],
+      canUploadNotes: false,
+    },
+  ];
 
   try {
-    const passwordHash = await User.hashPassword(env.TRAINER_PASSWORD);
+    let primaryTrainer = null;
 
-    const trainer = await User.findOneAndUpdate(
-      { email: env.TRAINER_EMAIL.toLowerCase() },
-      {
-        firstName: env.TRAINER_FIRST_NAME,
-        lastName: env.TRAINER_LAST_NAME,
-        email: env.TRAINER_EMAIL.toLowerCase(),
-        passwordHash,
-        role: 'trainer',
-      },
-      { upsert: true, new: true, setDefaultsOnInsert: true }
-    );
+    for (const t of trainersToSeed) {
+      const passwordHash = await User.hashPassword(t.password);
+      const trainerDoc = await User.findOneAndUpdate(
+        { email: t.email },
+        {
+          firstName: t.firstName,
+          lastName: t.lastName,
+          email: t.email,
+          passwordHash,
+          role: t.role,
+          allowedCategories: t.allowedCategories,
+          canUploadNotes: t.canUploadNotes,
+        },
+        { upsert: true, new: true, setDefaultsOnInsert: true }
+      );
+      if (!primaryTrainer) primaryTrainer = trainerDoc;
+    }
 
     for (const name of BATCH_NAMES) {
       await Batch.findOneAndUpdate(
         { name },
-        { name, trainer: trainer._id },
+        { name, trainer: primaryTrainer._id },
         { upsert: true, new: true, setDefaultsOnInsert: true }
       );
     }
 
-    console.log('🌱 Auto-seed complete (trainer + batches).');
+    console.log('🌱 Auto-seed complete (trainers + batches).');
   } catch (err) {
     console.error('⚠️  Auto-seed failed (non-fatal):', err.message);
   }

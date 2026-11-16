@@ -368,7 +368,7 @@ export default function DashboardPage() {
           description={
             search
               ? `No sessions matching "${search}" in this track.`
-              : `Trainer Shubham Gayke will upload ${activeCategoryObj.shortName} videos soon. Check back shortly!`
+              : `Trainer will upload ${activeCategoryObj.shortName} videos soon. Check back shortly!`
           }
         />
       ) : (
@@ -453,7 +453,9 @@ export default function DashboardPage() {
                       <span className="font-bold text-cyan-600 dark:text-cyan-400 group-hover:translate-x-0.5 transition-transform">
                         Watch Lecture &rarr;
                       </span>
-                      <span className="text-slate-400 font-medium">Shubham Gayke</span>
+                      <span className="text-slate-400 font-medium">
+                        {lec.createdBy ? `${lec.createdBy.firstName} ${lec.createdBy.lastName}` : 'Mentore Solution'}
+                      </span>
                     </div>
                   </div>
                 </Link>

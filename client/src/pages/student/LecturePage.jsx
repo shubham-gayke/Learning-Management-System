@@ -169,7 +169,7 @@ export default function LecturePage() {
           {lecture.title}
         </h1>
         <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
-          Instructor: Shubham Gayke
+          Instructor: {lecture.createdBy ? `${lecture.createdBy.firstName} ${lecture.createdBy.lastName}` : 'Mentore Solution'}
         </p>
       </div>
 

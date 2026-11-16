@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { useAuth } from '../../contexts/AuthContext';
 import {
   getLectures,
   updateLecture,
@@ -56,6 +57,9 @@ function formatRecordedDate(dateStr) {
 }
 
 export default function ManageLecturesPage() {
+  const { user } = useAuth();
+  const allowedCategories = user?.allowedCategories;
+
   const [lectures, setLectures] = useState([]);
   const [batches, setBatches] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -328,15 +332,29 @@ export default function ManageLecturesPage() {
             onChange={(e) => setSelectedCategory(e.target.value)}
             className="rounded-xl border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 dark:border-slate-700 dark:bg-slate-800 dark:text-white"
           >
-            <option value="">All Categories</option>
-            <option value="Linux Lectures">Linux Lectures</option>
-            <option value="AWS Lectures">AWS Lectures</option>
-            <option value="DevOps Lectures">DevOps Lectures</option>
-            <option value="AI Lectures">AI Lectures</option>
-            <option value="Communication Skill Lectures">Communication Skill Lectures</option>
-            <option value="Job Portal Optimization + Resume Building Session">
-              Job Portal & Resume
+            <option value="">
+              {Array.isArray(allowedCategories) && allowedCategories.length > 0
+                ? 'All Assigned Tracks'
+                : 'All Categories'}
             </option>
+            {Array.isArray(allowedCategories) && allowedCategories.length > 0 ? (
+              allowedCategories.map((cat) => (
+                <option key={cat} value={cat}>
+                  {cat}
+                </option>
+              ))
+            ) : (
+              <>
+                <option value="Linux Lectures">Linux Lectures</option>
+                <option value="AWS Lectures">AWS Lectures</option>
+                <option value="DevOps Lectures">DevOps Lectures</option>
+                <option value="AI Lectures">AI Lectures</option>
+                <option value="Communication Skill Lectures">Communication Skill Lectures</option>
+                <option value="Job Portal Optimization + Resume Building Session">
+                  Job Portal & Resume
+                </option>
+              </>
+            )}
           </select>
         </div>
       </div>
@@ -360,6 +378,10 @@ export default function ManageLecturesPage() {
         <div className="space-y-3.5">
           {lectures.map((lec) => {
             const dateLabel = formatRecordedDate(lec.recordedAt);
+            const canManageLec =
+              !Array.isArray(allowedCategories) ||
+              allowedCategories.length === 0 ||
+              allowedCategories.includes(lec.category);
 
             return (
               <div
@@ -434,7 +456,7 @@ export default function ManageLecturesPage() {
                     </Link>
                   )}
 
-                  {lec.status === 'failed' && (
+                  {lec.status === 'failed' && canManageLec && (
                     <Button
                       variant="danger"
                       size="sm"
@@ -456,34 +478,38 @@ export default function ManageLecturesPage() {
                     Notes
                   </Button>
 
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={() => handleTogglePublish(lec)}
-                    className="text-xs"
-                  >
-                    {lec.isPublished ? 'Unpublish' : 'Publish'}
-                  </Button>
+                  {canManageLec && (
+                    <>
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => handleTogglePublish(lec)}
+                        className="text-xs"
+                      >
+                        {lec.isPublished ? 'Unpublish' : 'Publish'}
+                      </Button>
 
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    icon={Edit2}
-                    onClick={() => handleOpenEdit(lec)}
-                    className="text-xs"
-                  >
-                    Edit
-                  </Button>
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        icon={Edit2}
+                        onClick={() => handleOpenEdit(lec)}
+                        className="text-xs"
+                      >
+                        Edit
+                      </Button>
 
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    icon={Trash2}
-                    onClick={() => handleDelete(lec)}
-                    className="text-xs text-rose-600 hover:text-rose-700 dark:text-rose-400"
-                  >
-                    Delete
-                  </Button>
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        icon={Trash2}
+                        onClick={() => handleDelete(lec)}
+                        className="text-xs text-rose-600 hover:text-rose-700 dark:text-rose-400"
+                      >
+                        Delete
+                      </Button>
+                    </>
+                  )}
                 </div>
               </div>
             );
@@ -513,14 +539,24 @@ export default function ManageLecturesPage() {
               onChange={(e) => setEditCategory(e.target.value)}
               className="w-full rounded-xl border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 dark:border-slate-700 dark:bg-slate-800 dark:text-white"
             >
-              <option value="Linux Lectures">Linux Lectures</option>
-              <option value="AWS Lectures">AWS Lectures</option>
-              <option value="DevOps Lectures">DevOps Lectures</option>
-              <option value="AI Lectures">AI Lectures</option>
-              <option value="Communication Skill Lectures">Communication Skill Lectures</option>
-              <option value="Job Portal Optimization + Resume Building Session">
-                Job Portal Optimization + Resume Building Session
-              </option>
+              {Array.isArray(allowedCategories) && allowedCategories.length > 0 ? (
+                allowedCategories.map((cat) => (
+                  <option key={cat} value={cat}>
+                    {cat}
+                  </option>
+                ))
+              ) : (
+                <>
+                  <option value="Linux Lectures">Linux Lectures</option>
+                  <option value="AWS Lectures">AWS Lectures</option>
+                  <option value="DevOps Lectures">DevOps Lectures</option>
+                  <option value="AI Lectures">AI Lectures</option>
+                  <option value="Communication Skill Lectures">Communication Skill Lectures</option>
+                  <option value="Job Portal Optimization + Resume Building Session">
+                    Job Portal Optimization + Resume Building Session
+                  </option>
+                </>
+              )}
             </select>
           </div>
           <div className="flex items-center gap-2">
@@ -555,88 +591,100 @@ export default function ManageLecturesPage() {
       >
         <div className="space-y-6">
           {/* Upload New Note Form */}
-          <form onSubmit={handleUploadNote} className="rounded-xl bg-slate-50 p-4 border border-slate-200 dark:bg-slate-900/60 dark:border-slate-700/60 space-y-3">
-            <h4 className="text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300">
-              Attach New Resource
-            </h4>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              <Input
-                label="Note Title"
-                placeholder="e.g. Session Slides / Summary"
-                value={noteTitle}
-                onChange={(e) => setNoteTitle(e.target.value)}
-                required
-              />
-              <div>
-                <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
-                  Type
-                </label>
-                <select
-                  value={noteType}
-                  onChange={(e) => setNoteType(e.target.value)}
-                  className="w-full rounded-xl border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 focus:border-cyan-500 focus:outline-none focus:ring-1 focus:ring-cyan-500 dark:border-slate-700 dark:bg-slate-800 dark:text-white"
-                >
-                  <option value="drive_link">Google Drive Link (PDF / Slides / Notes) ⭐ Zero Storage</option>
-                  <option value="text">In-App Text / Code Note</option>
-                  <option value="pdf">Direct PDF File Upload (GridFS)</option>
-                  <option value="image">Direct Image Upload (GridFS)</option>
-                </select>
-              </div>
+          {user?.canUploadNotes === false ? (
+            <div className="rounded-xl bg-amber-500/10 border border-amber-500/20 p-4 text-xs font-semibold text-amber-700 dark:text-amber-300">
+              ⚠️ Note uploading is disabled for your trainer account.
             </div>
-
-            {noteType === 'drive_link' ? (
-              <div>
+          ) : Array.isArray(allowedCategories) &&
+            allowedCategories.length > 0 &&
+            !allowedCategories.includes(notesModalLecture?.category) ? (
+            <div className="rounded-xl bg-amber-500/10 border border-amber-500/20 p-4 text-xs font-semibold text-amber-700 dark:text-amber-300">
+              ⚠️ You are only authorized to upload notes for: {allowedCategories.join(', ')}.
+            </div>
+          ) : (
+            <form onSubmit={handleUploadNote} className="rounded-xl bg-slate-50 p-4 border border-slate-200 dark:bg-slate-900/60 dark:border-slate-700/60 space-y-3">
+              <h4 className="text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300">
+                Attach New Resource
+              </h4>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <Input
-                  label="Google Drive Share Link"
-                  placeholder="https://drive.google.com/file/d/1aBcDeFg.../view?usp=sharing"
-                  value={noteDriveLink}
-                  onChange={(e) => setNoteDriveLink(e.target.value)}
+                  label="Note Title"
+                  placeholder="e.g. Session Slides / Summary"
+                  value={noteTitle}
+                  onChange={(e) => setNoteTitle(e.target.value)}
                   required
                 />
-                <p className="mt-1 text-[11px] text-cyan-600 dark:text-cyan-400">
-                  💡 Zero database storage used. Ensure the file sharing in Google Drive is set to "Anyone with the link can view".
-                </p>
+                <div>
+                  <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
+                    Type
+                  </label>
+                  <select
+                    value={noteType}
+                    onChange={(e) => setNoteType(e.target.value)}
+                    className="w-full rounded-xl border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 focus:border-cyan-500 focus:outline-none focus:ring-1 focus:ring-cyan-500 dark:border-slate-700 dark:bg-slate-800 dark:text-white"
+                  >
+                    <option value="drive_link">Google Drive Link (PDF / Slides / Notes) ⭐ Zero Storage</option>
+                    <option value="text">In-App Text / Code Note</option>
+                    <option value="pdf">Direct PDF File Upload (GridFS)</option>
+                    <option value="image">Direct Image Upload (GridFS)</option>
+                  </select>
+                </div>
               </div>
-            ) : noteType === 'text' ? (
-              <textarea
-                rows={3}
-                placeholder="Write your note or markdown instructions here..."
-                value={noteTextContent}
-                onChange={(e) => setNoteTextContent(e.target.value)}
-                className="w-full rounded-xl border border-slate-300 bg-white p-3 text-sm text-slate-900 placeholder-slate-400 focus:border-cyan-500 focus:outline-none focus:ring-1 focus:ring-cyan-500 dark:border-slate-700 dark:bg-slate-800 dark:text-white"
-                required
-              />
-            ) : (
-              <div>
-                <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
-                  Choose File (PDF or Image, max 15MB)
+
+              {noteType === 'drive_link' ? (
+                <div>
+                  <Input
+                    label="Google Drive Share Link"
+                    placeholder="https://drive.google.com/file/d/1aBcDeFg.../view?usp=sharing"
+                    value={noteDriveLink}
+                    onChange={(e) => setNoteDriveLink(e.target.value)}
+                    required
+                  />
+                  <p className="mt-1 text-[11px] text-cyan-600 dark:text-cyan-400">
+                    💡 Zero database storage used. Ensure the file sharing in Google Drive is set to "Anyone with the link can view".
+                  </p>
+                </div>
+              ) : noteType === 'text' ? (
+                <textarea
+                  rows={3}
+                  placeholder="Write your note or markdown instructions here..."
+                  value={noteTextContent}
+                  onChange={(e) => setNoteTextContent(e.target.value)}
+                  className="w-full rounded-xl border border-slate-300 bg-white p-3 text-sm text-slate-900 placeholder-slate-400 focus:border-cyan-500 focus:outline-none focus:ring-1 focus:ring-cyan-500 dark:border-slate-700 dark:bg-slate-800 dark:text-white"
+                  required
+                />
+              ) : (
+                <div>
+                  <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
+                    Choose File (PDF or Image, max 15MB)
+                  </label>
+                  <input
+                    type="file"
+                    accept={noteType === 'pdf' ? '.pdf' : 'image/*'}
+                    onChange={(e) => setNoteFile(e.target.files[0])}
+                    className="w-full text-xs text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-cyan-50 file:text-cyan-700 hover:file:bg-cyan-100 dark:file:bg-cyan-950 dark:file:text-cyan-300"
+                    required
+                  />
+                </div>
+              )}
+
+              <div className="flex items-center justify-between pt-1">
+                <label className="flex items-center gap-2 text-xs text-slate-700 dark:text-slate-300 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={allowDownload}
+                    onChange={(e) => setAllowDownload(e.target.checked)}
+                    className="h-4 w-4 rounded border-slate-300 text-cyan-600 focus:ring-cyan-500"
+                  />
+                  <span>Allow students to download / open external file</span>
                 </label>
-                <input
-                  type="file"
-                  accept={noteType === 'pdf' ? '.pdf' : 'image/*'}
-                  onChange={(e) => setNoteFile(e.target.files[0])}
-                  className="w-full text-xs text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-cyan-50 file:text-cyan-700 hover:file:bg-cyan-100 dark:file:bg-cyan-950 dark:file:text-cyan-300"
-                  required
-                />
+
+                <Button variant="primary" size="sm" type="submit" isLoading={uploadingNote}>
+                  Attach Note
+                </Button>
               </div>
-            )}
-
-            <div className="flex items-center justify-between pt-1">
-              <label className="flex items-center gap-2 text-xs text-slate-700 dark:text-slate-300 cursor-pointer">
-                <input
-                  type="checkbox"
-                  checked={allowDownload}
-                  onChange={(e) => setAllowDownload(e.target.checked)}
-                  className="h-4 w-4 rounded border-slate-300 text-cyan-600 focus:ring-cyan-500"
-                />
-                <span>Allow students to download / open external file</span>
-              </label>
-
-              <Button variant="primary" size="sm" type="submit" isLoading={uploadingNote}>
-                Attach Note
-              </Button>
-            </div>
-          </form>
+            </form>
+          )}
 
           {/* Existing Notes List */}
           <div className="space-y-3">
@@ -674,15 +722,20 @@ export default function ManageLecturesPage() {
                         )}
                       </div>
                     </div>
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      icon={Trash2}
-                      onClick={() => handleDeleteNote(note._id)}
-                      className="text-xs text-rose-600 hover:text-rose-700"
-                    >
-                      Remove
-                    </Button>
+                    {user?.canUploadNotes !== false &&
+                      (!Array.isArray(allowedCategories) ||
+                        allowedCategories.length === 0 ||
+                        allowedCategories.includes(notesModalLecture?.category)) && (
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          icon={Trash2}
+                          onClick={() => handleDeleteNote(note._id)}
+                          className="text-xs text-rose-600 hover:text-rose-700"
+                        >
+                          Remove
+                        </Button>
+                      )}
                   </div>
                 ))}
               </div>
