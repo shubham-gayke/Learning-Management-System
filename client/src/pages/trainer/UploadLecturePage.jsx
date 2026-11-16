@@ -21,6 +21,7 @@ import {
   Briefcase,
   Cloud,
   Terminal,
+  Server,
 } from 'lucide-react';
 import toast from 'react-hot-toast';
 
@@ -43,10 +44,10 @@ function formatCurrentKolkataTime() {
 
 const CATEGORIES = [
   {
-    id: 'AI Lectures',
-    name: 'AI Lectures',
-    description: 'Artificial Intelligence, Machine Learning & Modern Tools',
-    icon: Sparkles,
+    id: 'Linux Lectures',
+    name: 'Linux Lectures',
+    description: 'Linux OS, bash shell scripting, system admin & permissions',
+    icon: Terminal,
   },
   {
     id: 'AWS Lectures',
@@ -58,7 +59,13 @@ const CATEGORIES = [
     id: 'DevOps Lectures',
     name: 'DevOps Lectures',
     description: 'CI/CD pipelines, Docker, Kubernetes, Git & automation',
-    icon: Terminal,
+    icon: Server,
+  },
+  {
+    id: 'AI Lectures',
+    name: 'AI Lectures',
+    description: 'Artificial Intelligence, Machine Learning & Modern Tools',
+    icon: Sparkles,
   },
   {
     id: 'Communication Skill Lectures',
@@ -85,7 +92,7 @@ export default function UploadLecturePage() {
   // Form states
   const [action, setAction] = useState('Upload Video');
   const [selectedBatch, setSelectedBatch] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState('AI Lectures');
+  const [selectedCategory, setSelectedCategory] = useState('Linux Lectures');
   const [videoName, setVideoName] = useState('');
   const [driveLink, setDriveLink] = useState('');
   const [isPublished, setIsPublished] = useState(true);

@@ -147,18 +147,22 @@ export default function LecturePage() {
           </span>
           <span
             className={`rounded-md px-2.5 py-0.5 text-xs font-bold ${
-              lecture.category === 'AWS Lectures'
+              lecture.category === 'Linux Lectures'
+                ? 'bg-emerald-500/10 text-emerald-600 border border-emerald-500/20 dark:text-emerald-400'
+                : lecture.category === 'AWS Lectures'
                 ? 'bg-amber-500/10 text-amber-600 border border-amber-500/20 dark:text-amber-400'
                 : lecture.category === 'DevOps Lectures'
                 ? 'bg-blue-500/10 text-blue-600 border border-blue-500/20 dark:text-blue-400'
+                : lecture.category === 'AI Lectures'
+                ? 'bg-cyan-50 text-cyan-700 dark:bg-cyan-950/70 dark:text-cyan-300'
                 : lecture.category === 'Communication Skill Lectures'
-                ? 'bg-emerald-50 text-emerald-700 dark:bg-emerald-950/70 dark:text-emerald-300'
+                ? 'bg-teal-50 text-teal-700 dark:bg-teal-950/70 dark:text-teal-300'
                 : lecture.category === 'Job Portal Optimization + Resume Building Session'
                 ? 'bg-purple-50 text-purple-700 dark:bg-purple-950/70 dark:text-purple-300'
-                : 'bg-cyan-50 text-cyan-700 dark:bg-cyan-950/70 dark:text-cyan-300'
+                : 'bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300'
             }`}
           >
-            {lecture.category || 'AI Lectures'}
+            {lecture.category || 'Linux Lectures'}
           </span>
         </div>
         <h1 className="text-xl sm:text-2xl font-extrabold text-slate-900 dark:text-white">

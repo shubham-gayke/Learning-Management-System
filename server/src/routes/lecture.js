@@ -21,9 +21,10 @@ const router = Router();
 // ── Validation Schemas ────────────────────────────────────────────────
 
 const LECTURE_CATEGORIES = [
-  'AI Lectures',
+  'Linux Lectures',
   'AWS Lectures',
   'DevOps Lectures',
+  'AI Lectures',
   'Communication Skill Lectures',
   'Job Portal Optimization + Resume Building Session',
 ];
@@ -33,7 +34,7 @@ const createLectureSchema = {
     batchId: z.string().min(1, 'Batch is required'),
     title: z.string().trim().min(1, 'Video name is required'),
     driveLink: z.string().trim().min(1, 'Google Drive link is required'),
-    category: z.enum(LECTURE_CATEGORIES).optional().default('AI Lectures'),
+    category: z.enum(LECTURE_CATEGORIES).optional().default('Linux Lectures'),
     isPublished: z.boolean().optional().default(true),
   }),
 };
@@ -181,7 +182,7 @@ router.post(
     const lecture = await Lecture.create({
       title,
       batch: batch._id,
-      category: category || 'AI Lectures',
+      category: category || 'Linux Lectures',
       driveFileId: fileId,
       driveLink,
       recordedAt,

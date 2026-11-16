@@ -16,6 +16,7 @@ import {
   Briefcase,
   Cloud,
   Terminal,
+  Server,
 } from 'lucide-react';
 import toast from 'react-hot-toast';
 
@@ -52,11 +53,11 @@ function isNewLecture(recordedAt) {
 
 const CATEGORIES = [
   {
-    id: 'AI Lectures',
-    name: 'AI Lectures',
-    shortName: 'AI Lectures',
-    description: 'Artificial Intelligence, Machine Learning & Modern AI Tools',
-    icon: Sparkles,
+    id: 'Linux Lectures',
+    name: 'Linux Lectures',
+    shortName: 'Linux',
+    description: 'Linux OS, bash shell scripting, system admin & permissions',
+    icon: Terminal,
   },
   {
     id: 'AWS Lectures',
@@ -70,7 +71,14 @@ const CATEGORIES = [
     name: 'DevOps Lectures',
     shortName: 'DevOps Lectures',
     description: 'CI/CD Pipelines, Docker, Kubernetes & Infrastructure as Code',
-    icon: Terminal,
+    icon: Server,
+  },
+  {
+    id: 'AI Lectures',
+    name: 'AI Lectures',
+    shortName: 'AI Lectures',
+    description: 'Artificial Intelligence, Machine Learning & Modern AI Tools',
+    icon: Sparkles,
   },
   {
     id: 'Communication Skill Lectures',
@@ -93,8 +101,8 @@ export default function DashboardPage() {
   const [lectures, setLectures] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // Active module: defaults to 'AI Lectures'
-  const [activeCategory, setActiveCategory] = useState('AI Lectures');
+  // Active module: defaults to 'Linux Lectures'
+  const [activeCategory, setActiveCategory] = useState('Linux Lectures');
 
   // Filters & Search
   const [search, setSearch] = useState('');
@@ -122,9 +130,10 @@ export default function DashboardPage() {
 
   // Count per category
   const countByCategory = {
-    'AI Lectures': lectures.filter((l) => (l.category || 'AI Lectures') === 'AI Lectures').length,
+    'Linux Lectures': lectures.filter((l) => (l.category || 'Linux Lectures') === 'Linux Lectures').length,
     'AWS Lectures': lectures.filter((l) => l.category === 'AWS Lectures').length,
     'DevOps Lectures': lectures.filter((l) => l.category === 'DevOps Lectures').length,
+    'AI Lectures': lectures.filter((l) => l.category === 'AI Lectures').length,
     'Communication Skill Lectures': lectures.filter(
       (l) => l.category === 'Communication Skill Lectures'
     ).length,
@@ -137,7 +146,7 @@ export default function DashboardPage() {
   const filteredLectures = lectures
     .filter((l) => {
       // Category filter (Exact match)
-      const cat = l.category || 'AI Lectures';
+      const cat = l.category || 'Linux Lectures';
       if (cat !== activeCategory) return false;
 
       // Text search
@@ -153,6 +162,13 @@ export default function DashboardPage() {
     });
 
   const getCategoryBadge = (category) => {
+    if (category === 'Linux Lectures') {
+      return {
+        label: 'Linux Lectures',
+        classes:
+          'bg-emerald-500/10 text-emerald-600 border-emerald-500/30 dark:bg-emerald-950/60 dark:text-emerald-300 dark:border-emerald-800/60',
+      };
+    }
     if (category === 'AWS Lectures') {
       return {
         label: 'AWS Lectures',
@@ -167,11 +183,18 @@ export default function DashboardPage() {
           'bg-blue-500/10 text-blue-600 border-blue-500/30 dark:bg-blue-950/60 dark:text-blue-300 dark:border-blue-800/60',
       };
     }
+    if (category === 'AI Lectures') {
+      return {
+        label: 'AI Lectures',
+        classes:
+          'bg-cyan-50 text-cyan-700 border-cyan-200/80 dark:bg-cyan-950/70 dark:text-cyan-300 dark:border-cyan-800/60',
+      };
+    }
     if (category === 'Communication Skill Lectures') {
       return {
         label: 'Communication Skills',
         classes:
-          'bg-emerald-50 text-emerald-700 border-emerald-200/80 dark:bg-emerald-950/70 dark:text-emerald-300 dark:border-emerald-800/60',
+          'bg-teal-50 text-teal-700 border-teal-200/80 dark:bg-teal-950/70 dark:text-teal-300 dark:border-teal-800/60',
       };
     }
     if (category === 'Job Portal Optimization + Resume Building Session') {
@@ -182,9 +205,9 @@ export default function DashboardPage() {
       };
     }
     return {
-      label: 'AI Lectures',
+      label: 'Linux Lectures',
       classes:
-        'bg-cyan-50 text-cyan-700 border-cyan-200/80 dark:bg-cyan-950/70 dark:text-cyan-300 dark:border-cyan-800/60',
+        'bg-slate-100 text-slate-700 border-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700',
     };
   };
 
@@ -218,18 +241,18 @@ export default function DashboardPage() {
         </div>
       </div>
 
-      {/* Course Modules / Track Selector Cards (5 Categories) */}
+      {/* Course Modules / Track Selector Cards (6 Categories) */}
       <div>
         <div className="flex items-center justify-between mb-3">
           <h2 className="text-sm font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
             Select Course Module
           </h2>
           <span className="text-xs font-medium text-slate-400">
-            5 Tracks Available
+            6 Tracks Available
           </span>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-3.5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-6 gap-3.5">
           {CATEGORIES.map((cat) => {
             const Icon = cat.icon;
             const fullCatId = cat.fullName || cat.id;

@@ -11,13 +11,14 @@ const lectureSchema = new mongoose.Schema(
     category: {
       type: String,
       enum: [
-        'AI Lectures',
+        'Linux Lectures',
         'AWS Lectures',
         'DevOps Lectures',
+        'AI Lectures',
         'Communication Skill Lectures',
         'Job Portal Optimization + Resume Building Session',
       ],
-      default: 'AI Lectures',
+      default: 'Linux Lectures',
       required: true,
     },
     driveFileId: { type: String },
