@@ -1,3 +1,8 @@
+import dns from 'node:dns';
+try {
+  dns.setServers(['8.8.8.8', '8.8.4.4', '1.1.1.1']);
+} catch (e) {}
+
 import http from 'http';
 import express from 'express';
 import helmet from 'helmet';

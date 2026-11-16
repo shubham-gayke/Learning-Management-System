@@ -6,6 +6,11 @@
  *   npm run seed
  */
 
+import dns from 'node:dns';
+try {
+  dns.setServers(['8.8.8.8', '8.8.4.4', '1.1.1.1']);
+} catch (e) {}
+
 import env from './config/env.js';
 import connectDB from './config/db.js';
 import mongoose from 'mongoose';
