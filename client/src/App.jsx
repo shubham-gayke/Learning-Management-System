@@ -136,6 +136,21 @@ export default function App() {
         }
       />
 
+      {/* Lecture Player route - accessible to both Students and Trainers */}
+      <Route
+        element={
+          <ProtectedRoute allowedRoles={['student', 'trainer']}>
+            <TwoFactorGuard>
+              <BatchGuard>
+                <StudentLayout />
+              </BatchGuard>
+            </TwoFactorGuard>
+          </ProtectedRoute>
+        }
+      >
+        <Route path="/lecture/:id" element={<LecturePage />} />
+      </Route>
+
       {/* Student protected routes */}
       <Route
         element={
@@ -150,7 +165,6 @@ export default function App() {
       >
         <Route path="/dashboard" element={<DashboardPage />} />
         <Route path="/lectures" element={<DashboardPage />} />
-        <Route path="/lecture/:id" element={<LecturePage />} />
         <Route path="/my-questions" element={<MyQuestionsPage />} />
         <Route path="/profile" element={<ProfilePage />} />
       </Route>

@@ -106,8 +106,8 @@ export default function LecturePage() {
           icon={AlertCircle}
           title="Lecture Not Found or Restricted"
           description={error || 'You might not have permission to view this lecture.'}
-          actionText="Back to Lectures"
-          onAction={() => navigate('/dashboard')}
+          actionText={user?.role === 'trainer' ? 'Back to Manage Lectures' : 'Back to Lectures'}
+          onAction={() => navigate(user?.role === 'trainer' ? '/trainer/lectures' : '/dashboard')}
         />
       </div>
     );
@@ -120,10 +120,11 @@ export default function LecturePage() {
       {/* Back button link */}
       <div className="flex items-center gap-2">
         <Link
-          to="/dashboard"
+          to={user?.role === 'trainer' ? '/trainer/lectures' : '/dashboard'}
           className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-500 hover:text-cyan-600 dark:text-slate-400 dark:hover:text-cyan-400"
         >
-          <ChevronLeft className="h-4 w-4" /> Back to All Lectures
+          <ChevronLeft className="h-4 w-4" />{' '}
+          {user?.role === 'trainer' ? 'Back to Manage Lectures' : 'Back to All Lectures'}
         </Link>
       </div>
 
