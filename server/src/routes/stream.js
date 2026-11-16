@@ -280,26 +280,4 @@ router.get(
   })
 );
 
-/**
- * GET /:lectureId/embed — Return Google Drive embed URL
- */
-router.get(
-  '/:lectureId/embed',
-  requireAuth,
-  verifyStreamAccess,
-  catchAsync(async (req, res) => {
-    const fileId = req.lecture.driveFileId;
-    if (!fileId) {
-      throw new AppError('Video ID missing.', 404);
-    }
-
-    res.json({
-      success: true,
-      data: {
-        embedUrl: `https://drive.google.com/file/d/${fileId}/preview`,
-      },
-    });
-  })
-);
-
 export default router;
