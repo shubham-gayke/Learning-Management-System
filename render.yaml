@@ -1,0 +1,30 @@
+services:
+  - type: web
+    name: mentore-solution-lms-server
+    runtime: node
+    plan: free
+    rootDir: server
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: CLIENT_URL
+        sync: false
+      - key: MONGODB_URI
+        sync: false
+      - key: JWT_SECRET
+        generateValue: true
+      - key: JWT_EXPIRES_IN
+        value: 1d
+      - key: TRAINER_FIRST_NAME
+        value: Shubham
+      - key: TRAINER_LAST_NAME
+        value: Gayke
+      - key: TRAINER_EMAIL
+        value: trainer@mentoresolution.com
+      - key: TRAINER_PASSWORD
+        value: Trainer@123456
+      - key: ALLOW_MULTIPLE_SESSIONS
+        value: "false"

@@ -59,7 +59,7 @@ async function seedOnStartup() {
       password: 'Trainer@123456',
       role: 'trainer',
       allowedCategories: ['DevOps Lectures'],
-      canUploadNotes: false,
+      canUploadNotes: true,
     },
   ];
 
@@ -112,17 +112,31 @@ async function bootstrap() {
   // 3. Create Express app
   const app = express();
 
+  // Enable trust proxy for Render / Cloudflare / reverse proxy deployments
+  app.set('trust proxy', 1);
+
   // 4. Global middleware
   app.use(
     helmet({
       crossOriginResourcePolicy: { policy: 'cross-origin' },
     })
   );
+
+  const clientUrls = (env.CLIENT_URL || '')
+    .split(',')
+    .map((u) => u.trim().replace(/\/+$/, ''))
+    .filter(Boolean);
+
   const isAllowedOrigin = (origin) => {
     if (!origin) return true;
-    if (origin === env.CLIENT_URL) return true;
+    const cleanOrigin = origin.replace(/\/+$/, '');
+    if (clientUrls.includes(cleanOrigin)) return true;
     if (/^http:\/\/localhost(:\d+)?$/.test(origin)) return true;
     if (/^http:\/\/127\.0\.0\.1(:\d+)?$/.test(origin)) return true;
+    try {
+      const parsed = new URL(origin);
+      if (parsed.hostname.endsWith('.vercel.app')) return true;
+    } catch {}
     return false;
   };
 
@@ -136,6 +150,9 @@ async function bootstrap() {
         }
       },
       credentials: true,
+      methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+      allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Range'],
+      exposedHeaders: ['Content-Range', 'Accept-Ranges', 'Content-Length'],
     })
   );
   app.use(express.json({ limit: '20mb' }));
@@ -144,9 +161,12 @@ async function bootstrap() {
   app.use(morgan('dev'));
   app.use(mongoSanitize());
 
-  // 5. Health-check
+  // 5. Health-check (for Render uptime & status monitoring)
   app.get('/health', (_req, res) => {
-    res.status(200).json({ success: true, message: 'Server is running' });
+    res.status(200).json({ success: true, message: 'Server is running', timestamp: new Date().toISOString() });
+  });
+  app.get('/api/health', (_req, res) => {
+    res.status(200).json({ success: true, message: 'Server is running', timestamp: new Date().toISOString() });
   });
 
   // 6. API routes
@@ -160,9 +180,10 @@ async function bootstrap() {
   initSocket(server);
 
   // 9. Listen
-  server.listen(env.PORT, () => {
+  const PORT = env.PORT || 5000;
+  server.listen(PORT, '0.0.0.0', () => {
     console.log(
-      `\n🚀 Mentore Solution LMS server running on port ${env.PORT} (${env.NODE_ENV})\n`
+      `\n🚀 Mentore Solution LMS server running on port ${PORT} (${env.NODE_ENV})\n`
     );
   });
 }

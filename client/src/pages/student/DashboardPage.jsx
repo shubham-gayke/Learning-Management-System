@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { getLectures } from '../../api/lectures';
+import { apiUrl } from '../../api/axios';
 import { useAuth } from '../../contexts/AuthContext';
 import Skeleton from '../../components/common/Skeleton';
 import EmptyState from '../../components/common/EmptyState';
@@ -398,7 +399,7 @@ export default function DashboardPage() {
                   {/* Thumbnail Header Area */}
                   <div className="relative aspect-video w-full bg-slate-950 flex items-center justify-center overflow-hidden">
                     <img
-                      src={`/api/stream/${lec._id}/thumbnail`}
+                      src={apiUrl(`/api/stream/${lec._id}/thumbnail`)}
                       alt={lec.title}
                       className="absolute inset-0 h-full w-full object-cover transition-all duration-500 group-hover:scale-105 opacity-80 group-hover:opacity-95"
                       onError={(e) => {

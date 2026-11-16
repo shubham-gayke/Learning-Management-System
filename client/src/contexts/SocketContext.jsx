@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect, useRef, useState } from 'react';
 import { io } from 'socket.io-client';
 import { useAuth } from './AuthContext';
+import { getApiBaseUrl } from '../api/axios';
 
 const SocketContext = createContext(null);
 
@@ -11,7 +12,10 @@ export function SocketProvider({ children }) {
 
   useEffect(() => {
     if (isAuthenticated) {
-      const newSocket = io(import.meta.env.VITE_API_URL || '', {
+      const rawUrl = import.meta.env.VITE_SOCKET_URL || getApiBaseUrl();
+      const socketUrl = rawUrl ? rawUrl.replace(/\/api\/?$/, '').replace(/\/+$/, '') : window.location.origin;
+
+      const newSocket = io(socketUrl, {
         withCredentials: true,
         transports: ['websocket', 'polling'],
       });

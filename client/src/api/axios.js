@@ -1,7 +1,26 @@
 import axios from 'axios';
 
+/**
+ * Returns the sanitized backend API base URL.
+ * Strips any trailing slashes or '/api' so relative endpoints starting with '/api' work uniformly.
+ */
+export function getApiBaseUrl() {
+  const raw = import.meta.env.VITE_API_URL || '';
+  return raw.replace(/\/api\/?$/, '').replace(/\/+$/, '');
+}
+
+/**
+ * Constructs a full API URL for static assets, streams, or downloads.
+ * Example: apiUrl('/api/stream/123/video') -> 'https://server.onrender.com/api/stream/123/video'
+ */
+export function apiUrl(path = '') {
+  const base = getApiBaseUrl();
+  const cleanPath = path.startsWith('/') ? path : `/${path}`;
+  return base ? `${base}${cleanPath}` : cleanPath;
+}
+
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || '',
+  baseURL: getApiBaseUrl(),
   withCredentials: true,
   headers: {
     'Content-Type': 'application/json',

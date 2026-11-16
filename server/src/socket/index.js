@@ -22,10 +22,28 @@ function parseCookies(cookieHeader) {
  * @returns {Server}
  */
 export function initSocket(httpServer) {
+  const clientUrls = (env.CLIENT_URL || '')
+    .split(',')
+    .map((u) => u.trim().replace(/\/+$/, ''))
+    .filter(Boolean);
+
+  const isAllowedOrigin = (origin) => {
+    if (!origin) return true;
+    const cleanOrigin = origin.replace(/\/+$/, '');
+    if (clientUrls.includes(cleanOrigin)) return true;
+    if (/^http:\/\/localhost(:\d+)?$/.test(origin)) return true;
+    if (/^http:\/\/127\.0\.0\.1(:\d+)?$/.test(origin)) return true;
+    try {
+      const parsed = new URL(origin);
+      if (parsed.hostname.endsWith('.vercel.app')) return true;
+    } catch {}
+    return false;
+  };
+
   io = new Server(httpServer, {
     cors: {
       origin: (origin, callback) => {
-        if (!origin || origin === env.CLIENT_URL || /^http:\/\/localhost(:\d+)?$/.test(origin) || /^http:\/\/127\.0\.0\.1(:\d+)?$/.test(origin)) {
+        if (isAllowedOrigin(origin)) {
           callback(null, true);
         } else {
           callback(new Error(`Origin ${origin} not allowed by CORS`));
@@ -39,12 +57,8 @@ export function initSocket(httpServer) {
   io.use((socket, next) => {
     try {
       const rawCookie = socket.handshake.headers.cookie;
-      if (!rawCookie) {
-        return next(new Error('Authentication error: no cookie'));
-      }
-
       const cookies = parseCookies(rawCookie);
-      const token = cookies.token;
+      const token = cookies.token || socket.handshake.auth?.token;
 
       if (!token) {
         return next(new Error('Authentication error: no token'));

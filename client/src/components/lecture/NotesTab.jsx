@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { getLectureNotes } from '../../api/notes';
 import { getPrivateNote, savePrivateNote } from '../../api/lectures';
+import { apiUrl } from '../../api/axios';
 import Button from '../../components/common/Button';
 import Skeleton from '../../components/common/Skeleton';
 import EmptyState from '../../components/common/EmptyState';
@@ -132,10 +133,10 @@ export default function NotesTab({ lectureId, isTrainer }) {
               const isDriveLink = !!note.driveLink;
               const fileUrl = isDriveLink
                 ? getGoogleDriveEmbedUrl(note.driveLink)
-                : `/api/notes/${note._id}/file`;
+                : apiUrl(`/api/notes/${note._id}/file`);
               const downloadUrl = isDriveLink
                 ? (getGoogleDriveDownloadUrl(note.driveLink) || note.driveLink)
-                : `/api/notes/${note._id}/file?download=true`;
+                : apiUrl(`/api/notes/${note._id}/file?download=true`);
 
               return (
                 <div
@@ -276,7 +277,7 @@ export default function NotesTab({ lectureId, isTrainer }) {
             ) : viewerItem.type === 'image' ? (
               <div className="flex items-center justify-center rounded-xl bg-slate-950 p-2">
                 <img
-                  src={`/api/notes/${viewerItem._id}/file`}
+                  src={apiUrl(`/api/notes/${viewerItem._id}/file`)}
                   alt={viewerItem.title}
                   className="max-h-[70vh] max-w-full rounded-lg object-contain"
                 />
@@ -284,7 +285,7 @@ export default function NotesTab({ lectureId, isTrainer }) {
             ) : viewerItem.type === 'pdf' ? (
               <div className="h-[70vh] w-full rounded-xl overflow-hidden border border-slate-200 dark:border-slate-700">
                 <iframe
-                  src={`/api/notes/${viewerItem._id}/file`}
+                  src={apiUrl(`/api/notes/${viewerItem._id}/file`)}
                   title={viewerItem.title}
                   className="h-full w-full"
                 />

@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { getLecture, getProgress, saveProgress } from '../../api/lectures';
+import { apiUrl } from '../../api/axios';
 import { useAuth } from '../../contexts/AuthContext';
 import CustomVideoPlayer from '../../components/player/CustomVideoPlayer';
 import NotesTab from '../../components/lecture/NotesTab';
@@ -113,7 +114,7 @@ export default function LecturePage() {
     );
   }
 
-  const streamSrc = `/api/stream/${lecture._id}/video`;
+  const streamSrc = apiUrl(`/api/stream/${lecture._id}/video`);
 
   return (
     <div className="space-y-6">
