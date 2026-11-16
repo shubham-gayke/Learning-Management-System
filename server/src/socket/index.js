@@ -64,8 +64,9 @@ export function initSocket(httpServer) {
     // Join the user's personal room
     socket.join(`user:${socket.userId}`);
 
-    // If trainer, join trainer global room
+    // If trainer, join their unique trainer room and global role room
     if (socket.userRole === 'trainer') {
+      socket.join(`trainer:${socket.userId}`);
       socket.join('role:trainer');
     }
 

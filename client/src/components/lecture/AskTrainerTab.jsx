@@ -33,12 +33,29 @@ function formatTimestamp(seconds) {
 
 export default function AskTrainerTab({
   lectureId,
+  lecture,
   user,
   getCurrentVideoTime,
   onSeekToTime,
 }) {
   const socket = useSocket();
   const isTrainer = user?.role === 'trainer';
+
+  const instructorName = lecture?.createdBy
+    ? `${lecture.createdBy.firstName} ${lecture.createdBy.lastName || ''}`.trim()
+    : (lecture?.category === 'DevOps Lectures'
+        ? 'Suraj Bele'
+        : (['Linux Lectures', 'AWS Lectures'].includes(lecture?.category)
+            ? 'Shrikant Somwanshi'
+            : 'Shubham Gayke'));
+
+  const isAssignedTrainer =
+    isTrainer &&
+    (!lecture?.createdBy ||
+      (lecture.createdBy?._id || lecture.createdBy)?.toString() === user?._id?.toString() ||
+      (Array.isArray(user?.allowedCategories) &&
+        user.allowedCategories.includes(lecture?.category)) ||
+      (!user?.allowedCategories?.length && !lecture?.createdBy));
 
   const [questions, setQuestions] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -210,10 +227,10 @@ export default function AskTrainerTab({
       {/* Question Form */}
       <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-800">
         <h3 className="text-sm font-bold text-slate-900 dark:text-white mb-1">
-          Ask Trainer Shubham Gayke
+          Ask Trainer {instructorName}
         </h3>
         <p className="text-xs text-slate-500 dark:text-slate-400 mb-4">
-          Have a question about this lecture? Post it below and attach your timestamp.
+          Have a question about this lecture? Post it below for {instructorName} and attach your timestamp.
         </p>
 
         <form onSubmit={handleSubmitQuestion} className="space-y-3">
@@ -398,6 +415,11 @@ export default function AskTrainerTab({
                     <div className="space-y-2.5 pl-4 border-l-2 border-indigo-100 dark:border-indigo-950">
                       {q.messages.slice(1).map((msg, i) => {
                         const isMsgTrainer = msg.role === 'trainer';
+                        const trainerMsgLabel =
+                          (q.trainer?.firstName
+                            ? `${q.trainer.firstName} ${q.trainer.lastName || ''}`.trim()
+                            : null) || instructorName;
+
                         return (
                           <div
                             key={i}
@@ -409,7 +431,7 @@ export default function AskTrainerTab({
                           >
                             <div className="flex items-center justify-between mb-1">
                               <span className="font-bold">
-                                {isMsgTrainer ? 'Shubham Gayke (Trainer)' : `${msg.sender?.firstName || 'Student'}`}
+                                {isMsgTrainer ? `${trainerMsgLabel} (Trainer)` : `${msg.sender?.firstName || 'Student'}`}
                               </span>
                               <span className="text-[10px] text-slate-400">
                                 {new Date(msg.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
@@ -423,33 +445,35 @@ export default function AskTrainerTab({
                   )}
 
                   {/* Reply Input */}
-                  <div className="flex gap-2 pt-2">
-                    <input
-                      type="text"
-                      placeholder="Type a reply..."
-                      value={replyTextMap[q._id] || ''}
-                      onChange={(e) =>
-                        setReplyTextMap({ ...replyTextMap, [q._id]: e.target.value })
-                      }
-                      onKeyDown={(e) => {
-                        if (e.key === 'Enter') handleSendReply(q._id);
-                      }}
-                      className="flex-1 rounded-xl border border-slate-300 bg-slate-50 px-3 py-1.5 text-xs text-slate-900 placeholder-slate-400 transition-colors focus:border-indigo-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500/20 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100 dark:placeholder-slate-500 dark:focus:border-indigo-400 dark:focus:bg-slate-900 dark:focus:ring-indigo-400/20"
-                    />
-                    <Button
-                      variant="secondary"
-                      size="sm"
-                      onClick={() => handleSendReply(q._id)}
-                      isLoading={replyingMap[q._id]}
-                      disabled={!replyTextMap[q._id]?.trim()}
-                      className="text-xs"
-                    >
-                      Reply
-                    </Button>
-                  </div>
+                  {(!isTrainer || isAssignedTrainer) && (
+                    <div className="flex gap-2 pt-2">
+                      <input
+                        type="text"
+                        placeholder={isTrainer ? 'Reply as trainer...' : 'Type a reply...'}
+                        value={replyTextMap[q._id] || ''}
+                        onChange={(e) =>
+                          setReplyTextMap({ ...replyTextMap, [q._id]: e.target.value })
+                        }
+                        onKeyDown={(e) => {
+                          if (e.key === 'Enter') handleSendReply(q._id);
+                        }}
+                        className="flex-1 rounded-xl border border-slate-300 bg-slate-50 px-3 py-1.5 text-xs text-slate-900 placeholder-slate-400 transition-colors focus:border-indigo-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500/20 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100 dark:placeholder-slate-500 dark:focus:border-indigo-400 dark:focus:bg-slate-900 dark:focus:ring-indigo-400/20"
+                      />
+                      <Button
+                        variant="secondary"
+                        size="sm"
+                        onClick={() => handleSendReply(q._id)}
+                        isLoading={replyingMap[q._id]}
+                        disabled={!replyTextMap[q._id]?.trim()}
+                        className="text-xs"
+                      >
+                        Reply
+                      </Button>
+                    </div>
+                  )}
 
                   {/* Trainer Management Controls */}
-                  {isTrainer && (
+                  {isTrainer && isAssignedTrainer && (
                     <div className="mt-3 pt-2 border-t border-slate-100 dark:border-slate-700/60 flex items-center justify-between text-xs">
                       <div className="flex items-center gap-3">
                         <button

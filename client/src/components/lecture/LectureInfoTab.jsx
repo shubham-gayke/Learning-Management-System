@@ -76,9 +76,15 @@ export default function LectureInfoTab({ lecture }) {
               <User className="h-4 w-4" />
             </div>
             <div>
-              <p className="text-[11px] text-slate-400">Lead Trainer</p>
+              <p className="text-[11px] text-slate-400">Instructor / Trainer</p>
               <p className="text-xs font-semibold text-slate-900 dark:text-white">
-                Shubham Gayke (Mentore Solution)
+                {lecture.createdBy
+                  ? `${lecture.createdBy.firstName} ${lecture.createdBy.lastName || ''} (Mentore Solution)`.trim()
+                  : (lecture.category === 'DevOps Lectures'
+                      ? 'Suraj Bele (Mentore Solution)'
+                      : (['Linux Lectures', 'AWS Lectures'].includes(lecture.category)
+                          ? 'Shrikant Somwanshi (Mentore Solution)'
+                          : 'Shubham Gayke (Mentore Solution)'))}
               </p>
             </div>
           </div>

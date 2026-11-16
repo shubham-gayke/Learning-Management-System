@@ -230,7 +230,7 @@ router.post(
 
     try {
       const io = getIO();
-      io.to('role:trainer').emit('stats_update');
+      io.to(`trainer:${req.user._id}`).emit('stats_update');
       io.to(`batch:${batch._id}`).emit('new_lecture', { lecture });
     } catch (err) {}
 
@@ -345,7 +345,7 @@ router.delete(
 
     try {
       const io = getIO();
-      io.to('role:trainer').emit('stats_update');
+      io.to(`trainer:${req.user._id}`).emit('stats_update');
     } catch (err) {}
 
     res.status(200).json({

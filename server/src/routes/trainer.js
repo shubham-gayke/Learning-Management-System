@@ -41,7 +41,21 @@ router.get(
   '/stats',
   requireAuth,
   requireRole('trainer'),
-  catchAsync(async (_req, res) => {
+  catchAsync(async (req, res) => {
+    // Isolate lecture count to this trainer's assigned categories or uploaded lectures
+    const lectureFilter =
+      Array.isArray(req.user.allowedCategories) && req.user.allowedCategories.length > 0
+        ? {
+            $or: [
+              { createdBy: req.user._id },
+              { category: { $in: req.user.allowedCategories } },
+            ],
+          }
+        : { createdBy: req.user._id };
+
+    // Isolate questions strictly to this trainer
+    const questionFilter = { trainer: req.user._id };
+
     const [totalStudents, studentsPerBatch, totalLectures, unansweredQuestions, recentQuestions] =
       await Promise.all([
         User.countDocuments({ role: 'student' }),
@@ -69,15 +83,15 @@ router.get(
           { $sort: { batchName: 1 } },
         ]),
 
-        Lecture.countDocuments(),
+        Lecture.countDocuments(lectureFilter),
 
-        Question.countDocuments({ status: 'open', readByTrainer: false }),
+        Question.countDocuments({ ...questionFilter, status: 'open', readByTrainer: false }),
 
-        Question.find()
+        Question.find(questionFilter)
           .sort({ createdAt: -1 })
           .limit(6)
           .populate('student', 'firstName lastName email')
-          .populate('lecture', 'title')
+          .populate('lecture', 'title category')
           .populate('batch', 'name'),
       ]);
 

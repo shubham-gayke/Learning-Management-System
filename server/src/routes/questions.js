@@ -96,6 +96,18 @@ router.get(
           { isPrivate: false },
         ],
       };
+    } else {
+      // Trainer rule: ONLY the instructor assigned to this lecture/category can view its questions
+      const isLectureTrainer =
+        lecture.createdBy?.toString() === req.user._id.toString() ||
+        (Array.isArray(req.user.allowedCategories) &&
+          req.user.allowedCategories.length > 0 &&
+          req.user.allowedCategories.includes(lecture.category)) ||
+        (!req.user.allowedCategories?.length && !lecture.createdBy);
+
+      if (!isLectureTrainer) {
+        return res.status(200).json({ success: true, data: { questions: [] } });
+      }
     }
 
     const questions = await Question.find(filter)
@@ -132,8 +144,24 @@ router.post(
       }
     }
 
+    // Resolve assigned trainer for this lecture
+    let targetTrainerId = lecture.createdBy;
+    if (!targetTrainerId) {
+      if (['Linux Lectures', 'AWS Lectures'].includes(lecture.category)) {
+        const shrikant = await User.findOne({ email: 'shrikant.somwanshi@mentoresolution.com' });
+        targetTrainerId = shrikant?._id;
+      } else if (['DevOps Lectures'].includes(lecture.category)) {
+        const suraj = await User.findOne({ email: 'suraj.bele@mentoresolution.com' });
+        targetTrainerId = suraj?._id;
+      } else {
+        const lead = await User.findOne({ email: 'trainer@mentoresolution.com' });
+        targetTrainerId = lead?._id;
+      }
+    }
+
     const question = await Question.create({
       lecture: lecture._id,
+      trainer: targetTrainerId,
       batch: lecture.batch,
       student: req.user._id,
       text,
@@ -155,22 +183,25 @@ router.post(
 
     const populated = await Question.findById(question._id)
       .populate('student', 'firstName lastName email role')
+      .populate('trainer', 'firstName lastName email')
       .populate('messages.sender', 'firstName lastName role')
-      .populate('lecture', 'title')
+      .populate('lecture', 'title category createdBy')
       .populate('batch', 'name');
 
-    // Real-time socket broadcast
+    // Real-time socket broadcast: Notify ONLY this question's specific trainer
     try {
       const io = getIO();
-      // Notify lecture room
+      // Notify students in lecture room
       io.to(`lecture:${lectureId}`).emit('new_question', {
         question: formatQuestion(populated, null, false),
       });
-      // Notify trainer role room
-      io.to('role:trainer').emit('trainer_new_question', {
-        question: populated,
-      });
-      io.to('role:trainer').emit('stats_update');
+      // Notify ONLY the assigned trainer's private room
+      if (targetTrainerId) {
+        io.to(`trainer:${targetTrainerId}`).emit('trainer_new_question', {
+          question: populated,
+        });
+        io.to(`trainer:${targetTrainerId}`).emit('stats_update');
+      }
     } catch (err) {
       console.error('[Socket Broadcast Error in new question]:', err);
     }
@@ -200,7 +231,12 @@ router.post(
     const isTrainer = req.user.role === 'trainer';
     const isAuthor = question.student.toString() === req.user._id.toString();
 
-    if (!isTrainer && !isAuthor) {
+    if (isTrainer) {
+      // ONLY the assigned trainer can reply to this question!
+      if (question.trainer && question.trainer.toString() !== req.user._id.toString()) {
+        throw new AppError('Forbidden: Only the assigned trainer can reply to this question.', 403);
+      }
+    } else if (!isAuthor) {
       throw new AppError('Forbidden: You cannot reply to this question.', 403);
     }
 
@@ -225,20 +261,25 @@ router.post(
 
     const populated = await Question.findById(question._id)
       .populate('student', 'firstName lastName email role')
+      .populate('trainer', 'firstName lastName email')
       .populate('messages.sender', 'firstName lastName role');
 
-    // Real-time socket emit
+    // Real-time socket emit: Target only thread student and this question's specific trainer
     try {
       const io = getIO();
-      // Notify question thread participants
+      // Notify question thread student
       io.to(`user:${question.student}`).emit('question_message', {
         questionId: question._id,
         message: populated.messages[populated.messages.length - 1],
       });
-      io.to('role:trainer').emit('question_message', {
-        questionId: question._id,
-        message: populated.messages[populated.messages.length - 1],
-      });
+      // Notify ONLY this specific trainer's room
+      if (question.trainer) {
+        io.to(`trainer:${question.trainer}`).emit('question_message', {
+          questionId: question._id,
+          message: populated.messages[populated.messages.length - 1],
+        });
+        io.to(`trainer:${question.trainer}`).emit('stats_update');
+      }
       io.to(`lecture:${question.lecture}`).emit('question_updated', {
         question: formatQuestion(populated, null, false),
       });
@@ -269,7 +310,11 @@ router.patch(
     const isTrainer = req.user.role === 'trainer';
     const isAuthor = question.student.toString() === req.user._id.toString();
 
-    if (!isTrainer && !isAuthor) {
+    if (isTrainer) {
+      if (question.trainer && question.trainer.toString() !== req.user._id.toString()) {
+        throw new AppError('Forbidden: Only the assigned trainer can modify this question.', 403);
+      }
+    } else if (!isAuthor) {
       throw new AppError('Forbidden: Cannot modify this question.', 403);
     }
 
@@ -285,6 +330,7 @@ router.patch(
 
     const populated = await Question.findById(question._id)
       .populate('student', 'firstName lastName email role')
+      .populate('trainer', 'firstName lastName email')
       .populate('messages.sender', 'firstName lastName role');
 
     try {
@@ -292,12 +338,14 @@ router.patch(
       io.to(`lecture:${question.lecture}`).emit('question_updated', {
         question: formatQuestion(populated, null, false),
       });
-      io.to('role:trainer').emit('trainer_question_updated', {
-        question: populated,
-      });
-      io.to('role:trainer').emit('stats_update');
+      if (question.trainer) {
+        io.to(`trainer:${question.trainer}`).emit('trainer_question_updated', {
+          question: populated,
+        });
+        io.to(`trainer:${question.trainer}`).emit('stats_update');
+      }
     } catch (err) {
-      console.error('[Socket Broadcast Error in question message]:', err);
+      console.error('[Socket Broadcast Error in question update]:', err);
     }
 
     res.status(200).json({
@@ -320,6 +368,10 @@ router.delete(
       throw new AppError('Question not found.', 404);
     }
 
+    if (question.trainer && question.trainer.toString() !== req.user._id.toString()) {
+      throw new AppError('Forbidden: Only the assigned trainer can delete this question.', 403);
+    }
+
     await question.deleteOne();
 
     try {
@@ -327,12 +379,14 @@ router.delete(
       io.to(`lecture:${question.lecture}`).emit('question_deleted', {
         questionId: question._id,
       });
-      io.to('role:trainer').emit('trainer_question_deleted', {
-        questionId: question._id,
-      });
-      io.to('role:trainer').emit('stats_update');
+      if (question.trainer) {
+        io.to(`trainer:${question.trainer}`).emit('trainer_question_deleted', {
+          questionId: question._id,
+        });
+        io.to(`trainer:${question.trainer}`).emit('stats_update');
+      }
     } catch (err) {
-      console.error('[Socket Broadcast Error in question message]:', err);
+      console.error('[Socket Broadcast Error in question delete]:', err);
     }
 
     res.status(200).json({ success: true, message: 'Question deleted successfully.' });
@@ -348,6 +402,7 @@ router.get(
   catchAsync(async (req, res) => {
     const questions = await Question.find({ student: req.user._id })
       .populate('lecture', 'title batch recordedAt')
+      .populate('trainer', 'firstName lastName email')
       .populate('messages.sender', 'firstName lastName role')
       .sort({ updatedAt: -1 });
 
@@ -356,7 +411,7 @@ router.get(
 );
 
 /**
- * GET /api/trainer/questions — Trainer Q&A Inbox
+ * GET /api/trainer/questions — Trainer Q&A Inbox (Specific to logged-in trainer)
  */
 router.get(
   '/trainer/questions',
@@ -365,7 +420,8 @@ router.get(
   catchAsync(async (req, res) => {
     const { batch, lecture, status, search, page = 1, limit = 20 } = req.query;
 
-    const filter = {};
+    // Filter strictly by the current trainer!
+    const filter = { trainer: req.user._id };
     if (batch) filter.batch = new mongoose.Types.ObjectId(batch);
     if (lecture) filter.lecture = new mongoose.Types.ObjectId(lecture);
     if (status) filter.status = status;
@@ -377,6 +433,7 @@ router.get(
     const [questions, total] = await Promise.all([
       Question.find(filter)
         .populate('student', 'firstName lastName email')
+        .populate('trainer', 'firstName lastName email')
         .populate('lecture', 'title batch')
         .populate('batch', 'name')
         .populate('messages.sender', 'firstName lastName role')
@@ -402,7 +459,7 @@ router.get(
 );
 
 /**
- * GET /api/notifications/unread — Unread question count
+ * GET /api/notifications/unread — Unread question count (Specific to current user)
  */
 router.get(
   '/notifications/unread',
@@ -411,7 +468,10 @@ router.get(
     let unreadCount = 0;
 
     if (req.user.role === 'trainer') {
-      unreadCount = await Question.countDocuments({ readByTrainer: false });
+      unreadCount = await Question.countDocuments({
+        trainer: req.user._id,
+        readByTrainer: false,
+      });
     } else {
       unreadCount = await Question.countDocuments({
         student: req.user._id,

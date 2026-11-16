@@ -105,7 +105,7 @@ export default function BatchesPage() {
         <div>
           <h1 className="text-2xl font-bold text-slate-900 dark:text-white">Batch Management</h1>
           <p className="text-sm text-slate-500 dark:text-slate-400">
-            Create, update, and toggle training batches. All owned by Shubham Gayke.
+            Create, update, and toggle training batches for Mentore Solution.
           </p>
         </div>
         <Button variant="primary" icon={Plus} onClick={handleOpenCreate}>

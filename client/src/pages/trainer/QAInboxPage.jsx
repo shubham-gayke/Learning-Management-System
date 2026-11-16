@@ -7,6 +7,7 @@ import {
 } from '../../api/questions';
 import { getBatches } from '../../api/batches';
 import { useSocket } from '../../contexts/SocketContext';
+import { useAuth } from '../../contexts/AuthContext';
 import Button from '../../components/common/Button';
 import Skeleton from '../../components/common/Skeleton';
 import EmptyState from '../../components/common/EmptyState';
@@ -33,6 +34,7 @@ function formatTimestamp(seconds) {
 
 export default function QAInboxPage() {
   const socket = useSocket();
+  const { user } = useAuth();
   const [questions, setQuestions] = useState([]);
   const [batches, setBatches] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -310,7 +312,9 @@ export default function QAInboxPage() {
                         >
                           <div className="flex items-center justify-between mb-1">
                             <span className="font-bold">
-                              {isMsgTrainer ? 'Shubham Gayke (You)' : `${msg.sender?.firstName || 'Student'}`}
+                              {isMsgTrainer
+                                ? `${user?.firstName ? `${user.firstName} ${user.lastName || ''}`.trim() : 'Trainer'} (You)`
+                                : `${msg.sender?.firstName || 'Student'}`}
                             </span>
                             <span className="text-[10px] text-slate-400">
                               {new Date(msg.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}

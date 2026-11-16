@@ -17,6 +17,11 @@ const questionSchema = new mongoose.Schema(
       ref: 'Lecture',
       required: true,
     },
+    trainer: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
+      required: true,
+    },
     batch: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Batch',
@@ -44,6 +49,7 @@ const questionSchema = new mongoose.Schema(
 );
 
 questionSchema.index({ lecture: 1 });
+questionSchema.index({ trainer: 1 });
 questionSchema.index({ batch: 1 });
 questionSchema.index({ student: 1 });
 questionSchema.index({ status: 1 });

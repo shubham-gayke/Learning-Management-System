@@ -223,6 +223,7 @@ export default function LecturePage() {
         {activeTab === 'ask' && (
           <AskTrainerTab
             lectureId={lecture._id}
+            lecture={lecture}
             user={user}
             getCurrentVideoTime={getCurrentVideoTime}
             onSeekToTime={handleSeekToTime}
