@@ -12,6 +12,8 @@ const lectureSchema = new mongoose.Schema(
       type: String,
       enum: [
         'AI Lectures',
+        'AWS Lectures',
+        'DevOps Lectures',
         'Communication Skill Lectures',
         'Job Portal Optimization + Resume Building Session',
       ],

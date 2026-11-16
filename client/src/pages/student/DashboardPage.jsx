@@ -14,7 +14,8 @@ import {
   ArrowUpDown,
   MessageSquare,
   Briefcase,
-  BookOpen,
+  Cloud,
+  Terminal,
 } from 'lucide-react';
 import toast from 'react-hot-toast';
 
@@ -51,36 +52,39 @@ function isNewLecture(recordedAt) {
 
 const CATEGORIES = [
   {
-    id: 'all',
-    name: 'All Lectures',
-    shortName: 'All',
-    description: 'Complete course curriculum & recorded sessions',
-    icon: BookOpen,
-    accent: 'cyan',
-  },
-  {
     id: 'AI Lectures',
     name: 'AI Lectures',
     shortName: 'AI Lectures',
     description: 'Artificial Intelligence, Machine Learning & Modern AI Tools',
     icon: Sparkles,
-    accent: 'indigo',
+  },
+  {
+    id: 'AWS Lectures',
+    name: 'AWS Lectures',
+    shortName: 'AWS Lectures',
+    description: 'Cloud computing, EC2, S3, IAM, VPC & Cloud Architecture',
+    icon: Cloud,
+  },
+  {
+    id: 'DevOps Lectures',
+    name: 'DevOps Lectures',
+    shortName: 'DevOps Lectures',
+    description: 'CI/CD Pipelines, Docker, Kubernetes & Infrastructure as Code',
+    icon: Terminal,
   },
   {
     id: 'Communication Skill Lectures',
     name: 'Communication Skill Lectures',
     shortName: 'Communication Skills',
-    description: 'Soft skills, corporate communication & professional presentations',
+    description: 'Soft skills, corporate communication & professional speaking',
     icon: MessageSquare,
-    accent: 'emerald',
   },
   {
     id: 'Job Portal Optimization + Resume Building Session',
-    name: 'Job Portal Optimization + Resume Building Session',
-    shortName: 'Job Portal & Resume',
-    description: 'ATS resume formatting, LinkedIn, Naukri optimization & interview prep',
+    name: 'Job Portal & Resume',
+    fullName: 'Job Portal Optimization + Resume Building Session',
+    description: 'LinkedIn, Naukri, ATS resume formatting & interview prep',
     icon: Briefcase,
-    accent: 'amber',
   },
 ];
 
@@ -89,8 +93,8 @@ export default function DashboardPage() {
   const [lectures, setLectures] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // Category filter state: 'all' | 'AI Lectures' | 'Communication Skill Lectures' | 'Job Portal Optimization + Resume Building Session'
-  const [activeCategory, setActiveCategory] = useState('all');
+  // Active module: defaults to 'AI Lectures'
+  const [activeCategory, setActiveCategory] = useState('AI Lectures');
 
   // Filters & Search
   const [search, setSearch] = useState('');
@@ -118,8 +122,9 @@ export default function DashboardPage() {
 
   // Count per category
   const countByCategory = {
-    all: lectures.length,
     'AI Lectures': lectures.filter((l) => (l.category || 'AI Lectures') === 'AI Lectures').length,
+    'AWS Lectures': lectures.filter((l) => l.category === 'AWS Lectures').length,
+    'DevOps Lectures': lectures.filter((l) => l.category === 'DevOps Lectures').length,
     'Communication Skill Lectures': lectures.filter(
       (l) => l.category === 'Communication Skill Lectures'
     ).length,
@@ -128,14 +133,13 @@ export default function DashboardPage() {
     ).length,
   };
 
-  // Client-side search, category filter, and sort
+  // Client-side category filter, search, and sort
   const filteredLectures = lectures
     .filter((l) => {
-      // Category filter
-      if (activeCategory !== 'all') {
-        const cat = l.category || 'AI Lectures';
-        if (cat !== activeCategory) return false;
-      }
+      // Category filter (Exact match)
+      const cat = l.category || 'AI Lectures';
+      if (cat !== activeCategory) return false;
+
       // Text search
       if (search.trim()) {
         return l.title.toLowerCase().includes(search.toLowerCase().trim());
@@ -149,6 +153,20 @@ export default function DashboardPage() {
     });
 
   const getCategoryBadge = (category) => {
+    if (category === 'AWS Lectures') {
+      return {
+        label: 'AWS Lectures',
+        classes:
+          'bg-amber-500/10 text-amber-600 border-amber-500/30 dark:bg-amber-950/60 dark:text-amber-300 dark:border-amber-800/60',
+      };
+    }
+    if (category === 'DevOps Lectures') {
+      return {
+        label: 'DevOps Lectures',
+        classes:
+          'bg-blue-500/10 text-blue-600 border-blue-500/30 dark:bg-blue-950/60 dark:text-blue-300 dark:border-blue-800/60',
+      };
+    }
     if (category === 'Communication Skill Lectures') {
       return {
         label: 'Communication Skills',
@@ -160,7 +178,7 @@ export default function DashboardPage() {
       return {
         label: 'Job Portal & Resume',
         classes:
-          'bg-amber-50 text-amber-700 border-amber-200/80 dark:bg-amber-950/70 dark:text-amber-300 dark:border-amber-800/60',
+          'bg-purple-50 text-purple-700 border-purple-200/80 dark:bg-purple-950/70 dark:text-purple-300 dark:border-purple-800/60',
       };
     }
     return {
@@ -169,6 +187,9 @@ export default function DashboardPage() {
         'bg-cyan-50 text-cyan-700 border-cyan-200/80 dark:bg-cyan-950/70 dark:text-cyan-300 dark:border-cyan-800/60',
     };
   };
+
+  const activeCategoryObj =
+    CATEGORIES.find((c) => (c.fullName || c.id) === activeCategory) || CATEGORIES[0];
 
   return (
     <div className="space-y-8 animate-fade-in">
@@ -185,7 +206,7 @@ export default function DashboardPage() {
               Hello, {user?.firstName || 'Student'}! 👋
             </h1>
             <p className="text-xs sm:text-sm text-cyan-200/90 max-w-xl">
-              Welcome to Mentore Solution LMS. Explore your lecture modules below — from AI lectures to communication skills and resume building.
+              Welcome to Mentore Solution LMS. Choose a lecture module below to start learning.
             </p>
           </div>
           <div className="rounded-2xl border border-cyan-400/20 bg-cyan-950/40 p-4 text-left sm:text-right backdrop-blur-sm shadow-inner">
@@ -197,32 +218,28 @@ export default function DashboardPage() {
         </div>
       </div>
 
-      {/* Course Modules / Track Selector Cards */}
+      {/* Course Modules / Track Selector Cards (5 Categories) */}
       <div>
         <div className="flex items-center justify-between mb-3">
           <h2 className="text-sm font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
             Select Course Module
           </h2>
-          {activeCategory !== 'all' && (
-            <button
-              onClick={() => setActiveCategory('all')}
-              className="text-xs font-semibold text-cyan-600 hover:text-cyan-700 dark:text-cyan-400 cursor-pointer"
-            >
-              View All ({countByCategory.all})
-            </button>
-          )}
+          <span className="text-xs font-medium text-slate-400">
+            5 Tracks Available
+          </span>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-3.5">
           {CATEGORIES.map((cat) => {
             const Icon = cat.icon;
-            const isSelected = activeCategory === cat.id;
-            const count = countByCategory[cat.id] ?? 0;
+            const fullCatId = cat.fullName || cat.id;
+            const isSelected = activeCategory === fullCatId;
+            const count = countByCategory[fullCatId] ?? 0;
 
             return (
               <button
                 key={cat.id}
-                onClick={() => setActiveCategory(cat.id)}
+                onClick={() => setActiveCategory(fullCatId)}
                 className={`relative flex flex-col justify-between p-4 rounded-2xl border-2 text-left transition-all duration-200 cursor-pointer ${
                   isSelected
                     ? 'border-cyan-500 bg-cyan-50/90 shadow-lg shadow-cyan-500/15 dark:border-cyan-400 dark:bg-cyan-950/50'
@@ -262,11 +279,11 @@ export default function DashboardPage() {
                   <span
                     className={
                       isSelected
-                        ? 'text-cyan-700 dark:text-cyan-300'
+                        ? 'text-cyan-700 dark:text-cyan-300 font-bold'
                         : 'text-slate-400 dark:text-slate-500'
                     }
                   >
-                    {isSelected ? 'Active Track' : 'Click to filter'}
+                    {isSelected ? 'Active Track' : 'View Sessions'}
                   </span>
                   <span
                     className={
@@ -290,11 +307,7 @@ export default function DashboardPage() {
           <Search className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
           <input
             type="text"
-            placeholder={
-              activeCategory === 'all'
-                ? 'Search all lectures by title...'
-                : `Search in ${CATEGORIES.find((c) => c.id === activeCategory)?.shortName || 'module'}...`
-            }
+            placeholder={`Search in ${activeCategoryObj.shortName}...`}
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             className="w-full rounded-xl border border-slate-300 bg-white py-2.5 pl-10 pr-4 text-sm text-slate-900 placeholder-slate-400 transition-all focus:border-cyan-500 focus:outline-none focus:ring-2 focus:ring-cyan-500/20 dark:border-slate-700/80 dark:bg-slate-900 dark:text-slate-100 dark:placeholder-slate-500 dark:focus:border-cyan-400 dark:focus:ring-cyan-400/20"
@@ -327,30 +340,20 @@ export default function DashboardPage() {
           title={
             search
               ? 'No matching lectures found'
-              : activeCategory !== 'all'
-              ? `No sessions in ${CATEGORIES.find((c) => c.id === activeCategory)?.shortName || 'this module'} yet`
-              : 'No lectures in this batch yet'
+              : `No sessions in ${activeCategoryObj.shortName} yet`
           }
           description={
             search
-              ? 'Try modifying your search keywords.'
-              : activeCategory !== 'all'
-              ? `Trainer Shubham Gayke will upload ${CATEGORIES.find((c) => c.id === activeCategory)?.shortName || 'module'} videos soon.`
-              : 'Trainer Shubham Gayke will upload lectures soon. Check back shortly!'
+              ? `No sessions matching "${search}" in this track.`
+              : `Trainer Shubham Gayke will upload ${activeCategoryObj.shortName} videos soon. Check back shortly!`
           }
-          actionText={activeCategory !== 'all' ? 'View All Lectures' : undefined}
-          onAction={activeCategory !== 'all' ? () => setActiveCategory('all') : undefined}
         />
       ) : (
         <div>
           {/* Active category heading indicator */}
           <div className="flex items-center justify-between mb-4">
             <h3 className="text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
-              <span>
-                {activeCategory === 'all'
-                  ? 'All Lectures'
-                  : CATEGORIES.find((c) => c.id === activeCategory)?.name}
-              </span>
+              <span>{activeCategoryObj.name}</span>
               <span className="text-xs font-semibold text-slate-400 dark:text-slate-500 font-normal">
                 ({filteredLectures.length} {filteredLectures.length === 1 ? 'session' : 'sessions'})
               </span>

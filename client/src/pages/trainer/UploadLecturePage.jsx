@@ -19,6 +19,8 @@ import {
   Sparkles,
   MessageSquare,
   Briefcase,
+  Cloud,
+  Terminal,
 } from 'lucide-react';
 import toast from 'react-hot-toast';
 
@@ -43,8 +45,20 @@ const CATEGORIES = [
   {
     id: 'AI Lectures',
     name: 'AI Lectures',
-    description: 'Artificial Intelligence, Machine Learning & Tools',
+    description: 'Artificial Intelligence, Machine Learning & Modern Tools',
     icon: Sparkles,
+  },
+  {
+    id: 'AWS Lectures',
+    name: 'AWS Lectures',
+    description: 'Cloud computing, EC2, S3, IAM, VPC & architecture',
+    icon: Cloud,
+  },
+  {
+    id: 'DevOps Lectures',
+    name: 'DevOps Lectures',
+    description: 'CI/CD pipelines, Docker, Kubernetes, Git & automation',
+    icon: Terminal,
   },
   {
     id: 'Communication Skill Lectures',
@@ -249,7 +263,7 @@ export default function UploadLecturePage() {
             <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1.5">
               Step 3: Select Lecture Track / Category
             </label>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
               {CATEGORIES.map((cat) => {
                 const Icon = cat.icon;
                 const isSelected = selectedCategory === (cat.fullName || cat.id);

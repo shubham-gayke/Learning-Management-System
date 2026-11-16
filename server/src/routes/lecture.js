@@ -22,6 +22,8 @@ const router = Router();
 
 const LECTURE_CATEGORIES = [
   'AI Lectures',
+  'AWS Lectures',
+  'DevOps Lectures',
   'Communication Skill Lectures',
   'Job Portal Optimization + Resume Building Session',
 ];

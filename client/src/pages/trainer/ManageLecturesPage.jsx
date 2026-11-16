@@ -330,6 +330,8 @@ export default function ManageLecturesPage() {
           >
             <option value="">All Categories</option>
             <option value="AI Lectures">AI Lectures</option>
+            <option value="AWS Lectures">AWS Lectures</option>
+            <option value="DevOps Lectures">DevOps Lectures</option>
             <option value="Communication Skill Lectures">Communication Skill Lectures</option>
             <option value="Job Portal Optimization + Resume Building Session">
               Job Portal & Resume
@@ -370,10 +372,14 @@ export default function ManageLecturesPage() {
                     </span>
                     <span
                       className={`rounded-md px-2.5 py-0.5 text-xs font-bold ${
-                        lec.category === 'Communication Skill Lectures'
+                        lec.category === 'AWS Lectures'
+                          ? 'bg-amber-500/10 text-amber-600 border border-amber-500/20 dark:text-amber-400'
+                          : lec.category === 'DevOps Lectures'
+                          ? 'bg-blue-500/10 text-blue-600 border border-blue-500/20 dark:text-blue-400'
+                          : lec.category === 'Communication Skill Lectures'
                           ? 'bg-emerald-50 text-emerald-700 dark:bg-emerald-950/70 dark:text-emerald-300'
                           : lec.category === 'Job Portal Optimization + Resume Building Session'
-                          ? 'bg-amber-50 text-amber-700 dark:bg-amber-950/70 dark:text-amber-300'
+                          ? 'bg-purple-50 text-purple-700 dark:bg-purple-950/70 dark:text-purple-300'
                           : 'bg-cyan-50 text-cyan-700 dark:bg-cyan-950/70 dark:text-cyan-300'
                       }`}
                     >
@@ -503,6 +509,8 @@ export default function ManageLecturesPage() {
               className="w-full rounded-xl border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 dark:border-slate-700 dark:bg-slate-800 dark:text-white"
             >
               <option value="AI Lectures">AI Lectures</option>
+              <option value="AWS Lectures">AWS Lectures</option>
+              <option value="DevOps Lectures">DevOps Lectures</option>
               <option value="Communication Skill Lectures">Communication Skill Lectures</option>
               <option value="Job Portal Optimization + Resume Building Session">
                 Job Portal Optimization + Resume Building Session

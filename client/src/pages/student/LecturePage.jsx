@@ -147,10 +147,14 @@ export default function LecturePage() {
           </span>
           <span
             className={`rounded-md px-2.5 py-0.5 text-xs font-bold ${
-              lecture.category === 'Communication Skill Lectures'
+              lecture.category === 'AWS Lectures'
+                ? 'bg-amber-500/10 text-amber-600 border border-amber-500/20 dark:text-amber-400'
+                : lecture.category === 'DevOps Lectures'
+                ? 'bg-blue-500/10 text-blue-600 border border-blue-500/20 dark:text-blue-400'
+                : lecture.category === 'Communication Skill Lectures'
                 ? 'bg-emerald-50 text-emerald-700 dark:bg-emerald-950/70 dark:text-emerald-300'
                 : lecture.category === 'Job Portal Optimization + Resume Building Session'
-                ? 'bg-amber-50 text-amber-700 dark:bg-amber-950/70 dark:text-amber-300'
+                ? 'bg-purple-50 text-purple-700 dark:bg-purple-950/70 dark:text-purple-300'
                 : 'bg-cyan-50 text-cyan-700 dark:bg-cyan-950/70 dark:text-cyan-300'
             }`}
           >
