@@ -49,7 +49,7 @@ async function seed() {
       password: 'Trainer@123456',
       role: 'trainer',
       allowedCategories: ['DevOps Lectures'],
-      canUploadNotes: false,
+      canUploadNotes: true,
     },
   ];
 

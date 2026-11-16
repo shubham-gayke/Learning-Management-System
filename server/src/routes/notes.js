@@ -118,7 +118,8 @@ router.post(
       if (
         Array.isArray(req.user.allowedCategories) &&
         req.user.allowedCategories.length > 0 &&
-        !req.user.allowedCategories.includes(lecture.category)
+        !req.user.allowedCategories.includes(lecture.category) &&
+        lecture.createdBy?.toString() !== req.user._id.toString()
       ) {
         throw new AppError(
           `Forbidden: You are only authorized to upload notes for: ${req.user.allowedCategories.join(', ')}`,
@@ -253,7 +254,8 @@ router.delete(
         lecture &&
         Array.isArray(req.user.allowedCategories) &&
         req.user.allowedCategories.length > 0 &&
-        !req.user.allowedCategories.includes(lecture.category)
+        !req.user.allowedCategories.includes(lecture.category) &&
+        lecture.createdBy?.toString() !== req.user._id.toString()
       ) {
         throw new AppError(
           `Forbidden: You are only authorized to manage notes for: ${req.user.allowedCategories.join(', ')}`,

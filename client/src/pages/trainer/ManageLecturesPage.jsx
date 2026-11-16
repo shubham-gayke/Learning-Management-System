@@ -597,7 +597,8 @@ export default function ManageLecturesPage() {
             </div>
           ) : Array.isArray(allowedCategories) &&
             allowedCategories.length > 0 &&
-            !allowedCategories.includes(notesModalLecture?.category) ? (
+            !allowedCategories.includes(notesModalLecture?.category) &&
+            (notesModalLecture?.createdBy?._id || notesModalLecture?.createdBy)?.toString() !== user?._id?.toString() ? (
             <div className="rounded-xl bg-amber-500/10 border border-amber-500/20 p-4 text-xs font-semibold text-amber-700 dark:text-amber-300">
               ⚠️ You are only authorized to upload notes for: {allowedCategories.join(', ')}.
             </div>
@@ -725,7 +726,8 @@ export default function ManageLecturesPage() {
                     {user?.canUploadNotes !== false &&
                       (!Array.isArray(allowedCategories) ||
                         allowedCategories.length === 0 ||
-                        allowedCategories.includes(notesModalLecture?.category)) && (
+                        allowedCategories.includes(notesModalLecture?.category) ||
+                        (notesModalLecture?.createdBy?._id || notesModalLecture?.createdBy)?.toString() === user?._id?.toString()) && (
                         <Button
                           variant="ghost"
                           size="sm"
