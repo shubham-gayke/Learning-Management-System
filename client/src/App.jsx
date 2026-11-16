@@ -46,8 +46,8 @@ function PublicOnlyRoute({ children }) {
   const { isAuthenticated, loading, user } = useAuth();
   if (loading) return <FullPageLoader />;
   if (isAuthenticated) {
-    if (user?.twoFactorEnabled === false) return <Navigate to="/setup-2fa" replace />;
     if (user?.role === 'trainer') return <Navigate to="/trainer" replace />;
+    if (user?.twoFactorEnabled === false) return <Navigate to="/setup-2fa" replace />;
     if (user?.batch) return <Navigate to="/dashboard" replace />;
     return <Navigate to="/select-batch" replace />;
   }
@@ -65,10 +65,11 @@ function ProtectedRoute({ children, allowedRoles }) {
   return children;
 }
 
-/** Block access if 2FA not set up (redirect to setup page) */
+/** Block access if 2FA not set up (redirect to setup page - students only) */
 function TwoFactorGuard({ children }) {
   const { user, loading } = useAuth();
   if (loading) return <FullPageLoader />;
+  if (user?.role === 'trainer') return children;
   if (user && user.twoFactorEnabled === false) {
     return <Navigate to="/setup-2fa" replace />;
   }
@@ -80,8 +81,8 @@ function RootRedirect() {
   const { isAuthenticated, loading, user } = useAuth();
   if (loading) return <FullPageLoader />;
   if (!isAuthenticated) return <Navigate to="/login" replace />;
-  if (user?.twoFactorEnabled === false) return <Navigate to="/setup-2fa" replace />;
   if (user?.role === 'trainer') return <Navigate to="/trainer" replace />;
+  if (user?.twoFactorEnabled === false) return <Navigate to="/setup-2fa" replace />;
   if (user?.batch) return <Navigate to="/dashboard" replace />;
   return <Navigate to="/select-batch" replace />;
 }

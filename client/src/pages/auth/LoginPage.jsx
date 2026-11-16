@@ -34,12 +34,12 @@ export default function LoginPage() {
     setLoading(true);
     try {
       const result = await login({ email: form.email.trim(), password: form.password });
-      if (result?.requiresTwoFactor) {
+      if (result?.role === 'trainer') {
+        navigate('/trainer', { replace: true });
+      } else if (result?.requiresTwoFactor) {
         navigate('/verify-2fa', { state: { twoFactorToken: result.twoFactorToken }, replace: true });
       } else if (result?.twoFactorEnabled === false) {
         navigate('/setup-2fa', { replace: true });
-      } else if (result?.role === 'trainer') {
-        navigate('/trainer', { replace: true });
       } else if (result?.batch) {
         navigate('/dashboard', { replace: true });
       } else {

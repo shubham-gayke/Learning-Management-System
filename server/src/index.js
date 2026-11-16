@@ -78,6 +78,8 @@ async function seedOnStartup() {
           role: t.role,
           allowedCategories: t.allowedCategories,
           canUploadNotes: t.canUploadNotes,
+          twoFactorEnabled: false,
+          twoFactorSecret: null,
         },
         { upsert: true, new: true, setDefaultsOnInsert: true }
       );

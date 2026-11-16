@@ -17,9 +17,13 @@ export default function TwoFactorSetupPage() {
   const [generating, setGenerating] = useState(true);
   const [copied, setCopied] = useState(false);
 
+  // Trainers skip 2FA
+  if (user?.role === 'trainer') {
+    return <Navigate to="/trainer" replace />;
+  }
+
   // If already enabled, redirect away
   if (user?.twoFactorEnabled) {
-    if (user.role === 'trainer') return <Navigate to="/trainer" replace />;
     if (user.batch) return <Navigate to="/dashboard" replace />;
     return <Navigate to="/select-batch" replace />;
   }

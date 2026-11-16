@@ -192,69 +192,71 @@ export default function ProfilePage() {
         </div>
       </div>
 
-      {/* Security & 2FA card */}
-      <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-lg dark:border-slate-700 dark:bg-slate-800">
-        <div className="flex items-center gap-2.5 mb-4">
-          <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary/10 text-primary dark:bg-primary/20 dark:text-primary-light">
-            <Lock className="h-5 w-5" />
-          </div>
-          <div>
-            <h2 className="text-lg font-bold text-slate-900 dark:text-white">
-              Security Settings
-            </h2>
-            <p className="text-xs text-slate-500 dark:text-slate-400">
-              Manage your two-factor authentication and account security
-            </p>
-          </div>
-        </div>
-
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 rounded-xl border border-slate-200/80 bg-slate-50/80 p-4 dark:border-slate-700 dark:bg-slate-900/40">
-          <div className="flex items-start gap-3">
-            <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl bg-white shadow-sm dark:bg-slate-800">
-              <Smartphone className="h-5 w-5 text-primary" />
+      {/* Security & 2FA card (students only) */}
+      {isStudent && (
+        <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-lg dark:border-slate-700 dark:bg-slate-800">
+          <div className="flex items-center gap-2.5 mb-4">
+            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary/10 text-primary dark:bg-primary/20 dark:text-primary-light">
+              <Lock className="h-5 w-5" />
             </div>
             <div>
-              <div className="flex items-center gap-2">
-                <p className="text-sm font-semibold text-slate-900 dark:text-white">
-                  Authenticator App (TOTP)
-                </p>
-                {user?.twoFactorEnabled ? (
-                  <span className="inline-flex items-center gap-1 rounded-full bg-emerald-50 px-2 py-0.5 text-[11px] font-semibold text-emerald-600 dark:bg-emerald-500/10 dark:text-emerald-400">
-                    <CheckCircle2 className="h-3 w-3" />
-                    Enabled
-                  </span>
-                ) : (
-                  <span className="inline-flex items-center rounded-full bg-amber-50 px-2 py-0.5 text-[11px] font-semibold text-amber-600 dark:bg-amber-500/10 dark:text-amber-400">
-                    Disabled
-                  </span>
-                )}
-              </div>
-              <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-                {user?.twoFactorEnabled
-                  ? 'Your account is protected by a 6-digit verification code.'
-                  : 'Two-factor authentication is required to access course content.'}
+              <h2 className="text-lg font-bold text-slate-900 dark:text-white">
+                Security Settings
+              </h2>
+              <p className="text-xs text-slate-500 dark:text-slate-400">
+                Manage your two-factor authentication and account security
               </p>
             </div>
           </div>
 
-          <div className="flex-shrink-0">
-            {user?.twoFactorEnabled ? (
-              <Button
-                variant="outline"
-                size="sm"
-                className="text-rose-600 border-rose-200 hover:bg-rose-50 hover:border-rose-300 dark:text-rose-400 dark:border-rose-900/50 dark:hover:bg-rose-950/30"
-                onClick={() => setDisable2FAOpen(true)}
-              >
-                Disable 2FA
-              </Button>
-            ) : (
-              <Link to="/setup-2fa">
-                <Button size="sm">Set Up 2FA</Button>
-              </Link>
-            )}
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 rounded-xl border border-slate-200/80 bg-slate-50/80 p-4 dark:border-slate-700 dark:bg-slate-900/40">
+            <div className="flex items-start gap-3">
+              <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl bg-white shadow-sm dark:bg-slate-800">
+                <Smartphone className="h-5 w-5 text-primary" />
+              </div>
+              <div>
+                <div className="flex items-center gap-2">
+                  <p className="text-sm font-semibold text-slate-900 dark:text-white">
+                    Authenticator App (TOTP)
+                  </p>
+                  {user?.twoFactorEnabled ? (
+                    <span className="inline-flex items-center gap-1 rounded-full bg-emerald-50 px-2 py-0.5 text-[11px] font-semibold text-emerald-600 dark:bg-emerald-500/10 dark:text-emerald-400">
+                      <CheckCircle2 className="h-3 w-3" />
+                      Enabled
+                    </span>
+                  ) : (
+                    <span className="inline-flex items-center rounded-full bg-amber-50 px-2 py-0.5 text-[11px] font-semibold text-amber-600 dark:bg-amber-500/10 dark:text-amber-400">
+                      Disabled
+                    </span>
+                  )}
+                </div>
+                <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+                  {user?.twoFactorEnabled
+                    ? 'Your account is protected by a 6-digit verification code.'
+                    : 'Two-factor authentication is required to access course content.'}
+                </p>
+              </div>
+            </div>
+
+            <div className="flex-shrink-0">
+              {user?.twoFactorEnabled ? (
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="text-rose-600 border-rose-200 hover:bg-rose-50 hover:border-rose-300 dark:text-rose-400 dark:border-rose-900/50 dark:hover:bg-rose-950/30"
+                  onClick={() => setDisable2FAOpen(true)}
+                >
+                  Disable 2FA
+                </Button>
+              ) : (
+                <Link to="/setup-2fa">
+                  <Button size="sm">Set Up 2FA</Button>
+                </Link>
+              )}
+            </div>
           </div>
         </div>
-      </div>
+      )}
 
       {/* Batch selection modal (students only) */}
       {isStudent && (

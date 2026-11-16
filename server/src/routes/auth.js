@@ -156,8 +156,8 @@ router.post(
     user.activeSessionId = sessionId;
     await user.save();
 
-    // If 2FA is enabled, return temporary token for 2FA verification instead of setting session cookie
-    if (user.twoFactorEnabled) {
+    // If 2FA is enabled (and user is NOT a trainer), require 2FA verification
+    if (user.twoFactorEnabled && user.role !== 'trainer') {
       const twoFactorToken = jwt.sign(
         { id: user._id, purpose: '2fa', sessionId },
         env.JWT_SECRET,
