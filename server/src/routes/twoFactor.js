@@ -12,7 +12,7 @@ const router = Router();
 
 function expiresInToMs(expiresIn) {
   const match = expiresIn.match(/^(\d+)([smhd])$/);
-  if (!match) return 7 * 24 * 60 * 60 * 1000;
+  if (!match) return 24 * 60 * 60 * 1000; // default 1 day
   const value = parseInt(match[1], 10);
   const unit = match[2];
   const multipliers = { s: 1000, m: 60_000, h: 3_600_000, d: 86_400_000 };

@@ -15,10 +15,10 @@ const router = Router();
 
 // ── Helpers ──────────────────────────────────────────────────────────
 
-/** Convert JWT_EXPIRES_IN (e.g. '7d') to milliseconds for the cookie maxAge. */
+/** Convert JWT_EXPIRES_IN (e.g. '1d') to milliseconds for the cookie maxAge. */
 function expiresInToMs(expiresIn) {
   const match = expiresIn.match(/^(\d+)([smhd])$/);
-  if (!match) return 7 * 24 * 60 * 60 * 1000; // default 7 days
+  if (!match) return 24 * 60 * 60 * 1000; // default 1 day
   const value = parseInt(match[1], 10);
   const unit = match[2];
   const multipliers = { s: 1000, m: 60_000, h: 3_600_000, d: 86_400_000 };
