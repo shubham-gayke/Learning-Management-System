@@ -185,6 +185,25 @@ async function bootstrap() {
     console.log(
       `\n🚀 Mentore Solution LMS server running on port ${PORT} (${env.NODE_ENV})\n`
     );
+
+    // 10. Self-heartbeat to keep Render instance active
+    const renderExternalUrl =
+      process.env.RENDER_EXTERNAL_URL || 'https://learning-management-system-h1ct.onrender.com';
+
+    if (env.NODE_ENV === 'production' && renderExternalUrl) {
+      const PING_INTERVAL_MS = 12 * 60 * 1000; // 12 minutes (Render timeout is 15 minutes)
+      setInterval(async () => {
+        try {
+          const pingUrl = `${renderExternalUrl.replace(/\/+$/, '')}/health`;
+          const res = await fetch(pingUrl);
+          if (res.ok) {
+            console.log(`💓 [Heartbeat] Successfully pinged self at ${pingUrl}`);
+          }
+        } catch (err) {
+          console.warn(`⚠️ [Heartbeat] Self-ping notice:`, err.message);
+        }
+      }, PING_INTERVAL_MS);
+    }
   });
 }
 

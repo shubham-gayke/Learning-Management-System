@@ -7,7 +7,11 @@ import App from './App';
 import { AuthProvider } from './contexts/AuthContext';
 import { ThemeProvider } from './contexts/ThemeContext';
 import { SocketProvider } from './contexts/SocketContext';
+import { warmUpServer } from './api/axios';
 import './index.css';
+
+// Immediately trigger background wake-up ping for Render free tier
+warmUpServer();
 
 const queryClient = new QueryClient({
   defaultOptions: {
