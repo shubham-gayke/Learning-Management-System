@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useNavigate, Navigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import * as authApi from '../../api/auth';
@@ -14,6 +14,7 @@ import {
   KeyRound,
   QrCode,
   Info,
+  RefreshCw,
 } from 'lucide-react';
 import toast from 'react-hot-toast';
 
@@ -39,30 +40,22 @@ export default function TwoFactorSetupPage() {
     return <Navigate to="/select-batch" replace />;
   }
 
-  useEffect(() => {
-    let mounted = true;
-    const generate = async () => {
-      try {
-        const res = await authApi.generate2FA();
-        if (mounted) {
-          setQrCode(res.data?.qrCode || res.qrCode);
-          setSecret(res.data?.secret || res.secret);
-        }
-      } catch (err) {
-        if (mounted) {
-          toast.error(err.response?.data?.message || 'Failed to initialize 2FA setup');
-        }
-      } finally {
-        if (mounted) {
-          setGenerating(false);
-        }
-      }
-    };
-    generate();
-    return () => {
-      mounted = false;
-    };
+  const generate = useCallback(async () => {
+    setGenerating(true);
+    try {
+      const res = await authApi.generate2FA();
+      setQrCode(res.data?.qrCode || res.qrCode);
+      setSecret(res.data?.secret || res.secret);
+    } catch (err) {
+      toast.error(err.response?.data?.message || 'Failed to initialize 2FA setup');
+    } finally {
+      setGenerating(false);
+    }
   }, []);
+
+  useEffect(() => {
+    generate();
+  }, [generate]);
 
   const handleCopy = async () => {
     try {
@@ -192,8 +185,15 @@ export default function TwoFactorSetupPage() {
                   {qrCode ? (
                     <img src={qrCode} alt="2FA QR Code" className="h-48 w-48 rounded-lg" />
                   ) : (
-                    <div className="flex h-48 w-48 items-center justify-center text-slate-400">
-                      QR code unavailable
+                    <div className="flex flex-col h-48 w-48 items-center justify-center gap-2.5 text-slate-400">
+                      <span className="text-xs">QR code unavailable</span>
+                      <button
+                        type="button"
+                        onClick={generate}
+                        className="inline-flex items-center gap-1.5 rounded-lg border border-slate-300 bg-slate-50 px-3 py-1.5 text-xs font-semibold text-slate-700 hover:bg-slate-100 dark:border-slate-600 dark:bg-slate-800 dark:text-slate-200 dark:hover:bg-slate-700 transition-colors cursor-pointer"
+                      >
+                        <RefreshCw className="h-3 w-3" /> Retry Loading
+                      </button>
                     </div>
                   )}
                 </div>
@@ -205,20 +205,30 @@ export default function TwoFactorSetupPage() {
                   </p>
                   <div className="flex items-center gap-2 rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 dark:border-slate-700 dark:bg-slate-900/60">
                     <code className="flex-1 break-all text-xs font-mono font-semibold tracking-wide text-slate-800 dark:text-slate-200">
-                      {secret}
+                      {secret || (generating ? 'Generating key...' : 'Key unavailable')}
                     </code>
-                    <button
-                      type="button"
-                      onClick={handleCopy}
-                      className="flex-shrink-0 rounded p-1 text-slate-400 hover:text-cyan-600 transition-colors cursor-pointer"
-                      title="Copy Secret"
-                    >
-                      {copied ? (
-                        <CheckCircle className="h-4 w-4 text-emerald-500" />
-                      ) : (
-                        <Copy className="h-4 w-4" />
-                      )}
-                    </button>
+                    {secret ? (
+                      <button
+                        type="button"
+                        onClick={handleCopy}
+                        className="flex-shrink-0 rounded p-1 text-slate-400 hover:text-cyan-600 transition-colors cursor-pointer"
+                        title="Copy Secret"
+                      >
+                        {copied ? (
+                          <CheckCircle className="h-4 w-4 text-emerald-500" />
+                        ) : (
+                          <Copy className="h-4 w-4" />
+                        )}
+                      </button>
+                    ) : (
+                      <button
+                        type="button"
+                        onClick={generate}
+                        className="flex-shrink-0 text-[11px] font-semibold text-cyan-600 hover:underline dark:text-cyan-400 cursor-pointer"
+                      >
+                        Retry
+                      </button>
+                    )}
                   </div>
                 </div>
               </div>

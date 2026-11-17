@@ -12,12 +12,20 @@ export function getApiBaseUrl() {
 
 /**
  * Constructs a full API URL for static assets, streams, or downloads.
- * Example: apiUrl('/api/stream/123/video') -> 'https://server.onrender.com/api/stream/123/video'
+ * Example: apiUrl('/api/stream/123/video') -> 'https://server.onrender.com/api/stream/123/video?token=...'
  */
 export function apiUrl(path = '') {
   const base = getApiBaseUrl();
   const cleanPath = path.startsWith('/') ? path : `/${path}`;
-  return base ? `${base}${cleanPath}` : cleanPath;
+  const url = base ? `${base}${cleanPath}` : cleanPath;
+  if (typeof window !== 'undefined' && cleanPath.startsWith('/api/')) {
+    const token = localStorage.getItem('auth_token');
+    if (token && !url.includes('token=')) {
+      const separator = url.includes('?') ? '&' : '?';
+      return `${url}${separator}token=${encodeURIComponent(token)}`;
+    }
+  }
+  return url;
 }
 
 /**
@@ -39,6 +47,21 @@ const api = axios.create({
 });
 
 let wakingUpToastId = null;
+
+// Request interceptor — attach Bearer token for mobile browsers where cross-site cookies are blocked
+api.interceptors.request.use(
+  (config) => {
+    const token = typeof window !== 'undefined' ? localStorage.getItem('auth_token') : null;
+    if (token) {
+      config.headers = config.headers || {};
+      if (!config.headers.Authorization && !config.headers.authorization) {
+        config.headers.Authorization = `Bearer ${token}`;
+      }
+    }
+    return config;
+  },
+  (error) => Promise.reject(error)
+);
 
 // Response interceptor — automatic retry for Render cold starts & redirect on 401
 api.interceptors.response.use(
@@ -83,7 +106,10 @@ api.interceptors.response.use(
       !requestUrl.includes('/api/auth/2fa/')
     ) {
       // Clear any stale state and redirect to login
-      window.location.href = '/login';
+      if (typeof window !== 'undefined') {
+        localStorage.removeItem('auth_token');
+        window.location.href = '/login';
+      }
     }
     return Promise.reject(error);
   }

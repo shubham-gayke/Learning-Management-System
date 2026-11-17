@@ -19,6 +19,7 @@ export function AuthProvider({ children }) {
         const res = await authApi.getMe();
         setUser(res.data?.user || res.user || null);
       } catch {
+        localStorage.removeItem('auth_token');
         setUser(null);
       } finally {
         setLoading(false);
@@ -33,6 +34,10 @@ export function AuthProvider({ children }) {
       if (res.requiresTwoFactor) {
         return { requiresTwoFactor: true, twoFactorToken: res.twoFactorToken };
       }
+      const token = res.data?.token || res.token;
+      if (token) {
+        localStorage.setItem('auth_token', token);
+      }
       const userData = res.data?.user || res.user;
       setUser(userData);
       toast.success('Welcome back!');
@@ -44,6 +49,10 @@ export function AuthProvider({ children }) {
   const register = useCallback(
     async (formData) => {
       const res = await authApi.register(formData);
+      const token = res.data?.token || res.token;
+      if (token) {
+        localStorage.setItem('auth_token', token);
+      }
       const userData = res.data?.user || res.user;
       setUser(userData);
       toast.success('Account created successfully!');
@@ -58,6 +67,7 @@ export function AuthProvider({ children }) {
     } catch {
       // Ignore logout errors
     } finally {
+      localStorage.removeItem('auth_token');
       setUser(null);
       navigate('/login', { replace: true });
       toast.success('Logged out');
@@ -72,6 +82,7 @@ export function AuthProvider({ children }) {
       setUser(userData);
       return userData;
     } catch {
+      localStorage.removeItem('auth_token');
       setUser(null);
       return null;
     }

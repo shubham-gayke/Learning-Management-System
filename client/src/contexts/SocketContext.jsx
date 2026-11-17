@@ -15,8 +15,12 @@ export function SocketProvider({ children }) {
       const rawUrl = import.meta.env.VITE_SOCKET_URL || getApiBaseUrl();
       const socketUrl = rawUrl ? rawUrl.replace(/\/api\/?$/, '').replace(/\/+$/, '') : window.location.origin;
 
+      const token = typeof window !== 'undefined' ? localStorage.getItem('auth_token') : null;
       const newSocket = io(socketUrl, {
         withCredentials: true,
+        auth: {
+          token,
+        },
         transports: ['websocket', 'polling'],
       });
 

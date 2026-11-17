@@ -29,7 +29,11 @@ export default function TwoFactorLoginPage() {
     }
     setLoading(true);
     try {
-      await authApi.verifyLogin2FA(twoFactorToken, code);
+      const res = await authApi.verifyLogin2FA(twoFactorToken, code);
+      const token = res.data?.token || res.token;
+      if (token) {
+        localStorage.setItem('auth_token', token);
+      }
       toast.success('Authentication successful!');
       const user = await refetchUser();
       if (user?.role === 'trainer') {

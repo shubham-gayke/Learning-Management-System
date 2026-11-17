@@ -9,7 +9,17 @@ import AppError from '../utils/AppError.js';
  */
 export const requireAuth = async (req, _res, next) => {
   try {
-    const token = req.cookies?.token;
+    let token = req.cookies?.token;
+
+    // Fallback to Authorization: Bearer <token> header (essential for iOS Safari and mobile Chrome where cross-site cookies are blocked)
+    if (!token && req.headers.authorization?.startsWith('Bearer ')) {
+      token = req.headers.authorization.split(' ')[1];
+    }
+
+    // Fallback to ?token query parameter (useful for HTML5 video, audio, and iframe embedding on mobile)
+    if (!token && req.query?.token) {
+      token = req.query.token;
+    }
 
     if (!token) {
       throw new AppError('Not authenticated. Please log in.', 401);
