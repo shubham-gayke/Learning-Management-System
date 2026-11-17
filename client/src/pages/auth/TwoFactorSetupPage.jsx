@@ -22,8 +22,15 @@ export default function TwoFactorSetupPage() {
   const { user, refetchUser } = useAuth();
   const navigate = useNavigate();
 
+  const isIOS =
+    typeof navigator !== 'undefined' &&
+    (/iPad|iPhone|iPod/.test(navigator.userAgent || '') ||
+      (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1));
+
   const [qrCode, setQrCode] = useState('');
   const [secret, setSecret] = useState('');
+  const [otpauthUrl, setOtpauthUrl] = useState('');
+  const [error, setError] = useState(null);
   const [code, setCode] = useState('');
   const [loading, setLoading] = useState(false);
   const [generating, setGenerating] = useState(true);
@@ -42,12 +49,16 @@ export default function TwoFactorSetupPage() {
 
   const generate = useCallback(async () => {
     setGenerating(true);
+    setError(null);
     try {
       const res = await authApi.generate2FA();
       setQrCode(res.data?.qrCode || res.qrCode);
       setSecret(res.data?.secret || res.secret);
+      setOtpauthUrl(res.data?.otpauthUrl || res.otpauthUrl || '');
     } catch (err) {
-      toast.error(err.response?.data?.message || 'Failed to initialize 2FA setup');
+      const msg = err.response?.data?.message || err.message || 'Failed to initialize 2FA setup';
+      setError(msg);
+      toast.error(msg);
     } finally {
       setGenerating(false);
     }
@@ -136,28 +147,36 @@ export default function TwoFactorSetupPage() {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-1">
                   {/* Google Authenticator Button */}
                   <a
-                    href="https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2"
+                    href={
+                      isIOS
+                        ? 'https://apps.apple.com/app/google-authenticator/id388497605'
+                        : 'https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2'
+                    }
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center justify-between rounded-xl border border-slate-200 bg-white px-3 py-2.5 text-xs font-semibold text-slate-800 hover:border-cyan-500 hover:bg-cyan-50/50 hover:text-cyan-700 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200 dark:hover:border-cyan-400 dark:hover:bg-cyan-950/40 dark:hover:text-cyan-300 transition-all shadow-sm"
                   >
                     <div className="flex items-center gap-2">
                       <Smartphone className="h-4 w-4 text-cyan-600 dark:text-cyan-400" />
-                      <span>Google Authenticator</span>
+                      <span>Google Authenticator {isIOS ? '(iOS)' : ''}</span>
                     </div>
                     <ExternalLink className="h-3.5 w-3.5 opacity-60" />
                   </a>
 
                   {/* Microsoft Authenticator Button */}
                   <a
-                    href="https://play.google.com/store/apps/details?id=com.azure.authenticator&pcampaignid=web_share"
+                    href={
+                      isIOS
+                        ? 'https://apps.apple.com/app/microsoft-authenticator/id983156458'
+                        : 'https://play.google.com/store/apps/details?id=com.azure.authenticator&pcampaignid=web_share'
+                    }
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center justify-between rounded-xl border border-slate-200 bg-white px-3 py-2.5 text-xs font-semibold text-slate-800 hover:border-blue-500 hover:bg-blue-50/50 hover:text-blue-700 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200 dark:hover:border-blue-400 dark:hover:bg-blue-950/40 dark:hover:text-blue-300 transition-all shadow-sm"
                   >
                     <div className="flex items-center gap-2">
                       <Smartphone className="h-4 w-4 text-blue-600 dark:text-blue-400" />
-                      <span>Microsoft Authenticator</span>
+                      <span>Microsoft Authenticator {isIOS ? '(iOS)' : ''}</span>
                     </div>
                     <ExternalLink className="h-3.5 w-3.5 opacity-60" />
                   </a>
@@ -175,18 +194,38 @@ export default function TwoFactorSetupPage() {
                 </div>
               </div>
 
-              {/* Step 2: Scan QR Code */}
+              {/* Step 2: Scan QR Code or Open Directly */}
               <div className="space-y-3">
                 <div className="flex items-center gap-2 text-sm font-bold text-slate-800 dark:text-slate-200">
                   <QrCode className="h-4 w-4 text-cyan-600 dark:text-cyan-400" />
-                  <span>Step 2: Scan QR Code with Authenticator</span>
+                  <span>Step 2: Add to Authenticator App</span>
                 </div>
+
+                {/* 1-Tap Mobile Setup Button for iOS and Android */}
+                {otpauthUrl && (
+                  <a
+                    href={otpauthUrl}
+                    className="flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-cyan-600 to-blue-600 px-4 py-3 text-xs font-bold text-white shadow-md shadow-cyan-500/25 hover:from-cyan-500 hover:to-blue-500 transition-all text-center cursor-pointer"
+                  >
+                    <Smartphone className="h-4 w-4" />
+                    <span>Open in Authenticator App (1-Tap Setup)</span>
+                    <ExternalLink className="h-3.5 w-3.5 opacity-80" />
+                  </a>
+                )}
+
                 <div className="flex justify-center rounded-xl border border-slate-200 bg-white p-4 shadow-sm dark:border-slate-700 dark:bg-slate-900">
                   {qrCode ? (
                     <img src={qrCode} alt="2FA QR Code" className="h-48 w-48 rounded-lg" />
                   ) : (
                     <div className="flex flex-col h-48 w-48 items-center justify-center gap-2.5 text-slate-400">
-                      <span className="text-xs">QR code unavailable</span>
+                      <span className="text-xs">
+                        {error ? 'Unable to load QR' : 'QR code unavailable'}
+                      </span>
+                      {error && (
+                        <span className="text-[10px] text-center text-red-500 max-w-[170px] leading-tight">
+                          {error}
+                        </span>
+                      )}
                       <button
                         type="button"
                         onClick={generate}

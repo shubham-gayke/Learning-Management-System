@@ -11,14 +11,24 @@ export const requireAuth = async (req, _res, next) => {
   try {
     let token = req.cookies?.token;
 
-    // Fallback to Authorization: Bearer <token> header (essential for iOS Safari and mobile Chrome where cross-site cookies are blocked)
-    if (!token && req.headers.authorization?.startsWith('Bearer ')) {
-      token = req.headers.authorization.split(' ')[1];
+    // Fallback to Authorization header (Bearer <token> or raw token)
+    if (!token && req.headers.authorization) {
+      const authHeader = req.headers.authorization.trim();
+      if (authHeader.toLowerCase().startsWith('bearer ')) {
+        token = authHeader.slice(7).trim();
+      } else {
+        token = authHeader;
+      }
     }
 
-    // Fallback to ?token query parameter (useful for HTML5 video, audio, and iframe embedding on mobile)
+    // Fallback to x-access-token header
+    if (!token && req.headers['x-access-token']) {
+      token = String(req.headers['x-access-token']).trim();
+    }
+
+    // Fallback to ?token query parameter (immune to iOS Safari cookie & header restrictions)
     if (!token && req.query?.token) {
-      token = req.query.token;
+      token = String(req.query.token).trim();
     }
 
     if (!token) {

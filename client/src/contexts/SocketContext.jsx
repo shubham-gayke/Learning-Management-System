@@ -1,7 +1,7 @@
 import { createContext, useContext, useEffect, useRef, useState } from 'react';
 import { io } from 'socket.io-client';
 import { useAuth } from './AuthContext';
-import { getApiBaseUrl } from '../api/axios';
+import { getApiBaseUrl, tokenStorage } from '../api/axios';
 
 const SocketContext = createContext(null);
 
@@ -15,7 +15,7 @@ export function SocketProvider({ children }) {
       const rawUrl = import.meta.env.VITE_SOCKET_URL || getApiBaseUrl();
       const socketUrl = rawUrl ? rawUrl.replace(/\/api\/?$/, '').replace(/\/+$/, '') : window.location.origin;
 
-      const token = typeof window !== 'undefined' ? localStorage.getItem('auth_token') : null;
+      const token = tokenStorage.get();
       const newSocket = io(socketUrl, {
         withCredentials: true,
         auth: {

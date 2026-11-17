@@ -1,6 +1,44 @@
 import axios from 'axios';
 import toast from 'react-hot-toast';
 
+let inMemoryToken = null;
+
+/**
+ * Robust token manager with in-memory caching and safe localStorage access.
+ * Prevents QuotaExceededError and SecurityError in iOS Safari Private Browsing mode.
+ */
+export const tokenStorage = {
+  get: () => {
+    if (inMemoryToken) return inMemoryToken;
+    try {
+      if (typeof window !== 'undefined') {
+        const stored = localStorage.getItem('auth_token');
+        if (stored) {
+          inMemoryToken = stored;
+          return stored;
+        }
+      }
+    } catch {}
+    return null;
+  },
+  set: (token) => {
+    inMemoryToken = token;
+    try {
+      if (typeof window !== 'undefined' && token) {
+        localStorage.setItem('auth_token', token);
+      }
+    } catch {}
+  },
+  remove: () => {
+    inMemoryToken = null;
+    try {
+      if (typeof window !== 'undefined') {
+        localStorage.removeItem('auth_token');
+      }
+    } catch {}
+  },
+};
+
 /**
  * Returns the sanitized backend API base URL.
  * Strips any trailing slashes or '/api' so relative endpoints starting with '/api' work uniformly.
@@ -19,7 +57,7 @@ export function apiUrl(path = '') {
   const cleanPath = path.startsWith('/') ? path : `/${path}`;
   const url = base ? `${base}${cleanPath}` : cleanPath;
   if (typeof window !== 'undefined' && cleanPath.startsWith('/api/')) {
-    const token = localStorage.getItem('auth_token');
+    const token = tokenStorage.get();
     if (token && !url.includes('token=')) {
       const separator = url.includes('?') ? '&' : '?';
       return `${url}${separator}token=${encodeURIComponent(token)}`;
@@ -48,14 +86,22 @@ const api = axios.create({
 
 let wakingUpToastId = null;
 
-// Request interceptor — attach Bearer token for mobile browsers where cross-site cookies are blocked
+// Request interceptor — attach Bearer token and query param for mobile browsers (iOS Safari & Android)
 api.interceptors.request.use(
   (config) => {
-    const token = typeof window !== 'undefined' ? localStorage.getItem('auth_token') : null;
+    const token = tokenStorage.get();
     if (token) {
       config.headers = config.headers || {};
-      if (!config.headers.Authorization && !config.headers.authorization) {
+      if (typeof config.headers.set === 'function') {
+        config.headers.set('Authorization', `Bearer ${token}`);
+      } else {
         config.headers.Authorization = `Bearer ${token}`;
+      }
+
+      // Query param fallback — guarantees authentication even if iOS Safari or iCloud Private Relay blocks headers/cookies
+      config.params = config.params || {};
+      if (!config.params.token) {
+        config.params.token = token;
       }
     }
     return config;
@@ -106,8 +152,8 @@ api.interceptors.response.use(
       !requestUrl.includes('/api/auth/2fa/')
     ) {
       // Clear any stale state and redirect to login
+      tokenStorage.remove();
       if (typeof window !== 'undefined') {
-        localStorage.removeItem('auth_token');
         window.location.href = '/login';
       }
     }

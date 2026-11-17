@@ -1,6 +1,7 @@
 import { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import * as authApi from '../api/auth';
+import { tokenStorage } from '../api/axios';
 import toast from 'react-hot-toast';
 
 const AuthContext = createContext(null);
@@ -19,7 +20,7 @@ export function AuthProvider({ children }) {
         const res = await authApi.getMe();
         setUser(res.data?.user || res.user || null);
       } catch {
-        localStorage.removeItem('auth_token');
+        tokenStorage.remove();
         setUser(null);
       } finally {
         setLoading(false);
@@ -36,7 +37,7 @@ export function AuthProvider({ children }) {
       }
       const token = res.data?.token || res.token;
       if (token) {
-        localStorage.setItem('auth_token', token);
+        tokenStorage.set(token);
       }
       const userData = res.data?.user || res.user;
       setUser(userData);
@@ -51,7 +52,7 @@ export function AuthProvider({ children }) {
       const res = await authApi.register(formData);
       const token = res.data?.token || res.token;
       if (token) {
-        localStorage.setItem('auth_token', token);
+        tokenStorage.set(token);
       }
       const userData = res.data?.user || res.user;
       setUser(userData);
@@ -67,7 +68,7 @@ export function AuthProvider({ children }) {
     } catch {
       // Ignore logout errors
     } finally {
-      localStorage.removeItem('auth_token');
+      tokenStorage.remove();
       setUser(null);
       navigate('/login', { replace: true });
       toast.success('Logged out');
@@ -82,7 +83,7 @@ export function AuthProvider({ children }) {
       setUser(userData);
       return userData;
     } catch {
-      localStorage.removeItem('auth_token');
+      tokenStorage.remove();
       setUser(null);
       return null;
     }

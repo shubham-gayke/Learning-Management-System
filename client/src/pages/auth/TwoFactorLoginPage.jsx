@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate, useLocation, Navigate, Link } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import * as authApi from '../../api/auth';
+import { tokenStorage } from '../../api/axios';
 import Button from '../../components/common/Button';
 import { Shield, ArrowLeft } from 'lucide-react';
 import toast from 'react-hot-toast';
@@ -32,7 +33,7 @@ export default function TwoFactorLoginPage() {
       const res = await authApi.verifyLogin2FA(twoFactorToken, code);
       const token = res.data?.token || res.token;
       if (token) {
-        localStorage.setItem('auth_token', token);
+        tokenStorage.set(token);
       }
       toast.success('Authentication successful!');
       const user = await refetchUser();
