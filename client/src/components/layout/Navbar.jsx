@@ -19,7 +19,7 @@ import {
 } from 'lucide-react';
 import DevNoticeBanner from '../common/DevNoticeBanner';
 
-export default function Navbar() {
+export default function Navbar({ onToggleSidebar }) {
   const { user, logout } = useAuth();
   const { theme, toggleTheme } = useTheme();
   const socket = useSocket();
@@ -102,15 +102,25 @@ export default function Navbar() {
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6">
         {/* Left: Brand + Hamburger */}
         <div className="flex items-center gap-3">
-          {!isTrainer && (
-            <button
-              className="rounded-xl p-2 text-slate-600 hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-slate-800 md:hidden cursor-pointer transition-colors"
-              onClick={() => setMobileOpen(!mobileOpen)}
-              aria-label="Toggle menu"
-            >
-              {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-            </button>
-          )}
+          <button
+            className="rounded-xl p-2 text-slate-600 hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-slate-800 md:hidden cursor-pointer transition-colors"
+            onClick={() => {
+              if (isTrainer && onToggleSidebar) {
+                onToggleSidebar();
+              } else {
+                setMobileOpen(!mobileOpen);
+              }
+            }}
+            aria-label="Toggle menu"
+          >
+            {isTrainer ? (
+              <Menu className="h-5 w-5" />
+            ) : mobileOpen ? (
+              <X className="h-5 w-5" />
+            ) : (
+              <Menu className="h-5 w-5" />
+            )}
+          </button>
           <Link to="/" className="group flex items-center gap-2.5">
             <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-tr from-cyan-500 to-blue-600 shadow-md shadow-cyan-500/30 transition-transform duration-300 group-hover:scale-105 group-hover:shadow-cyan-500/50">
               <GraduationCap className="h-5 w-5 text-white" />
