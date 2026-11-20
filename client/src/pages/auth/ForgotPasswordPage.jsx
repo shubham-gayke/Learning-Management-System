@@ -28,6 +28,7 @@ export default function ForgotPasswordPage() {
   const [step, setStep] = useState(1);
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
+  const [emailFocused, setEmailFocused] = useState(false);
 
   // Form Fields
   const [email, setEmail] = useState('');
@@ -209,7 +210,9 @@ export default function ForgotPasswordPage() {
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    placeholder="shubhamgayke2001@gmail.com"
+                    onFocus={() => setEmailFocused(true)}
+                    onBlur={() => setEmailFocused(false)}
+                    placeholder={emailFocused ? 'Enter your email' : 'e.g. shubhamgayke2001@gmail.com'}
                     autoComplete="email"
                     required
                     className="w-full bg-transparent border-b-2 border-white/40 pb-2 text-sm text-white placeholder-white/50 focus:border-white focus:outline-none transition-colors"

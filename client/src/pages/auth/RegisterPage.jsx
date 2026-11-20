@@ -29,6 +29,9 @@ export default function RegisterPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [firstNameFocused, setFirstNameFocused] = useState(false);
+  const [lastNameFocused, setLastNameFocused] = useState(false);
+  const [emailFocused, setEmailFocused] = useState(false);
 
   const passwordRules = {
     minLength: form.password.length >= 8,
@@ -160,7 +163,9 @@ export default function RegisterPage() {
                     type="text"
                     value={form.firstName}
                     onChange={handleChange('firstName')}
-                    placeholder="Shubham"
+                    onFocus={() => setFirstNameFocused(true)}
+                    onBlur={() => setFirstNameFocused(false)}
+                    placeholder={firstNameFocused ? 'Enter your first name' : 'e.g. Shubham'}
                     autoComplete="given-name"
                     className={`w-full bg-transparent border-b-2 pb-1.5 text-sm text-white placeholder-white/50 focus:outline-none transition-colors ${errors.firstName
                       ? 'border-rose-400'
@@ -184,7 +189,9 @@ export default function RegisterPage() {
                   type="text"
                   value={form.lastName}
                   onChange={handleChange('lastName')}
-                  placeholder="Gayke"
+                  onFocus={() => setLastNameFocused(true)}
+                  onBlur={() => setLastNameFocused(false)}
+                  placeholder={lastNameFocused ? 'Enter your last name' : 'e.g. Gayke'}
                   autoComplete="family-name"
                   className={`w-full bg-transparent border-b-2 pb-1.5 text-sm text-white placeholder-white/50 focus:outline-none transition-colors ${errors.lastName
                     ? 'border-rose-400'
@@ -209,7 +216,9 @@ export default function RegisterPage() {
                   type="email"
                   value={form.email}
                   onChange={handleChange('email')}
-                  placeholder="shubhamgayke2001@gmail.com"
+                  onFocus={() => setEmailFocused(true)}
+                  onBlur={() => setEmailFocused(false)}
+                  placeholder={emailFocused ? 'Enter your email' : 'e.g. shubhamgayke2001@gmail.com'}
                   autoComplete="email"
                   className={`w-full bg-transparent border-b-2 pb-1.5 text-sm text-white placeholder-white/50 focus:outline-none transition-colors ${errors.email
                     ? 'border-rose-400'

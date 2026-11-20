@@ -19,6 +19,7 @@ export default function LoginPage() {
   const [rememberMe, setRememberMe] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [emailFocused, setEmailFocused] = useState(false);
 
   const validate = () => {
     const e = {};
@@ -98,7 +99,9 @@ export default function LoginPage() {
                   type="email"
                   value={form.email}
                   onChange={handleChange('email')}
-                  placeholder="shubhamgayke2001@gmail.com"
+                  onFocus={() => setEmailFocused(true)}
+                  onBlur={() => setEmailFocused(false)}
+                  placeholder={emailFocused ? 'Enter your email' : 'e.g. shubhamgayke2001@gmail.com'}
                   autoComplete="email"
                   className={`w-full bg-transparent border-b-2 pb-2 text-sm text-white placeholder-white/50 focus:outline-none transition-colors ${errors.email
                     ? 'border-rose-400'
