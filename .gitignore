@@ -21,6 +21,9 @@ server/storage/
 storage/
 server/temp/
 temp/
+server/uploads/
+uploads/
+!server/uploads/**/.gitkeep
 *.tmp
 
 # Build outputs

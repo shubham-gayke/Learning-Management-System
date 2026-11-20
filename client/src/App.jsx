@@ -10,6 +10,7 @@ import TwoFactorLoginPage from './pages/auth/TwoFactorLoginPage';
 // Student pages
 import SelectBatchPage from './pages/student/SelectBatchPage';
 import DashboardPage from './pages/student/DashboardPage';
+import CategoryLecturesPage from './pages/student/CategoryLecturesPage';
 import LecturePage from './pages/student/LecturePage';
 import MyQuestionsPage from './pages/student/MyQuestionsPage';
 import ProfilePage from './pages/student/ProfilePage';
@@ -20,7 +21,9 @@ import BatchesPage from './pages/trainer/BatchesPage';
 import UploadLecturePage from './pages/trainer/UploadLecturePage';
 import ManageLecturesPage from './pages/trainer/ManageLecturesPage';
 import StudentsPage from './pages/trainer/StudentsPage';
+import AllowedEmailsPage from './pages/trainer/AllowedEmailsPage';
 import QAInboxPage from './pages/trainer/QAInboxPage';
+import ReportBugPage from './pages/common/ReportBugPage';
 
 // Layouts
 import StudentLayout from './components/layout/StudentLayout';
@@ -87,6 +90,15 @@ function RootRedirect() {
   return <Navigate to="/select-batch" replace />;
 }
 
+/** Route handler: if trainer visits /report-bug, redirect to /trainer/report-bug */
+function StudentBugReportHandler() {
+  const { user } = useAuth();
+  if (user?.role === 'trainer') {
+    return <Navigate to="/trainer/report-bug" replace />;
+  }
+  return <ReportBugPage />;
+}
+
 export default function App() {
   return (
     <Routes>
@@ -136,7 +148,7 @@ export default function App() {
         }
       />
 
-      {/* Lecture Player route - accessible to both Students and Trainers */}
+      {/* Lecture Player & Bug Report routes - accessible to both Students and Trainers */}
       <Route
         element={
           <ProtectedRoute allowedRoles={['student', 'trainer']}>
@@ -149,6 +161,7 @@ export default function App() {
         }
       >
         <Route path="/lecture/:id" element={<LecturePage />} />
+        <Route path="/report-bug" element={<StudentBugReportHandler />} />
       </Route>
 
       {/* Student protected routes */}
@@ -165,6 +178,7 @@ export default function App() {
       >
         <Route path="/dashboard" element={<DashboardPage />} />
         <Route path="/lectures" element={<DashboardPage />} />
+        <Route path="/lectures/:category" element={<CategoryLecturesPage />} />
         <Route path="/my-questions" element={<MyQuestionsPage />} />
         <Route path="/profile" element={<ProfilePage />} />
       </Route>
@@ -185,7 +199,9 @@ export default function App() {
         <Route path="upload" element={<UploadLecturePage />} />
         <Route path="lectures" element={<ManageLecturesPage />} />
         <Route path="students" element={<StudentsPage />} />
+        <Route path="allowed-emails" element={<AllowedEmailsPage />} />
         <Route path="questions" element={<QAInboxPage />} />
+        <Route path="report-bug" element={<ReportBugPage />} />
       </Route>
 
       {/* Catch-all */}

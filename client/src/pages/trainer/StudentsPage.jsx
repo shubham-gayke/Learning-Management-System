@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { getStudents, updateStudent } from '../../api/students';
+import { getStudents, updateStudent, deleteStudent } from '../../api/students';
 import { getBatches } from '../../api/batches';
 import { useSocket } from '../../contexts/SocketContext';
 import Button from '../../components/common/Button';
@@ -17,7 +17,8 @@ import {
   CheckCircle2, 
   AlertTriangle,
   ChevronLeft,
-  ChevronRight
+  ChevronRight,
+  Trash2
 } from 'lucide-react';
 import toast from 'react-hot-toast';
 
@@ -37,6 +38,7 @@ export default function StudentsPage() {
 
   // Modals
   const [moveModalStudent, setMoveModalStudent] = useState(null);
+  const [deleteModalStudent, setDeleteModalStudent] = useState(null);
   const [targetBatchId, setTargetBatchId] = useState('');
   const [submitting, setSubmitting] = useState(false);
 
@@ -127,6 +129,23 @@ export default function StudentsPage() {
       fetchStudents(pagination.page);
     } catch (err) {
       toast.error(err.response?.data?.message || 'Failed to move student');
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
+  const handleDeleteStudent = async () => {
+    if (!deleteModalStudent) return;
+    try {
+      setSubmitting(true);
+      await deleteStudent(deleteModalStudent._id);
+      toast.success(
+        `Student ${deleteModalStudent.firstName} ${deleteModalStudent.lastName} removed completely`
+      );
+      setDeleteModalStudent(null);
+      fetchStudents(pagination.page || 1, false);
+    } catch (err) {
+      toast.error(err.response?.data?.message || 'Failed to delete student');
     } finally {
       setSubmitting(false);
     }
@@ -238,7 +257,7 @@ export default function StudentsPage() {
                       </span>
                     </td>
                     <td className="px-6 py-4 text-right">
-                      <div className="flex items-center justify-end gap-2">
+                      <div className="flex items-center justify-end gap-1.5 sm:gap-2">
                         <Button
                           variant="ghost"
                           size="sm"
@@ -259,6 +278,16 @@ export default function StudentsPage() {
                           className="text-xs text-amber-600 hover:text-amber-700 dark:text-amber-400"
                         >
                           Reset
+                        </Button>
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          icon={Trash2}
+                          onClick={() => setDeleteModalStudent(st)}
+                          title="Remove student permanently from system"
+                          className="text-xs text-rose-600 hover:text-rose-700 hover:bg-rose-50 dark:text-rose-400 dark:hover:bg-rose-950/40"
+                        >
+                          Delete
                         </Button>
                       </div>
                     </td>
@@ -336,6 +365,53 @@ export default function StudentsPage() {
             </Button>
           </div>
         </form>
+      </Modal>
+
+      {/* Delete Student Confirmation Modal */}
+      <Modal
+        isOpen={!!deleteModalStudent}
+        onClose={() => setDeleteModalStudent(null)}
+        title="Remove Student Completely"
+      >
+        <div className="space-y-4">
+          <div className="rounded-xl border border-rose-500/20 bg-rose-50/70 p-3 text-xs text-rose-700 dark:border-rose-500/30 dark:bg-rose-950/40 dark:text-rose-300 flex items-start gap-2.5">
+            <AlertTriangle className="h-5 w-5 flex-shrink-0 text-rose-600 dark:text-rose-400 mt-0.5" />
+            <div>
+              <p className="font-bold text-rose-900 dark:text-rose-200">Warning: Permanent Action</p>
+              <p className="mt-0.5 leading-relaxed">
+                This will completely remove the student from the system, including their account, batch enrollment, lecture watch progress, notes, questions, and whitelist entry.
+              </p>
+            </div>
+          </div>
+
+          <p className="text-sm text-slate-700 dark:text-slate-300">
+            Are you sure you want to permanently delete{' '}
+            <strong className="text-slate-900 dark:text-white">
+              {deleteModalStudent?.firstName} {deleteModalStudent?.lastName}
+            </strong>{' '}
+            (<span className="font-mono text-xs">{deleteModalStudent?.email}</span>)?
+          </p>
+
+          <div className="flex justify-end gap-2 pt-2">
+            <Button
+              variant="secondary"
+              type="button"
+              disabled={submitting}
+              onClick={() => setDeleteModalStudent(null)}
+            >
+              Cancel
+            </Button>
+            <Button
+              variant="danger"
+              type="button"
+              isLoading={submitting}
+              onClick={handleDeleteStudent}
+              className="bg-rose-600 hover:bg-rose-700 text-white"
+            >
+              Permanently Delete
+            </Button>
+          </div>
+        </div>
       </Modal>
     </div>
   );

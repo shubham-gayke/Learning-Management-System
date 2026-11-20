@@ -78,6 +78,41 @@ export const requireRole = (...roles) => {
 };
 
 /**
+ * Optional authentication: attaches req.user if a valid token is present,
+ * but allows unauthenticated requests to continue (req.user = null).
+ */
+export const optionalAuth = async (req, _res, next) => {
+  try {
+    let token = req.cookies?.token;
+    if (!token && req.headers.authorization) {
+      const authHeader = req.headers.authorization.trim();
+      token = authHeader.toLowerCase().startsWith('bearer ')
+        ? authHeader.slice(7).trim()
+        : authHeader;
+    }
+    if (!token && req.headers['x-access-token']) {
+      token = String(req.headers['x-access-token']).trim();
+    }
+    if (!token && req.query?.token) {
+      token = String(req.query.token).trim();
+    }
+
+    if (!token) {
+      req.user = null;
+      return next();
+    }
+
+    const decoded = jwt.verify(token, env.JWT_SECRET);
+    const user = await User.findById(decoded.id);
+    req.user = user || null;
+    next();
+  } catch {
+    req.user = null;
+    next();
+  }
+};
+
+/**
  * Ensure the student has selected a batch before proceeding.
  */
 export const requireBatchSelected = (req, _res, next) => {

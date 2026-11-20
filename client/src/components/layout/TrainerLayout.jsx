@@ -8,10 +8,12 @@ import {
   Upload,
   Video,
   Users,
+  ShieldCheck,
   MessageSquare,
   Menu,
   X,
   ChevronLeft,
+  Bug,
 } from 'lucide-react';
 
 const sidebarLinks = [
@@ -20,7 +22,9 @@ const sidebarLinks = [
   { to: '/trainer/upload', icon: Upload, label: 'Upload Lecture' },
   { to: '/trainer/lectures', icon: Video, label: 'Manage Lectures' },
   { to: '/trainer/students', icon: Users, label: 'Students' },
+  { to: '/trainer/allowed-emails', icon: ShieldCheck, label: 'Allowed Emails' },
   { to: '/trainer/questions', icon: MessageSquare, label: 'Q&A Inbox' },
+  { to: '/trainer/report-bug', icon: Bug, label: 'Bug Reports' },
 ];
 
 export default function TrainerLayout() {

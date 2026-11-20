@@ -4,6 +4,7 @@ import jwt from 'jsonwebtoken';
 import { v4 as uuidv4 } from 'uuid';
 import env from '../config/env.js';
 import User from '../models/User.js';
+import AllowedEmail from '../models/AllowedEmail.js';
 import validate from '../middleware/validate.js';
 import { requireAuth } from '../middleware/auth.js';
 import { authLimiter } from '../middleware/rateLimiter.js';
@@ -86,8 +87,19 @@ router.post(
   validate(registerSchema),
   catchAsync(async (req, res) => {
     const { firstName, lastName, email, password } = req.body;
+    const normalizedEmail = email.toLowerCase().trim();
 
-    const existing = await User.findOne({ email });
+    // 1. Security Checkpoint: Verify email exists in pre-approved allowlist
+    const allowedEntry = await AllowedEmail.findOne({ email: normalizedEmail });
+    if (!allowedEntry) {
+      throw new AppError(
+        'You are not eligible to create an account. Contact the admin section of Mentore Solution.',
+        403
+      );
+    }
+
+    // 2. Check if user already exists
+    const existing = await User.findOne({ email: normalizedEmail });
     if (existing) {
       throw new AppError('An account with this email already exists.', 409);
     }
@@ -98,11 +110,17 @@ router.post(
     const user = await User.create({
       firstName,
       lastName,
-      email,
+      email: normalizedEmail,
       passwordHash,
       role: 'student',
+      batch: allowedEntry.batch || null,
       activeSessionId: sessionId,
     });
+
+    // Mark email as claimed/registered in allowlist
+    allowedEntry.registered = true;
+    allowedEntry.registeredAt = new Date();
+    await allowedEntry.save();
 
     const token = signToken(user, sessionId);
 

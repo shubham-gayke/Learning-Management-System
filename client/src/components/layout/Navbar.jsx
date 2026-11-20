@@ -15,7 +15,9 @@ import {
   ChevronDown,
   GraduationCap,
   Bell,
+  Bug,
 } from 'lucide-react';
+import DevNoticeBanner from '../common/DevNoticeBanner';
 
 export default function Navbar() {
   const { user, logout } = useAuth();
@@ -96,6 +98,7 @@ export default function Navbar() {
           : 'border-transparent bg-white/95 dark:bg-slate-900/95 backdrop-blur-md'
       }`}
     >
+      <DevNoticeBanner />
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6">
         {/* Left: Brand + Hamburger */}
         <div className="flex items-center gap-3">
@@ -227,6 +230,13 @@ export default function Navbar() {
                       Profile
                     </Link>
                   )}
+                  <Link
+                    to={isTrainer ? '/trainer/report-bug' : '/report-bug'}
+                    className="mt-0.5 flex items-center gap-2.5 rounded-xl px-3 py-2 text-sm text-amber-600 hover:bg-amber-50 dark:text-amber-400 dark:hover:bg-amber-500/10 transition-colors"
+                  >
+                    <Bug className="h-4 w-4 text-amber-500" />
+                    Report a Bug
+                  </Link>
                   <button
                     onClick={logout}
                     className="mt-0.5 flex w-full items-center gap-2.5 rounded-xl px-3 py-2 text-sm text-rose-600 hover:bg-rose-50 dark:text-rose-400 dark:hover:bg-rose-500/10 cursor-pointer transition-colors"

@@ -14,5 +14,8 @@ export const getStudents = (params) =>
 export const updateStudent = (id, data) =>
   api.patch(`/api/trainer/students/${id}`, data).then((res) => res.data);
 
+export const deleteStudent = (id) =>
+  api.delete(`/api/trainer/students/${id}`).then((res) => res.data);
+
 export const getTrainerStats = () =>
   api.get('/api/trainer/stats').then((res) => res.data);
