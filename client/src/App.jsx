@@ -4,6 +4,7 @@ import { useAuth } from './contexts/AuthContext';
 // Auth pages
 import LoginPage from './pages/auth/LoginPage';
 import RegisterPage from './pages/auth/RegisterPage';
+import ForgotPasswordPage from './pages/auth/ForgotPasswordPage';
 import TwoFactorSetupPage from './pages/auth/TwoFactorSetupPage';
 import TwoFactorLoginPage from './pages/auth/TwoFactorLoginPage';
 
@@ -116,6 +117,14 @@ export default function App() {
         element={
           <PublicOnlyRoute>
             <RegisterPage />
+          </PublicOnlyRoute>
+        }
+      />
+      <Route
+        path="/forgot-password"
+        element={
+          <PublicOnlyRoute>
+            <ForgotPasswordPage />
           </PublicOnlyRoute>
         }
       />

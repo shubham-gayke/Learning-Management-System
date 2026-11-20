@@ -18,3 +18,12 @@ export const verifyLogin2FA = (twoFactorToken, code) =>
 
 export const disable2FA = (code) =>
   api.post('/api/auth/2fa/disable', { code }).then((res) => res.data);
+
+export const forgotPasswordVerifyEmail = (email) =>
+  api.post('/api/auth/forgot-password/verify-email', { email }).then((res) => res.data);
+
+export const forgotPasswordVerify2FA = (resetToken, code) =>
+  api.post('/api/auth/forgot-password/verify-2fa', { resetToken, code }).then((res) => res.data);
+
+export const forgotPasswordReset = (verifiedToken, newPassword, confirmPassword) =>
+  api.post('/api/auth/forgot-password/reset', { verifiedToken, newPassword, confirmPassword }).then((res) => res.data);

@@ -168,10 +168,10 @@ async function bootstrap() {
 
   // 5. Health-check (for Render uptime & status monitoring)
   app.get('/health', (_req, res) => {
-    res.status(200).json({ success: true, message: 'Server is running', version: '2.2.0', timestamp: new Date().toISOString() });
+    res.status(200).json({ success: true, message: 'Server is running', version: '2.3.0', timestamp: new Date().toISOString() });
   });
   app.get('/api/health', (_req, res) => {
-    res.status(200).json({ success: true, message: 'Server is running', version: '2.2.0', timestamp: new Date().toISOString() });
+    res.status(200).json({ success: true, message: 'Server is running', version: '2.3.0', timestamp: new Date().toISOString() });
   });
 
   // 6. API routes

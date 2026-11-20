@@ -158,12 +158,12 @@ export default function LoginPage() {
                 />
                 <span>Remember Me</span>
               </label>
-              <a
-                href="mailto:admin@mentoresolution.com"
-                className="hover:text-white hover:underline transition-colors"
+              <Link
+                to="/forgot-password"
+                className="hover:text-white hover:underline transition-colors cursor-pointer"
               >
                 Forgot Password?
-              </a>
+              </Link>
             </div>
 
             {/* Solid White Rounded Pill Button matching Reference */}
