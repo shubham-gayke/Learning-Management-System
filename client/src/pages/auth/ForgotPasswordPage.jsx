@@ -19,7 +19,7 @@ import {
   Lock,
 } from 'lucide-react';
 
-const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
+const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9]).{6,}$/;
 
 export default function ForgotPasswordPage() {
   const navigate = useNavigate();
@@ -44,10 +44,11 @@ export default function ForgotPasswordPage() {
 
   // Live password validation
   const passwordRules = {
-    minLength: newPassword.length >= 8,
+    minLength: newPassword.length >= 6,
     hasUpper: /[A-Z]/.test(newPassword),
     hasLower: /[a-z]/.test(newPassword),
     hasNumber: /\d/.test(newPassword),
+    hasSpecial: /[^A-Za-z0-9]/.test(newPassword),
   };
   const isPasswordValid = Object.values(passwordRules).every(Boolean);
 
@@ -330,12 +331,13 @@ export default function ForgotPasswordPage() {
 
                 {/* Password requirement guide */}
                 {newPassword && (
-                  <div className="pt-1.5 grid grid-cols-2 gap-x-2 gap-y-0.5 text-[10px] text-white/80 drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]">
+                  <div className="pt-1.5 grid grid-cols-2 sm:grid-cols-3 gap-x-2 gap-y-0.5 text-[10px] text-white/80 drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]">
                     {[
-                      { label: '8+ chars', met: passwordRules.minLength },
+                      { label: '6+ chars', met: passwordRules.minLength },
                       { label: 'Uppercase', met: passwordRules.hasUpper },
                       { label: 'Lowercase', met: passwordRules.hasLower },
                       { label: 'Number', met: passwordRules.hasNumber },
+                      { label: 'Special char', met: passwordRules.hasSpecial },
                     ].map((rule) => (
                       <div
                         key={rule.label}

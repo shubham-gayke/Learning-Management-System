@@ -47,7 +47,7 @@ function signToken(user, sessionId) {
 
 // ── Schemas ──────────────────────────────────────────────────────────
 
-const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
+const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9]).{6,}$/;
 
 const registerSchema = {
   body: z
@@ -57,10 +57,10 @@ const registerSchema = {
       email: z.string().trim().email('Invalid email address').toLowerCase(),
       password: z
         .string()
-        .min(8, 'Password must be at least 8 characters')
+        .min(6, 'Password must be at least 6 characters')
         .regex(
           passwordRegex,
-          'Password must contain at least one uppercase letter, one lowercase letter, and one number'
+          'Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character'
         ),
       confirmPassword: z.string().optional(),
     })
@@ -379,12 +379,12 @@ router.post(
     if (!verifiedToken) {
       throw new AppError('Verification token missing. Please start password reset again.', 400);
     }
-    if (!newPassword || newPassword.length < 8) {
-      throw new AppError('Password must be at least 8 characters long.', 400);
+    if (!newPassword || newPassword.length < 6) {
+      throw new AppError('Password must be at least 6 characters long.', 400);
     }
     if (!passwordRegex.test(newPassword)) {
       throw new AppError(
-        'Password must contain at least one uppercase letter, one lowercase letter, and one number.',
+        'Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character.',
         400
       );
     }
