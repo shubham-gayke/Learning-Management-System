@@ -11,6 +11,7 @@ import {
   Terminal,
   Server,
   Sparkles,
+  ExternalLink,
 } from 'lucide-react';
 import toast from 'react-hot-toast';
 
@@ -128,6 +129,37 @@ export default function DashboardPage() {
             </span>
             <p className="text-xs font-medium text-cyan-300">Total Lectures</p>
           </div>
+        </div>
+      </div>
+
+      {/* Mentore Solution Job Portal Featured Banner */}
+      <div className="relative overflow-hidden rounded-3xl border border-amber-500/30 bg-gradient-to-r from-slate-900 via-purple-950/40 to-slate-900 p-5 sm:p-6 shadow-xl transition-all hover:border-amber-400/50">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+          <div className="flex items-start sm:items-center gap-4">
+            <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-2xl bg-gradient-to-tr from-amber-500 to-orange-500 text-white shadow-lg shadow-amber-500/25">
+              <Briefcase className="h-6 w-6" />
+            </div>
+            <div>
+              <div className="flex items-center gap-2">
+                <h3 className="text-base sm:text-lg font-extrabold text-white">
+                  Mentore Solution Job Portal
+                </h3>
+                <span className="rounded-full bg-amber-500/20 px-2 py-0.5 text-[10px] font-bold text-amber-300 border border-amber-400/30">
+                  NEW
+                </span>
+              </div>
+              <p className="mt-0.5 text-xs text-slate-300 max-w-xl">
+                Explore active hiring drives, company links & apply directly. Verified opportunities curated by the Mentore Solution team.
+              </p>
+            </div>
+          </div>
+          <Link
+            to="/jobs"
+            className="inline-flex items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-amber-500 to-orange-500 px-5 py-2.5 text-xs sm:text-sm font-bold text-slate-950 shadow-lg shadow-amber-500/20 hover:from-amber-400 hover:to-orange-400 active:scale-[0.98] transition-all whitespace-nowrap cursor-pointer"
+          >
+            <span>Explore Jobs & Apply</span>
+            <ExternalLink className="h-4 w-4" />
+          </Link>
         </div>
       </div>
 

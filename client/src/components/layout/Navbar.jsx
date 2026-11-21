@@ -84,6 +84,7 @@ export default function Navbar({ onToggleSidebar }) {
 
   const studentLinks = [
     { to: '/dashboard', label: 'Lectures' },
+    { to: '/jobs', label: 'Job Portal' },
     { to: '/my-questions', label: 'My Questions' },
   ];
 

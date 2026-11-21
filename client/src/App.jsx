@@ -15,6 +15,7 @@ import CategoryLecturesPage from './pages/student/CategoryLecturesPage';
 import LecturePage from './pages/student/LecturePage';
 import MyQuestionsPage from './pages/student/MyQuestionsPage';
 import ProfilePage from './pages/student/ProfilePage';
+import JobPortalPage from './pages/student/JobPortalPage';
 
 // Trainer pages
 import TrainerDashboard from './pages/trainer/TrainerDashboard';
@@ -25,6 +26,7 @@ import StudentsPage from './pages/trainer/StudentsPage';
 import AllowedEmailsPage from './pages/trainer/AllowedEmailsPage';
 import QAInboxPage from './pages/trainer/QAInboxPage';
 import ReportBugPage from './pages/common/ReportBugPage';
+import ManageJobsPage from './pages/trainer/ManageJobsPage';
 
 // Layouts
 import StudentLayout from './components/layout/StudentLayout';
@@ -188,6 +190,7 @@ export default function App() {
         <Route path="/dashboard" element={<DashboardPage />} />
         <Route path="/lectures" element={<DashboardPage />} />
         <Route path="/lectures/:category" element={<CategoryLecturesPage />} />
+        <Route path="/jobs" element={<JobPortalPage />} />
         <Route path="/my-questions" element={<MyQuestionsPage />} />
         <Route path="/profile" element={<ProfilePage />} />
       </Route>
@@ -209,6 +212,7 @@ export default function App() {
         <Route path="lectures" element={<ManageLecturesPage />} />
         <Route path="students" element={<StudentsPage />} />
         <Route path="allowed-emails" element={<AllowedEmailsPage />} />
+        <Route path="jobs" element={<ManageJobsPage />} />
         <Route path="questions" element={<QAInboxPage />} />
         <Route path="report-bug" element={<ReportBugPage />} />
       </Route>

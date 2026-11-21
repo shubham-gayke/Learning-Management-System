@@ -10,6 +10,7 @@ import notesRoutes from './notes.js';
 import questionsRoutes from './questions.js';
 import progressRoutes from './progress.js';
 import bugReportRoutes from './bugReport.js';
+import jobRoutes from './jobs.js';
 import { generalLimiter } from '../middleware/rateLimiter.js';
 
 const router = Router();
@@ -31,5 +32,6 @@ router.use('/', notesRoutes);         // /lectures/:id/notes and /notes/:id/file
 router.use('/', questionsRoutes);     // /lectures/:id/questions, /questions/*, /notifications/unread
 router.use('/', progressRoutes);      // /lectures/:id/progress and /lectures/:id/private-note
 router.use('/bug-reports', bugReportRoutes); // Bug & glitch reporting system
+router.use('/jobs', jobRoutes);       // Mentore Solution Job Portal routes
 
 export default router;

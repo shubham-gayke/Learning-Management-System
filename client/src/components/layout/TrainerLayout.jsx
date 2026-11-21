@@ -15,6 +15,7 @@ import {
   ChevronLeft,
   Bug,
   GraduationCap,
+  Briefcase,
 } from 'lucide-react';
 
 const sidebarLinks = [
@@ -24,6 +25,7 @@ const sidebarLinks = [
   { to: '/trainer/lectures', icon: Video, label: 'Manage Lectures' },
   { to: '/trainer/students', icon: Users, label: 'Students' },
   { to: '/trainer/allowed-emails', icon: ShieldCheck, label: 'Allowed Emails' },
+  { to: '/trainer/jobs', icon: Briefcase, label: 'Job Portal' },
   { to: '/trainer/questions', icon: MessageSquare, label: 'Q&A Inbox' },
   { to: '/trainer/report-bug', icon: Bug, label: 'Bug Reports' },
 ];
