@@ -437,7 +437,8 @@ export default function ManageJobsPage() {
 
       {/* Create / Edit Modal */}
       <Modal
-        open={isModalOpen}
+        isOpen={isModalOpen}
+        size="lg"
         onClose={() => setIsModalOpen(false)}
         title={editingJob ? 'Edit Job Posting' : 'Post New Job to Student Portal'}
       >
@@ -639,7 +640,7 @@ export default function ManageJobsPage() {
 
       {/* Delete Confirmation Modal */}
       <Modal
-        open={!!deleteTarget}
+        isOpen={!!deleteTarget}
         onClose={() => setDeleteTarget(null)}
         title="Remove Job Posting"
       >

@@ -8,7 +8,9 @@ const sizeClasses = {
   lg: 'max-w-2xl',
 };
 
-export default function Modal({ isOpen, onClose, title, children, size = 'md' }) {
+export default function Modal({ isOpen, open, onClose, title, children, size = 'md' }) {
+  const visible = isOpen !== undefined ? isOpen : !!open;
+
   const handleKeyDown = useCallback(
     (e) => {
       if (e.key === 'Escape') onClose();
@@ -17,7 +19,7 @@ export default function Modal({ isOpen, onClose, title, children, size = 'md' })
   );
 
   useEffect(() => {
-    if (isOpen) {
+    if (visible) {
       document.addEventListener('keydown', handleKeyDown);
       document.body.style.overflow = 'hidden';
     }
@@ -25,9 +27,9 @@ export default function Modal({ isOpen, onClose, title, children, size = 'md' })
       document.removeEventListener('keydown', handleKeyDown);
       document.body.style.overflow = '';
     };
-  }, [isOpen, handleKeyDown]);
+  }, [visible, handleKeyDown]);
 
-  if (!isOpen) return null;
+  if (!visible) return null;
 
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
