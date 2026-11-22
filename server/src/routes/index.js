@@ -11,6 +11,7 @@ import questionsRoutes from './questions.js';
 import progressRoutes from './progress.js';
 import bugReportRoutes from './bugReport.js';
 import jobRoutes from './jobs.js';
+import examRoutes from './exams.js';
 import { generalLimiter } from '../middleware/rateLimiter.js';
 
 const router = Router();
@@ -33,5 +34,6 @@ router.use('/', questionsRoutes);     // /lectures/:id/questions, /questions/*, 
 router.use('/', progressRoutes);      // /lectures/:id/progress and /lectures/:id/private-note
 router.use('/bug-reports', bugReportRoutes); // Bug & glitch reporting system
 router.use('/jobs', jobRoutes);       // Mentore Solution Job Portal routes
+router.use('/exams', examRoutes);     // Exam Scheduler & Anti-Cheating Assessment Suite
 
 export default router;

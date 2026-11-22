@@ -28,6 +28,8 @@ import './models/PrivateNote.js';
 import './models/AllowedEmail.js';
 import './models/BugReport.js';
 import './models/Job.js';
+import './models/Exam.js';
+import './models/ExamSubmission.js';
 
 // ── Seed helper (inline, non-blocking) ───────────────────────────
 import User from './models/User.js';

@@ -1,11 +1,12 @@
 import { NavLink, Outlet, useLocation } from 'react-router-dom';
 import Navbar from './Navbar';
 import { useAuth } from '../../contexts/AuthContext';
-import { BookOpen, MessageCircle, User, Briefcase } from 'lucide-react';
+import { BookOpen, MessageCircle, User, Briefcase, FileCheck } from 'lucide-react';
 import { cn } from '../../lib/utils';
 
 const bottomNavItems = [
   { to: '/lectures', icon: BookOpen, label: 'Lectures' },
+  { to: '/exams', icon: FileCheck, label: 'Exams' },
   { to: '/jobs', icon: Briefcase, label: 'Job Portal' },
   { to: '/my-questions', icon: MessageCircle, label: 'My Questions' },
   { to: '/profile', icon: User, label: 'Profile' },

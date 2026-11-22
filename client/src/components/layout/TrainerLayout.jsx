@@ -16,6 +16,9 @@ import {
   Bug,
   GraduationCap,
   Briefcase,
+  FileCheck,
+  TableProperties,
+  UserCheck,
 } from 'lucide-react';
 
 const sidebarLinks = [
@@ -26,6 +29,9 @@ const sidebarLinks = [
   { to: '/trainer/students', icon: Users, label: 'Students' },
   { to: '/trainer/allowed-emails', icon: ShieldCheck, label: 'Allowed Emails' },
   { to: '/trainer/jobs', icon: Briefcase, label: 'Job Portal' },
+  { to: '/trainer/exams', icon: FileCheck, label: 'Exam Scheduler' },
+  { to: '/trainer/marks-matrix', icon: TableProperties, label: 'Marks Matrix (Excel)' },
+  { to: '/trainer/student-progress', icon: UserCheck, label: 'Student Progress' },
   { to: '/trainer/questions', icon: MessageSquare, label: 'Q&A Inbox' },
   { to: '/trainer/report-bug', icon: Bug, label: 'Bug Reports' },
 ];

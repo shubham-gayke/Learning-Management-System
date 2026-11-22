@@ -16,6 +16,8 @@ import LecturePage from './pages/student/LecturePage';
 import MyQuestionsPage from './pages/student/MyQuestionsPage';
 import ProfilePage from './pages/student/ProfilePage';
 import JobPortalPage from './pages/student/JobPortalPage';
+import StudentExamsPage from './pages/student/StudentExamsPage';
+import TakeExamPage from './pages/student/TakeExamPage';
 
 // Trainer pages
 import TrainerDashboard from './pages/trainer/TrainerDashboard';
@@ -27,6 +29,9 @@ import AllowedEmailsPage from './pages/trainer/AllowedEmailsPage';
 import QAInboxPage from './pages/trainer/QAInboxPage';
 import ReportBugPage from './pages/common/ReportBugPage';
 import ManageJobsPage from './pages/trainer/ManageJobsPage';
+import ManageExamsPage from './pages/trainer/ManageExamsPage';
+import MarksMatrixPage from './pages/trainer/MarksMatrixPage';
+import StudentProgressPage from './pages/trainer/StudentProgressPage';
 
 // Layouts
 import StudentLayout from './components/layout/StudentLayout';
@@ -191,9 +196,22 @@ export default function App() {
         <Route path="/lectures" element={<DashboardPage />} />
         <Route path="/lectures/:category" element={<CategoryLecturesPage />} />
         <Route path="/jobs" element={<JobPortalPage />} />
+        <Route path="/exams" element={<StudentExamsPage />} />
         <Route path="/my-questions" element={<MyQuestionsPage />} />
         <Route path="/profile" element={<ProfilePage />} />
       </Route>
+
+      {/* Standalone Fullscreen Proctored Exam Room (Students only) */}
+      <Route
+        path="/exams/:id/take"
+        element={
+          <ProtectedRoute allowedRoles={['student']}>
+            <TwoFactorGuard>
+              <TakeExamPage />
+            </TwoFactorGuard>
+          </ProtectedRoute>
+        }
+      />
 
       {/* Trainer routes */}
       <Route
@@ -213,6 +231,9 @@ export default function App() {
         <Route path="students" element={<StudentsPage />} />
         <Route path="allowed-emails" element={<AllowedEmailsPage />} />
         <Route path="jobs" element={<ManageJobsPage />} />
+        <Route path="exams" element={<ManageExamsPage />} />
+        <Route path="marks-matrix" element={<MarksMatrixPage />} />
+        <Route path="student-progress" element={<StudentProgressPage />} />
         <Route path="questions" element={<QAInboxPage />} />
         <Route path="report-bug" element={<ReportBugPage />} />
       </Route>

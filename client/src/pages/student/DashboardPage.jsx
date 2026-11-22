@@ -7,6 +7,7 @@ import {
   Layers,
   MessageSquare,
   Briefcase,
+  FileCheck,
   Cloud,
   Terminal,
   Server,
@@ -158,6 +159,37 @@ export default function DashboardPage() {
             className="inline-flex items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-amber-500 to-orange-500 px-5 py-2.5 text-xs sm:text-sm font-bold text-slate-950 shadow-lg shadow-amber-500/20 hover:from-amber-400 hover:to-orange-400 active:scale-[0.98] transition-all whitespace-nowrap cursor-pointer"
           >
             <span>Explore Jobs & Apply</span>
+            <ExternalLink className="h-4 w-4" />
+          </Link>
+        </div>
+      </div>
+
+      {/* Mentore Assessment & Exams Banner */}
+      <div className="relative overflow-hidden rounded-3xl border border-teal-500/30 bg-gradient-to-r from-slate-900 via-teal-950/40 to-slate-900 p-5 sm:p-6 shadow-xl transition-all hover:border-teal-400/50">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+          <div className="flex items-start sm:items-center gap-4">
+            <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-2xl bg-gradient-to-tr from-teal-500 to-cyan-500 text-white shadow-lg shadow-teal-500/25">
+              <FileCheck className="h-6 w-6" />
+            </div>
+            <div>
+              <div className="flex items-center gap-2">
+                <h3 className="text-base sm:text-lg font-extrabold text-white">
+                  Scheduled Batch Examinations
+                </h3>
+                <span className="rounded-full bg-teal-500/20 px-2 py-0.5 text-[10px] font-bold text-teal-300 border border-teal-400/30">
+                  PROCTORED
+                </span>
+              </div>
+              <p className="mt-0.5 text-xs text-slate-300 max-w-xl">
+                Take scheduled MCQ assessments for Batch {batchName}, test your skills, and check your cohort leaderboard ranking.
+              </p>
+            </div>
+          </div>
+          <Link
+            to="/exams"
+            className="inline-flex items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-teal-500 to-cyan-500 px-5 py-2.5 text-xs sm:text-sm font-bold text-slate-950 shadow-lg shadow-teal-500/20 hover:from-teal-400 hover:to-cyan-400 active:scale-[0.98] transition-all whitespace-nowrap cursor-pointer"
+          >
+            <span>View Active Exams</span>
             <ExternalLink className="h-4 w-4" />
           </Link>
         </div>
