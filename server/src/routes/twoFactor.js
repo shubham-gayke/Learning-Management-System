@@ -176,6 +176,10 @@ router.post(
   '/disable',
   requireAuth,
   catchAsync(async (req, res) => {
+    if (req.user.role === 'student') {
+      throw new AppError('Two-factor authentication is mandatory for students and cannot be disabled.', 403);
+    }
+
     const { code } = req.body;
     if (!code || code.length !== 6) {
       throw new AppError('A valid 6-digit code is required', 400);

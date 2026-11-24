@@ -8,7 +8,7 @@ import Button from '../../components/common/Button';
 import Modal from '../../components/common/Modal';
 import Skeleton from '../../components/common/Skeleton';
 import EmptyState from '../../components/common/EmptyState';
-import { Layers, Users, AlertTriangle, GraduationCap } from 'lucide-react';
+import { Layers, AlertTriangle, GraduationCap } from 'lucide-react';
 import toast from 'react-hot-toast';
 
 export default function SelectBatchPage() {
@@ -132,13 +132,6 @@ export default function SelectBatchPage() {
                       {batch.description}
                     </p>
                   )}
-                  <div className="mt-3 flex items-center gap-1.5 text-xs text-slate-400 dark:text-slate-500">
-                    <Users className="h-3.5 w-3.5" />
-                    <span>{batch.studentCount ?? 0} students</span>
-                  </div>
-                  <p className="mt-1 text-xs text-slate-400 dark:text-slate-500">
-                    Trainer: Shubham Gayke
-                  </p>
                 </button>
               );
             })}

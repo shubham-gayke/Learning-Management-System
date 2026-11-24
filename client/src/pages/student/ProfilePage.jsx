@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import { getBatches } from '../../api/batches';
 import { updateBatch } from '../../api/students';
-import * as authApi from '../../api/auth';
 import Button from '../../components/common/Button';
 import Modal from '../../components/common/Modal';
 import {
@@ -26,11 +25,6 @@ export default function ProfilePage() {
   const [changeBatchOpen, setChangeBatchOpen] = useState(false);
   const [selectedBatch, setSelectedBatch] = useState(null);
   const [confirmOpen, setConfirmOpen] = useState(false);
-
-  // 2FA state
-  const [disable2FAOpen, setDisable2FAOpen] = useState(false);
-  const [disable2FACode, setDisable2FACode] = useState('');
-  const [disabling2FA, setDisabling2FA] = useState(false);
 
   const isStudent = user?.role === 'student';
   const batchChangesUsed = user?.batchChangesUsed ?? 0;
@@ -71,26 +65,6 @@ export default function ProfilePage() {
 
   const handleConfirm = () => {
     if (selectedBatch) mutation.mutate(selectedBatch._id);
-  };
-
-  const handleDisable2FA = async (e) => {
-    e.preventDefault();
-    if (disable2FACode.length !== 6) {
-      toast.error('Please enter a 6-digit code');
-      return;
-    }
-    setDisabling2FA(true);
-    try {
-      await authApi.disable2FA(disable2FACode);
-      toast.success('Two-factor authentication disabled.');
-      setDisable2FAOpen(false);
-      setDisable2FACode('');
-      await refetchUser();
-    } catch (err) {
-      toast.error(err.response?.data?.message || 'Invalid verification code');
-    } finally {
-      setDisabling2FA(false);
-    }
   };
 
   return (
@@ -238,22 +212,20 @@ export default function ProfilePage() {
               </div>
             </div>
 
-            <div className="flex-shrink-0">
-              {user?.twoFactorEnabled ? (
-                <Button
-                  variant="outline"
-                  size="sm"
-                  className="text-rose-600 border-rose-200 hover:bg-rose-50 hover:border-rose-300 dark:text-rose-400 dark:border-rose-900/50 dark:hover:bg-rose-950/30"
-                  onClick={() => setDisable2FAOpen(true)}
-                >
-                  Disable 2FA
-                </Button>
-              ) : (
+            {!user?.twoFactorEnabled ? (
+              <div className="flex-shrink-0">
                 <Link to="/setup-2fa">
                   <Button size="sm">Set Up 2FA</Button>
                 </Link>
-              )}
-            </div>
+              </div>
+            ) : (
+              <div className="flex-shrink-0">
+                <span className="inline-flex items-center gap-1.5 rounded-xl border border-emerald-500/20 bg-emerald-500/10 px-3 py-1.5 text-xs font-semibold text-emerald-600 dark:text-emerald-400">
+                  <CheckCircle2 className="h-4 w-4" />
+                  Mandatory & Active
+                </span>
+              </div>
+            )}
           </div>
         </div>
       )}
@@ -336,55 +308,6 @@ export default function ProfilePage() {
           </div>
         </Modal>
       )}
-
-      {/* Disable 2FA modal */}
-      <Modal
-        isOpen={disable2FAOpen}
-        onClose={() => {
-          setDisable2FAOpen(false);
-          setDisable2FACode('');
-        }}
-        title="Disable Two-Factor Authentication"
-        size="sm"
-      >
-        <form onSubmit={handleDisable2FA} className="space-y-4">
-          <p className="text-sm text-slate-600 dark:text-slate-300">
-            Enter the 6-digit code from your authenticator app to confirm turning off 2FA:
-          </p>
-          <input
-            type="text"
-            inputMode="numeric"
-            maxLength={6}
-            value={disable2FACode}
-            onChange={(e) => setDisable2FACode(e.target.value.replace(/[^0-9]/g, '').slice(0, 6))}
-            placeholder="000000"
-            className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-center text-2xl font-bold tracking-[0.4em] text-slate-900 placeholder:text-slate-300 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 dark:border-slate-600 dark:bg-slate-700 dark:text-white dark:placeholder:text-slate-500"
-            autoFocus
-          />
-          <div className="flex gap-3 pt-2">
-            <Button
-              type="button"
-              variant="secondary"
-              className="flex-1"
-              onClick={() => {
-                setDisable2FAOpen(false);
-                setDisable2FACode('');
-              }}
-            >
-              Cancel
-            </Button>
-            <Button
-              type="submit"
-              variant="danger"
-              className="flex-1"
-              isLoading={disabling2FA}
-              disabled={disable2FACode.length !== 6}
-            >
-              Disable 2FA
-            </Button>
-          </div>
-        </form>
-      </Modal>
     </div>
   );
 }
