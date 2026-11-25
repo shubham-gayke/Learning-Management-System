@@ -14,6 +14,8 @@
 [![HLS.js](https://img.shields.io/badge/Streaming-AES--128%20HLS-FF6B6B?style=flat-square&logo=html5&logoColor=white)](https://github.com/video-dev/hls.js)
 [![TensorFlow.js](https://img.shields.io/badge/AI%20Proctor-TensorFlow.js-FF6F00?style=flat-square&logo=tensorflow&logoColor=white)](https://www.tensorflow.org/js)
 [![2FA / TOTP](https://img.shields.io/badge/Security-2FA%20%2F%20TOTP-10B981?style=flat-square&logo=authy&logoColor=white)](https://en.wikipedia.org/wiki/Time-based_one-time_password)
+[![Author: Shubham Gayke](https://img.shields.io/badge/Author-Shubham%20Gayke-0ea5e9?style=flat-square&logo=github&logoColor=white)](https://github.com/shubham-gayke)
+[![Copyright](https://img.shields.io/badge/%C2%A9%202026-All%20Rights%20Reserved-8B5CF6?style=flat-square)](LICENSE)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=flat-square)](LICENSE)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](CONTRIBUTING.md)
 
@@ -370,10 +372,19 @@ Contributions make the open-source community an inspiring place to learn, inspir
 
 ---
 
+## 👨‍💻 Author & Intellectual Property
+
+- **Lead Architect & Developer**: **Shubham Gayke**
+- **Platform**: Mentore Solution LMS
+- **Copyright**: © 2026 **Shubham Gayke**. All Rights Reserved.
+
+---
+
 ## 📄 License
 
-Distributed under the **MIT License**. See [`LICENSE`](LICENSE) for more information.
+Distributed under the **MIT License**. See [`LICENSE`](LICENSE) for more details.  
+*Copyright © 2026 Shubham Gayke. All Rights Reserved.*
 
 <div align="center">
-  <sub>Crafted with passion for scalable, secure technical education.</sub>
+  <sub>Crafted with passion by <b>Shubham Gayke</b> • © 2026 All Rights Reserved</sub>
 </div>
