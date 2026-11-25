@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 350" width="1080" height="350">
+  <defs>
+    <linearGradient id="vh-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#030D17"/>
+      <stop offset="100%" stop-color="#061728"/>
+    </linearGradient>
+    <linearGradient id="vh-hdr" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#22D3EE"/>
+      <stop offset="50%" stop-color="#38BDF8"/>
+      <stop offset="100%" stop-color="#818CF8"/>
+    </linearGradient>
+    <linearGradient id="vh-card" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#0B1E36"/>
+      <stop offset="100%" stop-color="#061120"/>
+    </linearGradient>
+    <filter id="vh-shadow" x="-6%" y="-6%" width="116%" height="122%">
+      <feDropShadow dx="0" dy="10" stdDeviation="10" flood-color="#000000" flood-opacity="0.72"/>
+    </filter>
+    <pattern id="vh-grid" width="28" height="28" patternUnits="userSpaceOnUse">
+      <path d="M 28 0 L 0 0 0 28" fill="none" stroke="#0E3052" stroke-width="0.6" stroke-opacity="0.35"/>
+    </pattern>
+  </defs>
+  <style>
+    .vt { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; font-weight: 800; }
+    .vb { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; }
+    .vm { font-family: 'JetBrains Mono', Consolas, monospace; }
+  </style>
+
+  <rect width="1080" height="350" rx="18" fill="url(#vh-bg)" stroke="#0E3052" stroke-width="1.5"/>
+  <rect width="1080" height="350" rx="18" fill="url(#vh-grid)"/>
+
+  <!-- Header -->
+  <g transform="translate(36, 30)">
+    <circle cx="8" cy="12" r="5" fill="#22D3EE">
+      <animate attributeName="opacity" values="1;0.3;1" dur="2s" repeatCount="indefinite"/>
+    </circle>
+    <text x="22" y="18" fill="url(#vh-hdr)" class="vt" font-size="18" letter-spacing="1">PLATFORM VISION &amp; ENGINEERING HIGHLIGHTS</text>
+    <text x="0" y="38" fill="#94A3B8" class="vb" font-size="12">Eliminating video piracy, account sharing, cross-batch leaks, and unproctored exams inside a unified Glacier MERN suite</text>
+  </g>
+
+  <!-- LEFT 3D CARD: Zero-Leak Video Streaming -->
+  <g transform="translate(36, 86)" filter="url(#vh-shadow)">
+    <rect x="5" y="7" width="492" height="232" rx="14" fill="#04101D" stroke="#083344"/>
+    <rect width="492" height="232" rx="14" fill="url(#vh-card)" stroke="#0284C7" stroke-width="1.3"/>
+    <rect x="14" y="0" width="464" height="2.5" rx="1" fill="#22D3EE"/>
+
+    <text x="22" y="30" fill="#22D3EE" class="vm" font-size="10.5" font-weight="700">PILLAR 01 • MEDIA DRM</text>
+    <text x="22" y="52" fill="#F8FAFC" class="vt" font-size="16.5">Zero-Leak Video Streaming</text>
+
+    <!-- Animated flow strip -->
+    <rect x="22" y="68" width="448" height="32" rx="7" fill="#030D17" stroke="#0E3052"/>
+    <text x="34" y="88" fill="#38BDF8" class="vm" font-size="10">Drive API v3</text>
+    <line x1="115" y1="84" x2="175" y2="84" stroke="#22D3EE" stroke-width="1.5" stroke-dasharray="3 3"/>
+    <circle r="3" fill="#22D3EE">
+      <animateMotion path="M 115,84 L 175,84" dur="1.4s" repeatCount="indefinite"/>
+    </circle>
+    <text x="184" y="88" fill="#10B981" class="vm" font-size="10">AES-128 HLS</text>
+    <line x1="262" y1="84" x2="322" y2="84" stroke="#F59E0B" stroke-width="1.5" stroke-dasharray="3 3"/>
+    <circle r="3" fill="#FBBF24">
+      <animateMotion path="M 262,84 L 322,84" dur="1.4s" begin="0.5s" repeatCount="indefinite"/>
+    </circle>
+    <text x="330" y="88" fill="#FBBF24" class="vm" font-size="10">16s Watermark</text>
+
+    <circle cx="28" cy="126" r="3" fill="#22D3EE"/>
+    <text x="40" y="130" fill="#E2E8F0" class="vb" font-size="12.5" font-weight="600">Google Drive API v3 Ingestion:</text>
+    <text x="40" y="146" fill="#94A3B8" class="vb" font-size="11.5">Private OBS recordings ingested with zero Drive links leaked</text>
+
+    <circle cx="28" cy="170" r="3" fill="#10B981"/>
+    <text x="40" y="174" fill="#E2E8F0" class="vb" font-size="12.5" font-weight="600">AES-128 Encrypted HLS (144p-1080p):</text>
+    <text x="40" y="190" fill="#94A3B8" class="vb" font-size="11.5">fluent-ffmpeg + p-queue transcoding with ephemeral keys</text>
+
+    <circle cx="28" cy="212" r="3" fill="#F59E0B"/>
+    <text x="40" y="216" fill="#94A3B8" class="vb" font-size="11.5">Dynamic student identity watermark shifting every 16s</text>
+  </g>
+
+  <!-- RIGHT 3D CARD: Zero-Trust Auth & AI Integrity -->
+  <g transform="translate(552, 86)" filter="url(#vh-shadow)">
+    <rect x="5" y="7" width="492" height="232" rx="14" fill="#0B0718" stroke="#312E81"/>
+    <rect width="492" height="232" rx="14" fill="url(#vh-card)" stroke="#818CF8" stroke-width="1.3"/>
+    <rect x="14" y="0" width="464" height="2.5" rx="1" fill="#818CF8"/>
+
+    <text x="22" y="30" fill="#A5B4FC" class="vm" font-size="10.5" font-weight="700">PILLAR 02 • IDENTITY &amp; AI</text>
+    <text x="22" y="52" fill="#F8FAFC" class="vt" font-size="16.5">Zero-Trust Auth &amp; AI Integrity</text>
+
+    <!-- Animated telemetry strip -->
+    <rect x="22" y="68" width="448" height="32" rx="7" fill="#030D17" stroke="#312E81"/>
+    <circle cx="38" cy="84" r="4" fill="#10B981">
+      <animate attributeName="opacity" values="1;0.3;1" dur="1.5s" repeatCount="indefinite"/>
+    </circle>
+    <text x="50" y="88" fill="#34D399" class="vm" font-size="10">TOTP 2FA LOCKED</text>
+    <text x="172" y="88" fill="#A5B4FC" class="vm" font-size="10">• 1 DEVICE SESSION</text>
+    <text x="306" y="88" fill="#FB7185" class="vm" font-size="10">• COCO-SSD VISION</text>
+
+    <circle cx="28" cy="126" r="3" fill="#10B981"/>
+    <text x="40" y="130" fill="#E2E8F0" class="vb" font-size="12.5" font-weight="600">Mandatory RFC 6238 TOTP 2FA:</text>
+    <text x="40" y="146" fill="#94A3B8" class="vb" font-size="11.5">otpauth + qrcode setup; student disable blocked (403)</text>
+
+    <circle cx="28" cy="170" r="3" fill="#818CF8"/>
+    <text x="40" y="174" fill="#E2E8F0" class="vb" font-size="12.5" font-weight="600">Single-Device Session Guard:</text>
+    <text x="40" y="190" fill="#94A3B8" class="vb" font-size="11.5">activeSessionId invalidates stale sessions upon new login</text>
+
+    <circle cx="28" cy="212" r="3" fill="#FB7185"/>
+    <text x="40" y="216" fill="#94A3B8" class="vb" font-size="11.5">TensorFlow.js mobile detection, fullscreen &amp; audio alerts</text>
+  </g>
+</svg>

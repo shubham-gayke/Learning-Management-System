@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 410" width="1080" height="410">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 510" width="1080" height="510">
   <defs>
     <linearGradient id="ai-bg" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" stop-color="#050A14"/>
@@ -23,19 +23,17 @@
     .aim { font-family: 'JetBrains Mono', Consolas, monospace; }
   </style>
 
-  <rect width="1080" height="410" rx="18" fill="url(#ai-bg)" stroke="#312E81" stroke-width="1.5"/>
-  <rect width="1080" height="410" rx="18" fill="url(#ai-grid)"/>
+  <rect width="1080" height="510" rx="18" fill="url(#ai-bg)" stroke="#312E81" stroke-width="1.5"/>
+  <rect width="1080" height="510" rx="18" fill="url(#ai-grid)"/>
 
-  <!-- Header -->
   <g transform="translate(36, 30)">
     <text x="0" y="18" fill="url(#ai-hdr)" class="ait" font-size="18" letter-spacing="1">AI-PROCTORED EXAM SUITE &amp; ANTI-CHEAT TELEMETRY</text>
-    <text x="0" y="36" fill="#94A3B8" class="aib" font-size="12">Client-Side TensorFlow.js + COCO-SSD Webcam Proctoring • Fullscreen Lockdown • Auto-Termination Engine</text>
+    <text x="0" y="36" fill="#94A3B8" class="aib" font-size="12">Browser-Native TensorFlow.js + COCO-SSD Webcam Proctoring • Fullscreen Lockdown • Auto-Termination Engine</text>
   </g>
 
   <!-- LEFT: LIVE WEBCAM COMPUTER VISION HUD -->
   <g transform="translate(36, 84)" filter="url(#ai-shadow)">
     <rect width="450" height="292" rx="14" fill="#070B18" stroke="#E11D48" stroke-width="1.3"/>
-    <!-- Live Cam Header -->
     <circle cx="24" cy="24" r="5" fill="#EF4444">
       <animate attributeName="opacity" values="1;0.2;1" dur="1s" repeatCount="indefinite"/>
     </circle>
@@ -43,18 +41,14 @@
     <rect x="336" y="14" width="96" height="20" rx="5" fill="#064E3B" stroke="#10B981" stroke-width="0.9"/>
     <text x="384" y="27" fill="#34D399" class="aim" font-size="9.5" text-anchor="middle">AI ACTIVE</text>
 
-    <!-- Webcam Viewport Frame -->
     <rect x="20" y="46" width="410" height="190" rx="10" fill="#030711" stroke="#1E293B"/>
 
-    <!-- Stylized Student Candidate -->
     <g transform="translate(170, 74)">
       <circle cx="55" cy="40" r="24" fill="#0F172A" stroke="#38BDF8" stroke-width="1.8"/>
       <path d="M16 120 C20 82 90 82 94 120" fill="#0F172A" stroke="#38BDF8" stroke-width="1.8"/>
-      <!-- Green Tracking Box Corners -->
       <path d="M5 18 V5 H18 M92 5 H105 V18 M5 108 V121 H18 M92 121 H105 V108" fill="none" stroke="#10B981" stroke-width="2"/>
     </g>
 
-    <!-- Animated Simulated Cell Phone Object Detection Alert -->
     <g>
       <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.35;0.4;0.75;0.8;1" dur="6s" repeatCount="indefinite"/>
       <rect x="315" y="128" width="48" height="76" rx="6" fill="#7F1D1D" fill-opacity="0.3" stroke="#FB7185" stroke-width="2" stroke-dasharray="4 2"/>
@@ -63,13 +57,11 @@
       <text x="340" y="116" fill="#FFFFFF" class="aim" font-size="9.5" font-weight="700" text-anchor="middle">CELL PHONE (0.94)</text>
     </g>
 
-    <!-- Sweeping Vertical AI Scan Laser -->
     <line x1="25" y1="54" x2="425" y2="54" stroke="#22D3EE" stroke-width="1.5" opacity="0.75">
       <animate attributeName="y1" values="54;228;54" dur="3s" repeatCount="indefinite"/>
       <animate attributeName="y2" values="54;228;54" dur="3s" repeatCount="indefinite"/>
     </line>
 
-    <!-- Audio Beep Bar at Bottom -->
     <text x="20" y="258" fill="#CBD5E1" class="aim" font-size="10">WEB AUDIO ALERT SYNTH:</text>
     <text x="20" y="276" fill="#FB7185" class="aim" font-size="10">AUTO-KILL TRACKS ON SUBMIT / TERMINATE</text>
     <g transform="translate(310, 248)">
@@ -98,35 +90,28 @@
     <rect width="530" height="292" rx="14" fill="#080D1D" stroke="#4338CA" stroke-width="1.3"/>
     <text x="22" y="28" fill="#A5B4FC" class="aim" font-size="11" font-weight="700">REAL-TIME INTEGRITY TELEMETRY &amp; EXAM ENGINE</text>
 
-    <!-- Rule Cards -->
     <g transform="translate(22, 46)">
-      <!-- Rule 1: Fullscreen -->
       <rect x="0" y="0" width="235" height="62" rx="8" fill="#0E172E" stroke="#1E3A8A"/>
       <text x="14" y="22" fill="#F8FAFC" class="ait" font-size="12.5">Fullscreen Lockdown</text>
       <text x="14" y="42" fill="#34D399" class="aim" font-size="10.5">● ENFORCED STRICTLY</text>
 
-      <!-- Rule 2: Tab Switch -->
       <rect x="251" y="0" width="235" height="62" rx="8" fill="#0E172E" stroke="#D97706"/>
       <text x="265" y="22" fill="#F8FAFC" class="ait" font-size="12.5">Tab / Blur Guard</text>
       <text x="265" y="42" fill="#FBBF24" class="aim" font-size="10.5">MAX VIOLATIONS: 5 → 0 SCORE</text>
 
-      <!-- Rule 3: Phone Detection -->
       <rect x="0" y="76" width="235" height="62" rx="8" fill="#1F0B16" stroke="#E11D48"/>
       <text x="14" y="98" fill="#F8FAFC" class="ait" font-size="12.5">Mobile Phone AI Vision</text>
       <text x="14" y="118" fill="#FB7185" class="aim" font-size="10.5">MAX WARNINGS: 2 → TERMINATE</text>
 
-      <!-- Rule 4: Instant Matrix -->
       <rect x="251" y="76" width="235" height="62" rx="8" fill="#062321" stroke="#059669"/>
       <text x="265" y="98" fill="#F8FAFC" class="ait" font-size="12.5">Marks Matrix Sync</text>
       <text x="265" y="118" fill="#34D399" class="aim" font-size="10.5">AUTO-GRADED + ANALYTICS</text>
     </g>
 
-    <!-- Mini Question Palette Preview with Animated Active Box -->
     <g transform="translate(22, 200)">
       <rect width="486" height="74" rx="8" fill="#030711" stroke="#1E293B"/>
       <text x="14" y="22" fill="#94A3B8" class="aim" font-size="10">LIVE QUESTION PALETTE • AUTO-TIMER</text>
 
-      <!-- Question Squares -->
       <rect x="14" y="34" width="32" height="26" rx="5" fill="#059669"/>
       <text x="30" y="51" fill="#FFFFFF" class="aim" font-size="10" text-anchor="middle">Q1</text>
 
@@ -144,9 +129,34 @@
       <rect x="174" y="34" width="32" height="26" rx="5" fill="#1E293B"/>
       <text x="190" y="51" fill="#94A3B8" class="aim" font-size="10" text-anchor="middle">Q5</text>
 
-      <!-- Countdown Clock -->
       <rect x="360" y="24" width="112" height="36" rx="8" fill="#0F172A" stroke="#38BDF8"/>
       <text x="416" y="46" fill="#22D3EE" class="aim" font-size="14" font-weight="700" text-anchor="middle">24:18 LEFT</text>
     </g>
+  </g>
+
+  <!-- BOTTOM INTEGRITY RULES BAR (Replaces white bullet list!) -->
+  <g transform="translate(36, 394)">
+    <rect width="1008" height="92" rx="12" fill="#070B18" stroke="#312E81" stroke-width="1.2"/>
+    <text x="18" y="22" fill="#A5B4FC" class="aim" font-size="10" font-weight="700">ENFORCED IN TAKEEXAMPAGE.JSX &amp; MARKSMATRIXPAGE.JSX</text>
+
+    <rect x="18" y="32" width="186" height="46" rx="7" fill="#030711" stroke="#E11D48" stroke-width="0.9"/>
+    <text x="28" y="50" fill="#FB7185" class="aim" font-size="9.5" font-weight="700">COCO-SSD VISION</text>
+    <text x="28" y="66" fill="#94A3B8" class="aib" font-size="10.5">2 Phone Alerts → 0 Marks</text>
+
+    <rect x="214" y="32" width="186" height="46" rx="7" fill="#030711" stroke="#D97706" stroke-width="0.9"/>
+    <text x="224" y="50" fill="#FBBF24" class="aim" font-size="9.5" font-weight="700">FOCUS &amp; FULLSCREEN</text>
+    <text x="224" y="66" fill="#94A3B8" class="aib" font-size="10.5">5 Tab Switches → Terminate</text>
+
+    <rect x="410" y="32" width="186" height="46" rx="7" fill="#030D17" stroke="#22D3EE" stroke-width="0.9"/>
+    <text x="420" y="50" fill="#22D3EE" class="aim" font-size="9.5" font-weight="700">WEB AUDIO SYNTH</text>
+    <text x="420" y="66" fill="#94A3B8" class="aib" font-size="10.5">playAlertBeep() Feedback</text>
+
+    <rect x="606" y="32" width="186" height="46" rx="7" fill="#030711" stroke="#10B981" stroke-width="0.9"/>
+    <text x="616" y="50" fill="#34D399" class="aim" font-size="9.5" font-weight="700">HARDWARE RELEASE</text>
+    <text x="616" y="66" fill="#94A3B8" class="aib" font-size="10.5">stopCamera() Instant Halt</text>
+
+    <rect x="802" y="32" width="188" height="46" rx="7" fill="#030711" stroke="#818CF8" stroke-width="0.9"/>
+    <text x="812" y="50" fill="#A5B4FC" class="aim" font-size="9.5" font-weight="700">MARKS MATRIX</text>
+    <text x="812" y="66" fill="#94A3B8" class="aib" font-size="10.5">Scores, Status &amp; Logs</text>
   </g>
 </svg>

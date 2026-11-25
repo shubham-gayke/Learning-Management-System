@@ -1,0 +1,148 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 430" width="1080" height="430">
+  <defs>
+    <linearGradient id="cm-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#030D17"/>
+      <stop offset="100%" stop-color="#071729"/>
+    </linearGradient>
+    <linearGradient id="cm-hdr" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#F59E0B"/>
+      <stop offset="50%" stop-color="#22D3EE"/>
+      <stop offset="100%" stop-color="#A855F7"/>
+    </linearGradient>
+    <linearGradient id="cm-card" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#0C1F38"/>
+      <stop offset="100%" stop-color="#061221"/>
+    </linearGradient>
+    <filter id="cm-shadow" x="-6%" y="-6%" width="116%" height="122%">
+      <feDropShadow dx="0" dy="8" stdDeviation="8" flood-color="#000000" flood-opacity="0.68"/>
+    </filter>
+    <pattern id="cm-grid" width="28" height="28" patternUnits="userSpaceOnUse">
+      <path d="M 28 0 L 0 0 0 28" fill="none" stroke="#0E3052" stroke-width="0.6" stroke-opacity="0.35"/>
+    </pattern>
+  </defs>
+  <style>
+    .ct { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; font-weight: 800; }
+    .cb { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; }
+    .cm { font-family: 'JetBrains Mono', Consolas, monospace; }
+  </style>
+
+  <rect width="1080" height="430" rx="18" fill="url(#cm-bg)" stroke="#0E3052" stroke-width="1.5"/>
+  <rect width="1080" height="430" rx="18" fill="url(#cm-grid)"/>
+
+  <g transform="translate(36, 30)">
+    <text x="0" y="18" fill="url(#cm-hdr)" class="ct" font-size="18" letter-spacing="1">ECOSYSTEM FEATURE MODULES</text>
+    <text x="0" y="36" fill="#94A3B8" class="cb" font-size="12">Career Placement Portal, Timestamped Real-Time Q&amp;A, GridFS Study Docs, Whitelist Governance &amp; Bug Tracker</text>
+  </g>
+
+  <!-- TOP ROW: 3 CARDS (w=322 each, gap=21) -->
+  <!-- CARD 1: Tech Job Portal -->
+  <g transform="translate(36, 84)" filter="url(#cm-shadow)">
+    <rect width="322" height="155" rx="12" fill="url(#cm-card)" stroke="#0284C7" stroke-width="1.2"/>
+    <rect x="12" y="0" width="298" height="2.5" fill="#22D3EE"/>
+    <text x="18" y="26" fill="#22D3EE" class="cm" font-size="10" font-weight="700">MODULE 01 • /api/jobs</text>
+    <text x="18" y="46" fill="#F8FAFC" class="ct" font-size="14.5">Tech Career Portal</text>
+    <rect x="234" y="16" width="72" height="19" rx="9" fill="#064E3B" stroke="#10B981" stroke-width="0.8"/>
+    <text x="270" y="29" fill="#34D399" class="cm" font-size="8.5" text-anchor="middle">VERIFIED</text>
+
+    <!-- Animated job skill pills -->
+    <rect x="18" y="60" width="286" height="32" rx="6" fill="#030D17" stroke="#0E3052"/>
+    <rect x="26" y="67" width="46" height="18" rx="4" fill="#0E7490" fill-opacity="0.45">
+      <animate attributeName="opacity" values="0.6;1;0.6" dur="2.2s" begin="0s" repeatCount="indefinite"/>
+    </rect>
+    <text x="49" y="79" fill="#67E8F9" class="cm" font-size="9" text-anchor="middle">AWS</text>
+    <rect x="78" y="67" width="54" height="18" rx="4" fill="#1D4ED8" fill-opacity="0.45">
+      <animate attributeName="opacity" values="0.6;1;0.6" dur="2.2s" begin="0.4s" repeatCount="indefinite"/>
+    </rect>
+    <text x="105" y="79" fill="#93C5FD" class="cm" font-size="9" text-anchor="middle">LINUX</text>
+    <rect x="138" y="67" width="60" height="18" rx="4" fill="#4338CA" fill-opacity="0.45">
+      <animate attributeName="opacity" values="0.6;1;0.6" dur="2.2s" begin="0.8s" repeatCount="indefinite"/>
+    </rect>
+    <text x="168" y="79" fill="#A5B4FC" class="cm" font-size="9" text-anchor="middle">DOCKER</text>
+    <rect x="204" y="67" width="90" height="18" rx="4" fill="#065F46" fill-opacity="0.45"/>
+    <text x="249" y="79" fill="#6EE7B7" class="cm" font-size="9" text-anchor="middle">FULL-TIME</text>
+
+    <text x="18" y="114" fill="#CBD5E1" class="cb" font-size="11.5">• Filter Full-Time, Internship &amp; Contract roles</text>
+    <text x="18" y="134" fill="#94A3B8" class="cb" font-size="11.5">• Live Socket.IO job alerts &amp; official links</text>
+  </g>
+
+  <!-- CARD 2: Real-Time Q&A -->
+  <g transform="translate(379, 84)" filter="url(#cm-shadow)">
+    <rect width="322" height="155" rx="12" fill="url(#cm-card)" stroke="#8B5CF6" stroke-width="1.2"/>
+    <rect x="12" y="0" width="298" height="2.5" fill="#A855F7"/>
+    <text x="18" y="26" fill="#C084FC" class="cm" font-size="10" font-weight="700">MODULE 02 • SOCKET.IO</text>
+    <text x="18" y="46" fill="#F8FAFC" class="ct" font-size="14.5">Timestamped Lecture Q&amp;A</text>
+
+    <!-- Animated Timestamp Jump Strip -->
+    <rect x="18" y="60" width="286" height="32" rx="6" fill="#030D17" stroke="#4C1D95"/>
+    <rect x="26" y="66" width="84" height="20" rx="4" fill="#6D28D9">
+      <animate attributeName="opacity" values="0.7;1;0.7" dur="1.8s" repeatCount="indefinite"/>
+    </rect>
+    <text x="68" y="80" fill="#FFFFFF" class="cm" font-size="9" font-weight="700" text-anchor="middle">&gt; JUMP 14:22</text>
+    <text x="120" y="80" fill="#CBD5E1" class="cm" font-size="9">Anon • Private • Unread</text>
+
+    <text x="18" y="114" fill="#CBD5E1" class="cb" font-size="11.5">• Click timestamps to seek video directly</text>
+    <text x="18" y="134" fill="#94A3B8" class="cb" font-size="11.5">• Peer-anonymous &amp; 1-on-1 private threads</text>
+  </g>
+
+  <!-- CARD 3: GridFS Notes Vault -->
+  <g transform="translate(722, 84)" filter="url(#cm-shadow)">
+    <rect width="322" height="155" rx="12" fill="url(#cm-card)" stroke="#10B981" stroke-width="1.2"/>
+    <rect x="12" y="0" width="298" height="2.5" fill="#10B981"/>
+    <text x="18" y="26" fill="#34D399" class="cm" font-size="10" font-weight="700">MODULE 03 • GRIDFS</text>
+    <text x="18" y="46" fill="#F8FAFC" class="ct" font-size="14.5">Study Notes &amp; Docs Vault</text>
+
+    <!-- Animated Magic-Byte Scan -->
+    <rect x="18" y="60" width="286" height="32" rx="6" fill="#030D17" stroke="#065F46"/>
+    <text x="30" y="80" fill="#34D399" class="cm" font-size="9.5">PDF / IMG MAGIC-BYTE VERIFIED ✓</text>
+    <rect x="260" y="67" width="36" height="18" rx="4" fill="#059669" fill-opacity="0.3">
+      <animate attributeName="opacity" values="0.4;1;0.4" dur="1.6s" repeatCount="indefinite"/>
+    </rect>
+    <text x="278" y="79" fill="#6EE7B7" class="cm" font-size="8.5" text-anchor="middle">SAVE</text>
+
+    <text x="18" y="114" fill="#CBD5E1" class="cb" font-size="11.5">• In-page PDF viewer &amp; image lightboxes</text>
+    <text x="18" y="134" fill="#94A3B8" class="cb" font-size="11.5">• Private autosaved scratchpads per lecture</text>
+  </g>
+
+  <!-- BOTTOM ROW: 2 WIDE CARDS (w=492 each, gap=24) -->
+  <!-- CARD 4: Whitelist & Batch Governance -->
+  <g transform="translate(36, 258)" filter="url(#cm-shadow)">
+    <rect width="492" height="142" rx="12" fill="url(#cm-card)" stroke="#3B82F6" stroke-width="1.2"/>
+    <rect x="12" y="0" width="468" height="2.5" fill="#60A5FA"/>
+    <text x="18" y="26" fill="#60A5FA" class="cm" font-size="10" font-weight="700">MODULE 04 • GOVERNANCE</text>
+    <text x="18" y="46" fill="#F8FAFC" class="ct" font-size="14.5">Email Whitelist &amp; Strict Batch Policy</text>
+
+    <rect x="18" y="58" width="456" height="28" rx="6" fill="#030D17" stroke="#1E3A8A"/>
+    <text x="30" y="76" fill="#93C5FD" class="cm" font-size="10">Batches B-26..B-31 • AllowedEmail Gate •</text>
+    <text x="315" y="76" fill="#FBBF24" class="cm" font-size="10">1 Batch Change Max
+      <animate attributeName="opacity" values="0.6;1;0.6" dur="2.4s" repeatCount="indefinite"/>
+    </text>
+
+    <text x="18" y="106" fill="#CBD5E1" class="cb" font-size="11.5">• Pre-approved registration allowlisting via AllowedEmail schema</text>
+    <text x="18" y="124" fill="#94A3B8" class="cb" font-size="11.5">• Server rejects extra batch changes (403) unless trainer resets</text>
+  </g>
+
+  <!-- CARD 5: Bug Reporting System -->
+  <g transform="translate(552, 258)" filter="url(#cm-shadow)">
+    <rect width="492" height="142" rx="12" fill="url(#cm-card)" stroke="#F59E0B" stroke-width="1.2"/>
+    <rect x="12" y="0" width="468" height="2.5" fill="#FBBF24"/>
+    <text x="18" y="26" fill="#FBBF24" class="cm" font-size="10" font-weight="700">MODULE 05 • ISSUE TRACKING</text>
+    <text x="18" y="46" fill="#F8FAFC" class="ct" font-size="14.5">Built-In Bug Reporting Suite</text>
+
+    <!-- Animated ticket flow -->
+    <rect x="18" y="58" width="456" height="28" rx="6" fill="#030D17" stroke="#78350F"/>
+    <text x="34" y="76" fill="#FCA5A5" class="cm" font-size="10">OPEN</text>
+    <line x1="78" y1="72" x2="180" y2="72" stroke="#F59E0B" stroke-width="1.5" stroke-dasharray="3 3"/>
+    <circle r="3" fill="#FBBF24">
+      <animateMotion path="M 78,72 L 180,72" dur="2s" repeatCount="indefinite"/>
+    </circle>
+    <text x="192" y="76" fill="#FCD34D" class="cm" font-size="10">TRIAGED</text>
+    <line x1="256" y1="72" x2="358" y2="72" stroke="#10B981" stroke-width="1.5" stroke-dasharray="3 3"/>
+    <circle r="3" fill="#34D399">
+      <animateMotion path="M 256,72 L 358,72" dur="2s" begin="1s" repeatCount="indefinite"/>
+    </circle>
+    <text x="368" y="76" fill="#34D399" class="cm" font-size="10">RESOLVED ✓</text>
+
+    <text x="18" y="106" fill="#CBD5E1" class="cb" font-size="11.5">• Integrated student &amp; trainer issue workflow (ReportBugPage.jsx)</text>
+    <text x="18" y="124" fill="#94A3B8" class="cb" font-size="11.5">• Backed by BugReport persistence and trainer review queue</text>
+  </g>
+</svg>

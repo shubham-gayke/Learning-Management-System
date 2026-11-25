@@ -31,8 +31,6 @@
     <text x="0" y="36" fill="#94A3B8" class="tsb" font-size="12">Every core dependency engineered together seamlessly across React, Node.js, FFmpeg, TensorFlow, TOTP, and MongoDB</text>
   </g>
 
-  <!-- 6 Tech Pillar Cards (3x2 grid) -->
-  <!-- Card 1: Frontend -->
   <g transform="translate(36, 86)" filter="url(#ts-shadow)">
     <rect width="320" height="130" rx="12" fill="#071729" stroke="#0EA5E9" stroke-width="1.2"/>
     <rect x="12" y="0" width="296" height="2.5" fill="#22D3EE"/>
@@ -46,7 +44,6 @@
     <text x="18" y="116" fill="#64748B" class="tsm" font-size="9.5">Glacier Sub-Zero Arctic UI System</text>
   </g>
 
-  <!-- Card 2: Backend -->
   <g transform="translate(380, 86)" filter="url(#ts-shadow)">
     <rect width="320" height="130" rx="12" fill="#071729" stroke="#10B981" stroke-width="1.2"/>
     <rect x="12" y="0" width="296" height="2.5" fill="#10B981"/>
@@ -60,7 +57,6 @@
     <text x="18" y="116" fill="#64748B" class="tsm" font-size="9.5">14 Modular REST Endpoints</text>
   </g>
 
-  <!-- Card 3: Video & HLS -->
   <g transform="translate(724, 86)" filter="url(#ts-shadow)">
     <rect width="320" height="130" rx="12" fill="#071729" stroke="#F59E0B" stroke-width="1.2"/>
     <rect x="12" y="0" width="296" height="2.5" fill="#F59E0B"/>
@@ -74,7 +70,6 @@
     <text x="18" y="116" fill="#64748B" class="tsm" font-size="9.5">Multi-Quality 144p-1080p Pipeline</text>
   </g>
 
-  <!-- Card 4: AI Proctoring -->
   <g transform="translate(36, 236)" filter="url(#ts-shadow)">
     <rect width="320" height="130" rx="12" fill="#071729" stroke="#F43F5E" stroke-width="1.2"/>
     <rect x="12" y="0" width="296" height="2.5" fill="#FB7185"/>
@@ -88,7 +83,6 @@
     <text x="18" y="116" fill="#64748B" class="tsm" font-size="9.5">Zero-Latency Browser Anti-Cheat</text>
   </g>
 
-  <!-- Card 5: 2FA & Security -->
   <g transform="translate(380, 236)" filter="url(#ts-shadow)">
     <rect width="320" height="130" rx="12" fill="#071729" stroke="#8B5CF6" stroke-width="1.2"/>
     <rect x="12" y="0" width="296" height="2.5" fill="#A855F7"/>
@@ -102,7 +96,6 @@
     <text x="18" y="116" fill="#64748B" class="tsm" font-size="9.5">Single-Session Device Guard</text>
   </g>
 
-  <!-- Card 6: Database & Storage -->
   <g transform="translate(724, 236)" filter="url(#ts-shadow)">
     <rect width="320" height="130" rx="12" fill="#071729" stroke="#14B8A6" stroke-width="1.2"/>
     <rect x="12" y="0" width="296" height="2.5" fill="#2DD4BF"/>

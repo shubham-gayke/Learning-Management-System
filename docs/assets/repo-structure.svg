@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 470" width="1080" height="470">
+  <defs>
+    <linearGradient id="rs-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#030D17"/>
+      <stop offset="100%" stop-color="#071626"/>
+    </linearGradient>
+    <linearGradient id="rs-hdr" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#38BDF8"/>
+      <stop offset="100%" stop-color="#34D399"/>
+    </linearGradient>
+    <filter id="rs-shadow" x="-5%" y="-5%" width="112%" height="118%">
+      <feDropShadow dx="0" dy="10" stdDeviation="10" flood-color="#000000" flood-opacity="0.72"/>
+    </filter>
+    <pattern id="rs-grid" width="24" height="24" patternUnits="userSpaceOnUse">
+      <path d="M 24 0 L 0 0 0 24" fill="none" stroke="#0E3052" stroke-width="0.6" stroke-opacity="0.35"/>
+    </pattern>
+  </defs>
+  <style>
+    .rt { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; font-weight: 800; }
+    .rb { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; }
+    .rm { font-family: 'JetBrains Mono', Consolas, monospace; }
+  </style>
+
+  <rect width="1080" height="470" rx="18" fill="url(#rs-bg)" stroke="#0E3052" stroke-width="1.5"/>
+  <rect width="1080" height="470" rx="18" fill="url(#rs-grid)"/>
+
+  <!-- Header -->
+  <g transform="translate(36, 30)">
+    <text x="0" y="18" fill="url(#rs-hdr)" class="rt" font-size="18" letter-spacing="1">REPOSITORY ARCHITECTURE TREE</text>
+    <text x="0" y="36" fill="#94A3B8" class="rb" font-size="12">Clean monorepo separation across Vite React Frontend, Modular Express API, Services, and Animated Docs</text>
+  </g>
+
+  <!-- IDE DARK EXPLORER CONTAINER -->
+  <g transform="translate(36, 84)" filter="url(#rs-shadow)">
+    <rect width="1008" height="356" rx="14" fill="#040D19" stroke="#1E3A8A" stroke-width="1.2"/>
+    <!-- Window Chrome -->
+    <rect width="1008" height="34" rx="14" fill="#071729"/>
+    <circle cx="22" cy="17" r="5.5" fill="#EF4444"/>
+    <circle cx="40" cy="17" r="5.5" fill="#F59E0B"/>
+    <circle cx="58" cy="17" r="5.5" fill="#10B981"/>
+    <text x="84" y="21" fill="#94A3B8" class="rm" font-size="11">EXPLORER — C:/New LMS (Monorepo Root)</text>
+    <rect x="865" y="8" width="126" height="18" rx="5" fill="#064E3B" stroke="#10B981" stroke-width="0.7"/>
+    <text x="928" y="20" fill="#34D399" class="rm" font-size="9" text-anchor="middle">MERN MONOREPO</text>
+
+    <!-- LEFT PANE: CLIENT + ROOT -->
+    <rect x="18" y="48" width="475" height="292" rx="10" fill="#020810" stroke="#0E3052"/>
+    <!-- Animated Scanner Highlight Row inside Client Explorer -->
+    <rect x="22" y="110" width="467" height="20" rx="4" fill="#0EA5E9" fill-opacity="0.12">
+      <animate attributeName="y" values="86;134;182;230;278;86" dur="8s" repeatCount="indefinite"/>
+    </rect>
+
+    <text x="34" y="72" fill="#22D3EE" class="rm" font-size="11" font-weight="700">FRONTEND &amp; ROOT WORKSPACE</text>
+    <text x="34" y="98" fill="#E2E8F0" class="rm" font-size="10">├── package.json          <tspan fill="#64748B"># Concurrently runner</tspan></text>
+    <text x="34" y="122" fill="#E2E8F0" class="rm" font-size="10">├── docs/assets/          <tspan fill="#38BDF8"># 14 animated Glacier SVGs</tspan></text>
+    <text x="34" y="146" fill="#22D3EE" class="rm" font-size="10" font-weight="700">└── client/src/           <tspan fill="#64748B" font-weight="400"># React 18 + Vite 6</tspan></text>
+    <text x="34" y="170" fill="#CBD5E1" class="rm" font-size="10">    ├── api/              <tspan fill="#64748B"># Axios API clients</tspan></text>
+    <text x="34" y="194" fill="#CBD5E1" class="rm" font-size="10">    ├── contexts/         <tspan fill="#64748B"># Auth, Theme, Socket</tspan></text>
+    <text x="34" y="218" fill="#CBD5E1" class="rm" font-size="10">    ├── components/player/<tspan fill="#FBBF24"># VLC Player, Watermark</tspan></text>
+    <text x="34" y="242" fill="#CBD5E1" class="rm" font-size="10">    ├── components/layout/<tspan fill="#64748B"># Navbar, BatchGuard</tspan></text>
+    <text x="34" y="266" fill="#CBD5E1" class="rm" font-size="10">    ├── pages/auth/       <tspan fill="#34D399"># Login, Register, 2FA</tspan></text>
+    <text x="34" y="290" fill="#CBD5E1" class="rm" font-size="10">    ├── pages/student/    <tspan fill="#FB7185"># Lectures, Exam, Jobs</tspan></text>
+    <text x="34" y="314" fill="#CBD5E1" class="rm" font-size="10">    └── pages/trainer/    <tspan fill="#64748B"># Matrix, Upload, Batches</tspan></text>
+
+    <!-- RIGHT PANE: SERVER -->
+    <rect x="515" y="48" width="475" height="292" rx="10" fill="#020810" stroke="#065F46"/>
+    <!-- Animated Scanner Highlight Row inside Server Explorer -->
+    <rect x="519" y="110" width="467" height="20" rx="4" fill="#10B981" fill-opacity="0.12">
+      <animate attributeName="y" values="278;230;182;134;86;278" dur="8s" repeatCount="indefinite"/>
+    </rect>
+
+    <text x="531" y="72" fill="#34D399" class="rm" font-size="11.5" font-weight="700">BACKEND API &amp; TRANSCODING SERVER</text>
+    <text x="531" y="98" fill="#34D399" class="rm" font-size="10.5" font-weight="700">└── server/src/          <tspan fill="#64748B" font-weight="400"># Node 20+ Express + Socket.IO</tspan></text>
+    <text x="531" y="122" fill="#CBD5E1" class="rm" font-size="10.5">    ├── config/          <tspan fill="#64748B"># Zod env parser &amp; Mongo Atlas</tspan></text>
+    <text x="531" y="146" fill="#CBD5E1" class="rm" font-size="10.5">    ├── jobs/            <tspan fill="#38BDF8"># videoQueue (p-queue worker)</tspan></text>
+    <text x="531" y="170" fill="#CBD5E1" class="rm" font-size="10.5">    ├── middleware/      <tspan fill="#A5B4FC"># JWT, RateLimit, ErrorHandler</tspan></text>
+    <text x="531" y="194" fill="#CBD5E1" class="rm" font-size="10.5">    ├── models/          <tspan fill="#34D399"># 12 Schemas (Exam, Job, User)</tspan></text>
+    <text x="531" y="218" fill="#CBD5E1" class="rm" font-size="10.5">    ├── routes/          <tspan fill="#22D3EE"># 14 REST routers (2FA, stream)</tspan></text>
+    <text x="531" y="242" fill="#CBD5E1" class="rm" font-size="10.5">    ├── services/        <tspan fill="#FBBF24"># driveService, hls, storage</tspan></text>
+    <text x="531" y="266" fill="#CBD5E1" class="rm" font-size="10.5">    ├── socket/          <tspan fill="#64748B"># Batch rooms &amp; notifications</tspan></text>
+    <text x="531" y="290" fill="#CBD5E1" class="rm" font-size="10.5">    ├── seed.js          <tspan fill="#64748B"># Initial trainer &amp; batches</tspan></text>
+    <text x="531" y="314" fill="#CBD5E1" class="rm" font-size="10.5">    └── index.js         <tspan fill="#64748B"># HTTP + WebSocket bootstrap</tspan></text>
+  </g>
+</svg>
