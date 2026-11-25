@@ -44,40 +44,51 @@ Traditional LMS setups suffer from video piracy, unauthorized account sharing, a
 ## 🏛️ System Architecture
 
 ```mermaid
-flowchart TB
-    subgraph Client_Layer["Frontend Layer (React 18 + Vite 6 + Tailwind CSS v4)"]
+flowchart TD
+    subgraph Frontend["Frontend Layer (React 18 + Vite 6 + Tailwind CSS)"]
         direction TB
-        UI_Student["Student Portal\n- Dashboard & Lectures\n- Real-Time Q&A\n- GridFS PDF Reader"]
-        UI_Player["Custom VLC Video Player\n- HLS.js Adaptive Bitrate\n- Dynamic Floating Watermark\n- Resumable Seek Engine"]
-        UI_Exam["AI Proctoring Room\n- TensorFlow.js Computer Vision\n- Fullscreen Lockdown & Telemetry\n- Real-time Violation Guard"]
-        UI_Trainer["Trainer & Admin Suite\n- Automated Drive Ingestion\n- Batch & Student Controls\n- Exam Matrix & Job Portal"]
+        UI_Student["Student & Exam Portal"]
+        UI_Player["Custom VLC Video Player"]
+        UI_Trainer["Trainer Dashboard & Suite"]
     end
 
-    subgraph Gateway_Layer["API Gateway & Security Layer (Express.js)"]
+    subgraph Security["API Gateway & Security (Express.js)"]
         direction TB
-        MW_Security["Security Middlewares\n- Helmet & CORS\n- Express Mongo Sanitize\n- Rate Limiting & Zod Validation"]
-        MW_Auth["Identity & Access\n- JWT Session Tokens\n- RFC 6238 TOTP 2FA (otpauth)\n- Single-Session Invalidator"]
-        MW_StreamAuth["Stream Gatekeeper\n- Batch Enrollment Verification\n- Ephemeral AES-128 Key Server\n- Anti-Hotlink Protection"]
+        MW_Auth["JWT & 2FA TOTP Guard"]
+        MW_RateLimit["Rate Limiting & Sanitization"]
+        MW_StreamAuth["Stream Authentication & Key Server"]
     end
 
-    subgraph Service_Layer["Core Services & Background Processing"]
+    subgraph Services["Core Application Services"]
         direction TB
-        SRV_Video["Transcoding Engine\n- Google Drive API v3 Fetch\n- P-Queue Transcoding Pipeline\n- Fluent-FFmpeg & FFprobe"]
-        SRV_Socket["Real-Time Engine (Socket.IO)\n- Live Lecture Q&A Rooms\n- Transcoding Progress Stream\n- Unread Notification Badges"]
-        SRV_Storage["Storage Abstraction Layer\n- Encrypted HLS Segment Depot\n- MongoDB GridFS for Study Docs\n- Extensible S3 / R2 Drivers"]
+        SRV_Video["Video Transcoder (Fluent-FFmpeg & P-Queue)"]
+        SRV_Socket["Real-Time Engine (Socket.IO)"]
+        SRV_Drive["Google Drive API v3 Ingestion"]
     end
 
-    subgraph Data_Layer["Persistence Layer"]
+    subgraph Storage["Persistence & Storage Layer"]
         direction TB
-        DB_Mongo[("MongoDB Atlas / Local\n- Users & Batches\n- Lectures & Progress\n- Exams & Violations\n- Job Postings")]
-        DB_GridFS[("MongoDB GridFS\n- Secure Lecture Documents\n- Magic-Byte Verified Notes\n- Binary Assets")]
+        DB_Mongo[("MongoDB Atlas Database")]
+        DB_GridFS[("MongoDB GridFS (Study Notes & PDFs)")]
+        DIR_HLS["Encrypted HLS Storage (AES-128)"]
     end
 
-    Client_Layer -->|HTTPS / REST API| Gateway_Layer
-    Client_Layer <-->|WSS (WebSockets)| SRV_Socket
-    Gateway_Layer --> Service_Layer
-    Service_Layer --> Data_Layer
-    SRV_Video -->|Transcode & Encrypt| SRV_Storage
+    UI_Student -->|"REST API (HTTPS)"| MW_Auth
+    UI_Player -->|"Stream & Key Requests"| MW_StreamAuth
+    UI_Trainer -->|"Admin & Upload APIs"| MW_Auth
+
+    UI_Student -.->|"Live Q&A & Telemetry (WSS)"| SRV_Socket
+    UI_Trainer -.->|"Progress & Alerts (WSS)"| SRV_Socket
+
+    MW_Auth --> MW_RateLimit
+    MW_RateLimit --> Services
+    MW_StreamAuth -->|"Fetch AES Key"| DIR_HLS
+
+    SRV_Drive -->|"Download Video"| SRV_Video
+    SRV_Video -->|"Generate HLS Segments"| DIR_HLS
+    SRV_Video -->|"Update Lecture Status"| DB_Mongo
+    Services --> DB_Mongo
+    Services --> DB_GridFS
 ```
 
 ### 🔒 Cryptographic HLS Key Exchange & Player Sequence
@@ -86,7 +97,7 @@ flowchart TB
 sequenceDiagram
     autonumber
     actor Student as Student Browser
-    participant Gateway as Stream Gatekeeper (/api/stream)
+    participant Gateway as Stream Gatekeeper API
     participant Auth as Session & Batch Guard
     participant KeyServer as Transient Key Server
     participant Storage as Encrypted HLS Segments
@@ -97,7 +108,7 @@ sequenceDiagram
     Gateway-->>Student: Return Multi-Bitrate Variant Manifest
     
     Student->>Gateway: Request Quality Stream (720p.m3u8)
-    Gateway-->>Student: Return Encrypted TS List with Key URI (/api/stream/.../key)
+    Gateway-->>Student: Return Encrypted TS List with Key URI
     
     Student->>KeyServer: Request Decryption Key (Includes Auth Headers)
     KeyServer->>Auth: Validate Batch Permission & Dynamic Re-check
