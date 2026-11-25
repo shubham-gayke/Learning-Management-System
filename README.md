@@ -1,59 +1,86 @@
-# Mentore Solution LMS — Full-Stack MERN Learning Management System
-
 <div align="center">
 
-![Mentore Solution LMS Banner](https://img.shields.io/badge/Mentore%20Solution-Enterprise%20LMS-0ea5e9?style=for-the-badge&logo=google-classroom&logoColor=white)
+<!-- ANIMATED GLACIER HERO BANNER -->
+<img src="docs/assets/hero-banner.svg" alt="Mentore Solution LMS — Animated Enterprise Banner" width="100%" />
 
-[![React 18](https://img.shields.io/badge/React-18.3-61DAFB?style=flat-square&logo=react&logoColor=black)](https://react.dev/)
-[![Vite](https://img.shields.io/badge/Vite-6.0-646CFF?style=flat-square&logo=vite&logoColor=white)](https://vitejs.dev/)
-[![Tailwind CSS v4](https://img.shields.io/badge/Tailwind_CSS-v4.0-38B2AC?style=flat-square&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
-[![Node.js](https://img.shields.io/badge/Node.js-20+-339933?style=flat-square&logo=nodedotjs&logoColor=white)](https://nodejs.org/)
-[![Express.js](https://img.shields.io/badge/Express-4.21-000000?style=flat-square&logo=express&logoColor=white)](https://expressjs.com/)
-[![MongoDB](https://img.shields.io/badge/MongoDB-Atlas%20%7C%20GridFS-47A248?style=flat-square&logo=mongodb&logoColor=white)](https://www.mongodb.com/)
+<br />
+<br />
+
+<!-- TECH & SECURITY BADGES -->
+[![React 18](https://img.shields.io/badge/React-18.3-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://react.dev/)
+[![Vite 6](https://img.shields.io/badge/Vite-6.0-646CFF?style=for-the-badge&logo=vite&logoColor=white)](https://vitejs.dev/)
+[![Tailwind CSS v4](https://img.shields.io/badge/Tailwind_CSS-v4.0-06B6D4?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
+[![Node.js 20+](https://img.shields.io/badge/Node.js-20+-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)](https://nodejs.org/)
+[![Express 4.21](https://img.shields.io/badge/Express-4.21-0F172A?style=for-the-badge&logo=express&logoColor=white)](https://expressjs.com/)
+[![MongoDB & GridFS](https://img.shields.io/badge/MongoDB-Atlas%20%7C%20GridFS-47A248?style=for-the-badge&logo=mongodb&logoColor=white)](https://www.mongodb.com/)
+
+<br />
+
 [![Socket.IO](https://img.shields.io/badge/Socket.IO-4.8-010101?style=flat-square&logo=socketdotio&logoColor=white)](https://socket.io/)
-[![HLS.js](https://img.shields.io/badge/Streaming-AES--128%20HLS-FF6B6B?style=flat-square&logo=html5&logoColor=white)](https://github.com/video-dev/hls.js)
-[![TensorFlow.js](https://img.shields.io/badge/AI%20Proctor-TensorFlow.js-FF6F00?style=flat-square&logo=tensorflow&logoColor=white)](https://www.tensorflow.org/js)
-[![2FA / TOTP](https://img.shields.io/badge/Security-2FA%20%2F%20TOTP-10B981?style=flat-square&logo=authy&logoColor=white)](https://en.wikipedia.org/wiki/Time-based_one-time_password)
-[![Author: Shubham Gayke](https://img.shields.io/badge/Author-Shubham%20Gayke-0ea5e9?style=flat-square&logo=github&logoColor=white)](https://github.com/shubham-gayke)
-[![Copyright](https://img.shields.io/badge/%C2%A9%202026-All%20Rights%20Reserved-8B5CF6?style=flat-square)](LICENSE)
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=flat-square)](LICENSE)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](CONTRIBUTING.md)
+[![HLS.js AES-128](https://img.shields.io/badge/Streaming-AES--128%20HLS-0284C7?style=flat-square&logo=html5&logoColor=white)](https://github.com/video-dev/hls.js)
+[![TensorFlow.js COCO-SSD](https://img.shields.io/badge/AI%20Proctor-TensorFlow.js%20%2B%20COCO--SSD-F43F5E?style=flat-square&logo=tensorflow&logoColor=white)](https://www.tensorflow.org/js)
+[![RFC 6238 2FA TOTP](https://img.shields.io/badge/Security-RFC%206238%20TOTP%202FA-10B981?style=flat-square&logo=authy&logoColor=white)](https://datatracker.ietf.org/doc/html/rfc6238)
+[![Author: Shubham Gayke](https://img.shields.io/badge/Author-Shubham%20Gayke-0EA5E9?style=flat-square&logo=github&logoColor=white)](https://github.com/shubham-gayke)
+[![Copyright](https://img.shields.io/badge/%C2%A9%202026-All%20Rights%20Reserved-8B5CF6?style=flat-square)](#-author--intellectual-property)
+
+<br />
+<br />
 
 <p align="center">
-  <strong>Enterprise-Grade, AI-Proctored, DRM-Protected Full-Stack Learning Management System</strong><br>
-  Engineered with Adaptive HLS Video Transcoding, Zero-Trust TOTP 2FA, Computer Vision Anti-Cheating, Real-Time WebSockets, and Curated Career Placement.
+  <strong>Enterprise-Grade, AI-Proctored, DRM-Protected Full-Stack MERN Learning Management System</strong><br />
+  <em>Engineered with Adaptive AES-128 HLS Video Transcoding, Mandatory TOTP 2FA, TensorFlow.js Computer Vision Proctoring, Real-Time Socket.IO Collaboration, GridFS Notes, and an Integrated Tech Job Portal.</em>
 </p>
 
-[Key Features](#-key-features) • [System Architecture](#-system-architecture) • [Tech Stack Butter](#-tech-stack-deep-dive) • [Security & DRM](#-security--drm-architecture) • [Getting Started](#-getting-started) • [Deployment](#-production-deployment)
+[System Architecture](#-system-architecture) • [Security Matrix](#️-security--drm-architecture) • [Video Engine](#-custom-vlc-video-engine--hls-pipeline) • [AI Proctoring](#-ai-proctored-exam-suite) • [TOTP 2FA](#-zero-trust-totp-2fa-workflow) • [Tech Stack](#-full-stack-technology-ecosystem) • [Quick Start](#-getting-started)
 
 </div>
 
----
+<div align="center">
+  <img src="docs/assets/divider-pulse.svg" alt="Animated Divider" width="100%" />
+</div>
 
-## 🌟 Overview
+## 🌟 Platform Vision & Engineering Highlights
 
-**Mentore Solution LMS** is a state-of-the-art educational platform designed to provide a secure, low-latency, and interactive learning experience for high-stakes technical training. 
+**Mentore Solution LMS** solves the toughest challenges faced by modern technical academies—**video piracy, credential sharing, cross-batch snooping, and unproctored online exams**—inside a unified, responsive Glacier-themed MERN platform.
 
-Traditional LMS setups suffer from video piracy, unauthorized account sharing, and lack of real-time academic proctoring. Mentore Solution resolves these challenges through:
-- **AES-128 HLS Transcoded Streaming**: Automatic ingestion of OBS studio recordings from Google Drive, transcoding them into multi-bitrate renditions (144p to 1080p) encrypted with transient crypto keys.
-- **Dynamic Floating Anti-Piracy Watermarking**: Personalized student metadata continuously moves across video viewports to prevent unauthorized screen-capture dissemination.
-- **Mandatory RFC 6238 TOTP Two-Factor Authentication (2FA)**: Robust authentication via Google Authenticator, Authy, or Microsoft Authenticator, paired with strict device-session invalidation.
-- **AI-Powered Proctoring Assessment Room**: Real-time browser lockdown, multi-face and absence detection via TensorFlow.js, tab-switching telemetry, and automated violation enforcement.
-- **Integrated Tech Career Portal**: Directly bridges students to verified opportunities with targeted skill-matching and application tracking.
+<table>
+  <tr>
+    <td width="50%" valign="top">
+      <h3>🎬 Zero-Leak Video Streaming</h3>
+      <ul>
+        <li><b>Google Drive API v3 Ingestion</b>: Trainers submit private OBS recordings cleanly without ever leaking Drive links to the browser.</li>
+        <li><b>AES-128 HLS Chunking</b>: <code>fluent-ffmpeg</code> + <code>p-queue</code> transcode recordings into <b>144p–1080p</b> encrypted <code>.ts</code> segments with ephemeral keys.</li>
+        <li><b>Forensic Watermarking</b>: Student identity overlays smoothly relocate every <b>16 seconds</b> across the viewport.</li>
+      </ul>
+    </td>
+    <td width="50%" valign="top">
+      <h3>🤖 Zero-Trust Auth &amp; AI Integrity</h3>
+      <ul>
+        <li><b>Mandatory RFC 6238 TOTP 2FA</b>: Powered by <code>otpauth</code> + <code>qrcode</code>; student accounts are server-locked against disabling 2FA (<code>403 Forbidden</code>).</li>
+        <li><b>Single-Device Guard</b>: Unique <code>activeSessionId</code> tracking automatically logs out stale tabs and prevents account sharing.</li>
+        <li><b>TensorFlow.js AI Proctor</b>: Real-time <code>coco-ssd</code> mobile phone vision detection, fullscreen lockdown, tab-blur telemetry, and audio alerts.</li>
+      </ul>
+    </td>
+  </tr>
+</table>
 
----
+<div align="center">
+  <img src="docs/assets/divider-pulse.svg" alt="Animated Divider" width="100%" />
+</div>
 
 ## 🏛️ System Architecture
 
+> Live multi-tier request and real-time packet flow spanning the **React 18 SPA**, **Express Zero-Trust Gateway**, **FFmpeg / Socket.IO Workers**, and **MongoDB Atlas + GridFS Storage**.
+
 <div align="center">
-
-![Mentore Solution LMS — Enterprise System Architecture](docs/assets/system-architecture.svg)
-
+  <img src="docs/assets/system-architecture.svg" alt="Animated Multi-Tier System Architecture" width="100%" />
 </div>
 
+<br />
+
 <details>
-<summary><b>🔍 View Cryptographic HLS Key Exchange & Player Sequence</b></summary>
-<br>
+<summary><b>🔍 Expand Cryptographic HLS Key Exchange Sequence Diagram</b></summary>
+<br />
 
 ```mermaid
 sequenceDiagram
@@ -61,330 +88,286 @@ sequenceDiagram
     actor Student as Student Browser
     participant Gateway as Stream Gatekeeper API
     participant Auth as Session & Batch Guard
-    participant KeyServer as Transient Key Server
-    participant Storage as Encrypted HLS Segments
+    participant KeyServer as Transient AES-128 Key Server
+    participant Storage as Encrypted HLS Depot
 
-    Student->>Gateway: Request Master Playlist (master.m3u8)
-    Gateway->>Auth: Validate JWT, Batch Enrollment & Active Session ID
-    Auth-->>Gateway: Verified
-    Gateway-->>Student: Return Multi-Bitrate Variant Manifest
-    
-    Student->>Gateway: Request Quality Stream (720p.m3u8)
-    Gateway-->>Student: Return Encrypted TS List with Key URI
-    
-    Student->>KeyServer: Request Decryption Key (Includes Auth Headers)
-    KeyServer->>Auth: Validate Batch Permission & Dynamic Re-check
-    KeyServer-->>Student: Return Ephemeral 16-Byte AES-128 Binary Key (no-store cache)
-    
-    Student->>Storage: Download Encrypted Segment (.ts)
-    Student->>Student: In-Memory Decryption via Web Cryptography API & Canvas Watermark Render
+    Student->>Gateway: GET master.m3u8 (HTTP-Only JWT Cookie)
+    Gateway->>Auth: Validate JWT, Batch Enrollment & activeSessionId
+    Auth-->>Gateway: Authorized
+    Gateway-->>Student: Return Adaptive Bitrate Variant Playlist (144p-1080p)
+
+    Student->>Gateway: GET rendition.m3u8
+    Gateway-->>Student: Return Encrypted .ts Segment List + Key URI
+
+    Student->>KeyServer: GET /api/stream/:lectureId/key
+    KeyServer->>Auth: Re-verify Session & Batch Isolation
+    KeyServer-->>Student: Deliver Ephemeral 16-Byte Key (Cache-Control: no-store)
+
+    Student->>Storage: Stream Encrypted .ts Chunks
+    Student->>Student: In-Memory Decryption (HLS.js) + Moving Watermark Render
 ```
 
 </details>
 
----
-
-## 🧈 Tech Stack Deep Dive
-
-Every component in Mentore Solution LMS has been meticulously selected for performance, security, and developer ergonomics:
-
-### 🎨 Frontend Engineering
-| Technology | Version | Purpose & Architectural Highlights |
-| :--- | :--- | :--- |
-| **React** | `v18.3` | Concurrent rendering, declarative component state, custom hooks for streaming and socket events. |
-| **Vite** | `v6.0` | Ultra-fast HMR, optimized tree-shaking, production bundle minification with Rollup. |
-| **Tailwind CSS** | `v4.0` | Modern, responsive utility-first CSS engine; custom Glacier and Night theme tokens with hardware-accelerated animations. |
-| **React Router** | `v7.1` | Nested routing, role-based route guards (`BatchGuard`, `TrainerGuard`, `StudentGuard`), and instant navigation. |
-| **TanStack Query** | `v5.62` | Async data synchronization, optimistic mutations, server-state caching, and automated revalidation. |
-| **Lucide React** | `v0.468` | Crisp, accessible, lightweight vector iconography across all portal views. |
-| **HLS.js** | `v1.5` | Client-side HTTP Live Streaming client with adaptive bitrate switching, buffer management, and key decryption. |
-| **React Hot Toast** | `v2.4` | Unobtrusive, animated notification toasts for instant user feedback. |
-
-### 🧠 Artificial Intelligence & Computer Vision
-| Technology | Version | Purpose & Architectural Highlights |
-| :--- | :--- | :--- |
-| **TensorFlow.js** | `v4.22` | Browser-based machine learning inference engine executing entirely client-side with WebGL acceleration. |
-| **COCO-SSD** | `v2.2` | Real-time object detection model evaluating video feeds for mobile phones, unauthorized accessories, and secondary individuals. |
-| **Face & Gaze Tracker** | Custom | Computer vision pipeline monitoring student presence, multi-person intrusions, and prolonged gaze deviations during examinations. |
-
-### ⚙️ Backend Architecture & Microservices
-| Technology | Version | Purpose & Architectural Highlights |
-| :--- | :--- | :--- |
-| **Node.js** | `v20+` | Asynchronous, non-blocking runtime powering high-throughput API endpoints and file streaming. |
-| **Express.js** | `v4.21` | Robust web application framework structured into modular routes, services, models, and controllers. |
-| **Socket.IO** | `v4.8` | Real-time bidirectional event transport for lecture Q&A threads, live transcoding status updates, and proctoring telemetry. |
-| **Fluent-FFmpeg** | `v2.1` | Media processing pipeline invoking bundled `ffmpeg-static` and `ffprobe-static` binaries (no system installation prerequisites). |
-| **P-Queue** | `v8.0` | Controlled concurrency queue managing CPU-intensive video download and transcoding workloads without server exhaustion. |
-| **Google APIs** | `v140.0` | Google Drive v3 integration for automated Service Account ingestion of trainer OBS lecture recordings. |
-
-### 🔐 Security, Identity & Cryptography
-| Technology | Purpose & Architectural Highlights |
-| :--- | :--- |
-| **RFC 6238 TOTP (`otpauth`)** | Time-based One-Time Password engine generating cryptographically secure secrets and verifying 6-digit tokens. |
-| **QR Code Engine (`qrcode`)** | In-memory generation of standard OTP auth URI QR codes compatible with Google Authenticator and Authy. |
-| **Two-Factor Enforcement** | Mandatory 2FA enrollment for student accounts with backend role-level blocks preventing unauthorized deactivation. |
-| **JSON Web Tokens (`jsonwebtoken`)** | Signed stateless session bearer tokens carrying encrypted identity, role, and active session identifiers. |
-| **Bcrypt.js** | Salted password hashing with optimal work factors to protect user authentication records. |
-| **Helmet & Sanitization** | Comprehensive HTTP security headers, XSS prevention, and `express-mongo-sanitize` to neutralize NoSQL injection vectors. |
-| **Express Rate Limit** | Multi-tier rate limiters shielding authentication, OTP verification, and streaming gateways against brute-force attacks. |
-
-### 🗄️ Persistence & Storage
-| Technology | Version | Purpose & Architectural Highlights |
-| :--- | :--- | :--- |
-| **MongoDB Atlas** | `v8.7 (Mongoose)` | Document-oriented NoSQL database managing users, batches, lectures, questions, exams, and job listings. |
-| **MongoDB GridFS** | Native Driver | Chunked binary storage for lecture study documents (PDFs, images) with magic-byte MIME integrity validation. |
-| **Storage Abstraction** | Custom Driver | Storage provider layer supporting local storage with direct pluggability for AWS S3 and Cloudflare R2 object storage. |
-
----
+<div align="center">
+  <img src="docs/assets/divider-pulse.svg" alt="Animated Divider" width="100%" />
+</div>
 
 ## 🛡️ Security & DRM Architecture
 
+> Interactive 3D visualization of every threat vector mitigated across the streaming, authentication, batch-access, and assessment layers.
+
 <div align="center">
-
-![Layered Defense & Zero-Trust Security Matrix](docs/assets/security-matrix.svg)
-
+  <img src="docs/assets/security-matrix.svg" alt="Animated 3D Layered Security & DRM Matrix" width="100%" />
 </div>
 
----
+<div align="center">
+  <img src="docs/assets/divider-pulse.svg" alt="Animated Divider" width="100%" />
+</div>
 
-## 🚀 Key Features
+## 🎬 Custom VLC Video Engine & HLS Pipeline
 
-### 🎬 1. Custom VLC-Style Video Player
-- **Adaptive Bitrate Streaming**: Switch seamlessly between 144p, 240p, 360p, 480p, 720p, and 1080p via HLS.js.
-- **Dynamic Floating Watermark**: Unobtrusive overlay displaying student identity moving every 15–20s to trace unauthorized recordings.
-- **Precision Playback Controls**: Variable playback rates (0.5x to 2x), ±5s quick jumps, keyboard hotkeys (`Space`, `K`, `M`, `F`, Arrow keys).
-- **Mobile Gesture Integration**: Double-tap on left/right screen edges to seek backwards or forwards with ripple effects; auto-landscape orientation lock.
-- **Smart Progress Autosave**: Resumes playback from the exact second where the student left off.
+<div align="center">
+  <img src="docs/assets/hls-player-demo.svg" alt="Animated Custom VLC Video Player & AES-128 HLS Transcoding Pipeline" width="100%" />
+</div>
 
-### 🛡️ 2. Two-Factor Authentication (2FA / TOTP)
-- **Universal Authenticator Compatibility**: Supports Google Authenticator, Microsoft Authenticator, Authy, and 1Password.
-- **Instant Setup**: Generates standardized QR codes and raw secret keys for seamless mobile scanning.
-- **Mandatory Student Policy**: Security policies prevent students from turning off 2FA, securing academic content and user verification.
-- **Rate-Limited Verification**: Guarded against automated token guessing with exponential backoff protections.
+<details>
+<summary><b>⌨️ View Player Capabilities &amp; Keyboard Shortcuts</b></summary>
+<br />
 
-### 📝 3. AI-Proctored Exam Suite
-- **Comprehensive Scheduler**: Trainers can schedule batch-specific or global exams with timed windows, question shuffling, and custom passing thresholds.
-- **Live Computer Vision Proctor**: Real-time evaluation of webcam frames using TensorFlow.js to detect multiple persons, absence, or unauthorized devices.
-- **System Lockdown Enforcement**: Automatic tracking of fullscreen exits, tab switches, and window blur events.
-- **Automated Disqualification**: Reaching maximum violation thresholds terminates exams automatically and records full violation telemetry.
-- **Instant Assessment Matrix**: Auto-grades objective questions and compiles detailed batch analytics.
+| Control / Feature | Behavior &amp; Implementation |
+| :--- | :--- |
+| **Adaptive Bitrate (`hls.js`)** | Dynamic quality switching (`Auto`, `144p` through `1080p`) with seamless buffering recovery |
+| **Dynamic Watermark (`Watermark.jsx`)** | Displays `FirstName LastName • Email`, smoothly repositioning every **16 seconds** within `10%–75%` bounds |
+| **Variable Speeds** | Smooth `0.5x`, `0.75x`, `1x`, `1.25x`, `1.5x`, and `2x` playback presets |
+| **Keyboard Shortcuts** | `Space` / `K` (Play/Pause) • `←` / `→` (±5s Skip) • `↑` / `↓` (Volume) • `M` (Mute) • `F` (Fullscreen) |
+| **Mobile Ergonomics** | Left/Right double-tap ripple seek (±5s), landscape orientation lock, and iOS pseudo-fullscreen fallback |
+| **Smart Resume &amp; Q&amp;A Jump** | Automatically restores playback position; clicking any Q&amp;A timestamp executes `seekTo(seconds)` directly |
 
-### 💼 4. Tech Career Portal
-- **Targeted Tech Opportunities**: Curated repository of Full-Time, Internship, and Contract roles across cloud, DevOps, software development, and Linux engineering.
-- **Smart Skill Matching**: Dynamic filtering by technology (e.g., AWS, Docker, Kubernetes, Linux, Python).
-- **Verified Job Postings**: Comprehensive job descriptions with direct links to official company career portals.
+</details>
 
-### 💬 5. Real-Time Collaborative Q&A
-- **Timestamped Inquiries**: Students can pin questions directly to video timestamps; clicking a question jumps the player to that exact moment.
-- **Privacy Controls**: Options for standard public queries, anonymous queries (identity masked from peers), or private 1-on-1 trainer discussions.
-- **Instant WebSocket Notifications**: Real-time chat bubbles and unread badge counters powered by Socket.IO.
+<div align="center">
+  <img src="docs/assets/divider-pulse.svg" alt="Animated Divider" width="100%" />
+</div>
 
-### 📁 6. Lecture Notes & GridFS Storage
-- **Magic-Byte Verified Uploads**: Validates file headers to ensure binary integrity and block MIME-type spoofing.
-- **Integrated PDF & Image Viewer**: Read course documentation and inspect architectural schematics without leaving the portal.
-- **Configurable Permissions**: Trainers toggle download allowances per document; students maintain private autosaved lecture scratchpads.
+## 🤖 AI-Proctored Exam Suite
 
----
+> Browser-native computer vision and behavioural lockdown powered by **`@tensorflow/tfjs`** and **`@tensorflow-models/coco-ssd`** (`lite_mobilenet_v2`), ensuring zero-cost scalable exam integrity without external SaaS fees.
 
-## 📂 Repository Structure
+<div align="center">
+  <img src="docs/assets/ai-proctor-demo.svg" alt="Animated AI Proctoring Webcam HUD & Telemetry" width="100%" />
+</div>
+
+### Key Exam Integrity Rules Enforced in `TakeExamPage.jsx`:
+- **Live Mobile Phone Detection**: Client-side COCO-SSD object inference continuously scans webcam video frames; exceeding **2 mobile phone warnings** automatically terminates the exam with `0` score and records violation telemetry.
+- **Fullscreen &amp; Focus Guard**: Listens to `fullscreenchange`, `visibilitychange`, and `window.blur`; exceeding **5 tab switches / focus losses** triggers automatic termination.
+- **Web Audio Alert Synthesizer**: Generates immediate native Web Audio frequency alerts (`playAlertBeep`) on infractions.
+- **Instant Hardware Release**: Explicitly halts and clears all `MediaStream` camera tracks the instant an assessment transitions to `submitted` or `terminated`.
+- **Trainer Marks Matrix**: Compiles student attempts, passing statuses, durations, and violation logs cleanly inside `MarksMatrixPage.jsx`.
+
+<div align="center">
+  <img src="docs/assets/divider-pulse.svg" alt="Animated Divider" width="100%" />
+</div>
+
+## 🔐 Zero-Trust TOTP 2FA Workflow
+
+> RFC 6238 compliant Time-Based One-Time Password security built natively with **`otpauth`** and **`qrcode`**, enforced end-to-end across UI and API layers.
+
+<div align="center">
+  <img src="docs/assets/totp-2fa-demo.svg" alt="Animated TOTP 2FA QR & Mandatory Enforcement Workflow" width="100%" />
+</div>
+
+- **Standardized TOTP Secrets**: 20-byte cryptographic Base32 secrets issued under `Mentore Solution` (`SHA1`, `6` digits, `30s` rolling window).
+- **Universal Compatibility**: Works out of the box with Google Authenticator, Microsoft Authenticator, Authy, and 1Password.
+- **Mandatory Student Policy**: Student profiles display a locked **`Mandatory & Active`** indicator, and `POST /api/2fa/disable` rejects student-role requests with HTTP `403 Forbidden`.
+
+<div align="center">
+  <img src="docs/assets/divider-pulse.svg" alt="Animated Divider" width="100%" />
+</div>
+
+## 🧈 Full-Stack Technology Ecosystem
+
+<div align="center">
+  <img src="docs/assets/tech-stack-showcase.svg" alt="Animated Full-Stack Technology Showcase" width="100%" />
+</div>
+
+<br />
+
+<details>
+<summary><b>📦 Complete Verified Package Inventory (Client &amp; Server)</b></summary>
+<br />
+
+| Layer | Core Packages &amp; Versions |
+| :--- | :--- |
+| **Frontend UI &amp; State** | `react` `^18.3.1`, `react-dom` `^18.3.1`, `vite` `^6.0.0`, `tailwindcss` `^4.0.0`, `react-router-dom` `^7.1.0`, `@tanstack/react-query` `^5.62.0`, `axios` `^1.7.9`, `lucide-react` `^0.468.0`, `react-hot-toast` `^2.4.1`, `clsx` `^2.1.1`, `tailwind-merge` `^2.6.0` |
+| **Streaming &amp; AI Vision** | `hls.js` `^1.5.17`, `socket.io-client` `^4.8.1`, `@tensorflow/tfjs` `^4.22.0`, `@tensorflow-models/coco-ssd` `^2.2.3` |
+| **Backend Core &amp; Realtime** | `express` `^4.21.0`, `mongoose` `^8.7.0`, `socket.io` `^4.7.5`, `zod` `^3.23.8`, `uuid` `^10.0.0`, `dotenv` `^16.4.5`, `morgan` `^1.10.0`, `multer` `^1.4.5-lts.1` |
+| **Media &amp; Cloud Ingestion** | `googleapis` `^140.0.1`, `fluent-ffmpeg` `^2.1.3`, `ffmpeg-static` `^5.2.0`, `ffprobe-static` `^3.1.0`, `p-queue` `^8.0.1` |
+| **Security &amp; TOTP Auth** | `otpauth` `^9.6.0`, `qrcode` `^1.5.4`, `jsonwebtoken` `^9.0.2`, `bcryptjs` `^2.4.3`, `helmet` `^7.1.0`, `cors` `^2.8.5`, `cookie-parser` `^1.4.6`, `express-rate-limit` `^7.4.0`, `express-mongo-sanitize` `^2.2.0` |
+
+</details>
+
+<div align="center">
+  <img src="docs/assets/divider-pulse.svg" alt="Animated Divider" width="100%" />
+</div>
+
+## ✨ Additional Core Modules
+
+- **💼 Integrated Tech Career Portal (`/jobs`)**: Curated Full-Time, Internship, and Contract openings with skill tag filtering, batch targeting, real-time Socket.IO broadcasts, and official career page links (`ManageJobsPage.jsx` / `JobPortalPage.jsx`).
+- **💬 Real-Time Lecture Q&amp;A (`questions.js`)**: Timestamped lecture inquiries, optional peer-anonymous mode, private 1-on-1 trainer messaging, and live notification badges.
+- **📚 GridFS Study Notes Vault (`notes.js`)**: Magic-byte verified PDF and image uploads stored in MongoDB GridFS, configurable download toggles, in-page document viewers, and private autosaved student scratchpads (`PrivateNote`).
+- **👥 Email Whitelist &amp; Strict Batch Governance**: Pre-approved email allowlisting (`AllowedEmail`), B-26 through B-31 batch management, and server-enforced single batch change limit.
+- **🐞 Built-in Bug Reporting System**: Dedicated issue submission workflow (`ReportBugPage.jsx`) backed by `BugReport` persistence.
+
+<div align="center">
+  <img src="docs/assets/divider-pulse.svg" alt="Animated Divider" width="100%" />
+</div>
+
+## 📂 Project Architecture Tree
 
 ```text
-├── package.json                   # Monorepo root with concurrent dev orchestrator
-├── .gitignore                     # Git exclusion rules
-├── README.md                      # Comprehensive project documentation
-├── client/                        # Frontend Single Page Application (React 18)
-│   ├── .env.example               # Client environment variable blueprint
-│   ├── vite.config.js             # Vite configuration with Tailwind CSS v4
-│   ├── package.json               # Client dependencies and scripts
+├── package.json                       # Root workspace orchestrator (concurrently)
+├── README.md                          # Animated documentation & architecture showcase
+├── docs/assets/                       # Custom animated Glacier SVG assets
+├── client/                            # Frontend React 18 + Vite 6 + Tailwind CSS v4
+│   ├── .env.example
+│   ├── vite.config.js
 │   └── src/
-│       ├── api/                   # Axios API services (auth, exams, lectures, jobs, notes)
-│       ├── components/            # Reusable UI component library
-│       │   ├── common/            # Button, Modal, Input, Skeleton, EmptyState
-│       │   ├── exam/              # ExamTimer, QuestionCard, AIProctorView, ViolationModal
-│       │   ├── layout/            # Navbar, StudentLayout, TrainerLayout, BatchGuard
-│       │   ├── lecture/           # NotesTab, AskTrainerTab, LectureInfoTab
-│       │   └── player/            # CustomVideoPlayer, Watermark, QualitySelector
-│       ├── contexts/              # AuthContext, ThemeContext, SocketContext
+│       ├── api/                       # Axios API modules (auth, exams, jobs, lectures, notes)
+│       ├── components/
+│       │   ├── common/                # Button, Input, Modal, Skeleton, EmptyState
+│       │   ├── layout/                # Navbar, StudentLayout, TrainerLayout, BatchGuard
+│       │   ├── lecture/               # NotesTab, AskTrainerTab, LectureInfoTab
+│       │   └── player/                # CustomVideoPlayer (hls.js), Watermark
+│       ├── contexts/                  # AuthContext, ThemeContext, SocketContext
 │       └── pages/
-│           ├── auth/              # LoginPage, RegisterPage, Setup2FAPage, Verify2FAPage
-│           ├── student/           # Dashboard, SelectBatch, LecturePage, ExamRoom, JobsPage
-│           └── trainer/           # TrainerDashboard, ExamScheduler, JobManager, Students
-└── server/                        # Backend REST API & Real-time Server (Node.js)
-    ├── .env.example               # Server environment variable blueprint
-    ├── package.json               # Server dependencies and scripts
+│           ├── auth/                  # Login, Register, ForgotPassword, TwoFactorSetup/Login
+│           ├── student/               # Dashboard, SelectBatch, LecturePage, TakeExamPage, JobPortal
+│           └── trainer/               # TrainerDashboard, ManageExams, MarksMatrix, ManageJobs
+└── server/                            # Backend Node.js 20+ / Express / Socket.IO API
+    ├── .env.example
     └── src/
-        ├── config/                # Environment parser and MongoDB connector
-        ├── jobs/                  # Video transcoding worker queue (p-queue)
-        ├── middleware/            # JWT auth, rate limiter, validation, error handler
-        ├── models/                # Mongoose schemas (User, Batch, Lecture, Exam, Job, Note)
-        ├── routes/                # Express endpoints (auth, twoFactor, exams, stream, jobs)
-        ├── services/              # driveService, hlsService, storageService
-        ├── socket/                # Socket.IO room manager and event emitters
-        ├── seed.js                # Database seeder (batches and initial trainer account)
-        └── index.js               # Main HTTP/WebSocket server bootstrap
+        ├── config/                    # Environment validation & MongoDB Atlas connection
+        ├── jobs/                      # Video transcoding worker queue (p-queue concurrency 1)
+        ├── middleware/                # JWT auth guard, role guard, rate limiters, Zod validator
+        ├── models/                    # 12 Mongoose schemas (User, Batch, Lecture, Exam, Job, Note...)
+        ├── routes/                    # 14 REST routers (auth, twoFactor, exams, stream, jobs...)
+        ├── services/                  # driveService, hlsService, storageService
+        ├── socket/                    # Socket.IO batch rooms & notification dispatcher
+        ├── seed.js                    # Standalone database initializer
+        └── index.js                   # HTTP & WebSocket server bootstrap
 ```
 
----
+<div align="center">
+  <img src="docs/assets/divider-pulse.svg" alt="Animated Divider" width="100%" />
+</div>
 
 ## 🛠️ Getting Started
 
 ### Prerequisites
-- **Node.js**: `v20.0.0` or higher
-- **npm**: `v10.0.0` or higher
-- **MongoDB**: Local MongoDB instance (`mongodb://127.0.0.1:27017`) or a free [MongoDB Atlas Cluster](https://www.mongodb.com/atlas)
+- **Node.js** `v20.0.0+` and **npm** `v10.0.0+`
+- **MongoDB** (Local Community Server or [MongoDB Atlas](https://www.mongodb.com/atlas))
 
-### 1. Clone the Repository
+### 1. Clone &amp; Install Dependencies
 ```bash
 git clone https://github.com/shubham-gayke/Learning-Management-System.git
 cd Learning-Management-System
-```
-
-### 2. Install Dependencies
-Install dependencies across the root, client, and server with a single command:
-```bash
 npm run install:all
 ```
 
-### 3. Configure Environment Variables
+### 2. Configure Environment Variables
+Copy the provided templates and populate your own private secrets (**never commit `.env` files**):
 
-#### Backend Configuration (`server/.env`)
-Copy the template and adjust values:
 ```bash
 cp server/.env.example server/.env
+cp client/.env.example client/.env
 ```
 
-Edit `server/.env`:
+<details>
+<summary><b>⚙️ View Required Environment Variables Reference</b></summary>
+<br />
+
+**`server/.env`**
 ```env
 PORT=5000
 NODE_ENV=development
 MONGODB_URI=mongodb://127.0.0.1:27017/mentore_lms
-JWT_SECRET=your_super_secret_jwt_key_at_least_32_characters_long
+JWT_SECRET=replace_with_your_32_plus_char_random_secret_key
 JWT_EXPIRES_IN=7d
 CLIENT_URL=http://localhost:5173
 
-# Initial Lead Trainer Configuration (Used when running npm run seed)
+# Configure your private admin/trainer seed values locally
 TRAINER_FIRST_NAME=Admin
 TRAINER_LAST_NAME=Trainer
 TRAINER_EMAIL=trainer@yourdomain.com
-TRAINER_PASSWORD=CreateYourStrongPasswordHere123!
+TRAINER_PASSWORD=<CreateYourStrongPasswordHere123!>
 
-# Security & Concurrency
+# Enforce single active device login per account
 ALLOW_MULTIPLE_SESSIONS=false
 
-# Google Drive Service Account (Optional for local testing; required for Drive OBS ingestion)
+# Google Drive Service Account (Optional locally; required for OBS Drive ingestion)
 GOOGLE_SERVICE_ACCOUNT_KEY_FILE=./secrets/service-account.json
 
-# Storage Drivers
+# Storage Settings
 STORAGE_DRIVER=local
 HLS_STORAGE_PATH=./storage/hls
 MAX_NOTE_SIZE_MB=15
 ```
 
-#### Frontend Configuration (`client/.env`)
-```bash
-cp client/.env.example client/.env
-```
-
-Edit `client/.env`:
+**`client/.env`**
 ```env
 VITE_API_URL=http://localhost:5000
 ```
 
-### 4. Initialize Database & Seed Batches
-Populates initial batches (B-26 to B-31) and configures the default trainer account specified in your `server/.env`:
-```bash
-npm run seed
-```
+</details>
 
-### 5. Launch Development Environment
-Starts both the Express API server and the Vite development server concurrently:
+### 3. Seed Initial Batches &amp; Launch
 ```bash
+# Seed initial batches (B-26 to B-31) and your configured trainer account
+npm run seed
+
+# Start Express Backend (:5000) and Vite Frontend (:5173) concurrently
 npm run dev
 ```
 
-- **Frontend Application**: `http://localhost:5173`
-- **Backend API Server**: `http://localhost:5000`
-- **API Health Check**: `http://localhost:5000/api/health`
+<details>
+<summary><b>🔑 Google Cloud Drive Setup (For OBS Lecture Ingestion)</b></summary>
+<br />
 
----
+1. Open [Google Cloud Console](https://console.cloud.google.com/) and create a project.
+2. Enable the **Google Drive API**.
+3. Under **Credentials**, create a **Service Account** with **Viewer** permissions.
+4. Generate a JSON private key and save it to `server/secrets/service-account.json` (gitignored).
+5. Share your Google Drive lecture recordings folder with the Service Account email address.
+6. Paste any Drive file share URL inside the Trainer Upload portal—the backend automatically ingests, transcodes, and encrypts it into HLS segments.
 
-## 🔑 Google Cloud Setup (Optional: OBS Drive Ingestion)
+</details>
 
-To enable automatic downloading and transcoding of OBS lecture recordings from Google Drive:
+<div align="center">
+  <img src="docs/assets/divider-pulse.svg" alt="Animated Divider" width="100%" />
+</div>
 
-1. **Google Cloud Console**: Open [Google Cloud Console](https://console.cloud.google.com/) and create a project.
-2. **Enable Drive API**: Search for and enable the **Google Drive API**.
-3. **Create Service Account**: Navigate to **Credentials** > **Create Credentials** > **Service Account**. Assign the **Viewer** role.
-4. **Generate Key**: Click the service account, navigate to **Keys** > **Add Key** > **Create new key** (JSON).
-5. **Install Key**: Save the downloaded JSON file as:
-   ```text
-   server/secrets/service-account.json
-   ```
-6. **Share Folder**: In Google Drive, share your lecture recordings folder with the Service Account email (e.g., `service-account@project.iam.gserviceaccount.com`).
-7. **Paste Link in Portal**: In the Trainer Dashboard, paste the video link (`https://drive.google.com/file/d/.../view`). The backend queue handles download, probe, and AES-128 HLS encryption automatically.
+## ☁️ Production Deployment Architecture
 
----
+1. **Frontend (Vercel / Edge CDN)**:
+   - Root Directory: `client` • Build Command: `npm run build` • Output Directory: `dist`
+   - Configure `VITE_API_URL` pointing to your live backend HTTPS domain.
+2. **Backend (Dedicated VPS / Persistent Container)**:
+   - Multi-quality FFmpeg transcoding requires persistent storage and sustained CPU cycles (recommended minimum **2 vCPU / 4 GB RAM** on Render Persistent Disk, AWS EC2, DigitalOcean, or Hetzner).
+   - Optionally switch `STORAGE_DRIVER=s3` for AWS S3 or Cloudflare R2 segment offloading.
 
-## ☁️ Production Deployment
+<div align="center">
+  <img src="docs/assets/divider-pulse.svg" alt="Animated Divider" width="100%" />
+</div>
 
-### Recommended Topology
-```
-           ┌──────────────────────┐
-           │   Vercel / Netlify   │  <─── High-Speed Global Edge CDN
-           │ (React 18 SPA Build) │
-           └──────────┬───────────┘
-                      │
-               HTTPS / WebSockets
-                      │
-           ┌──────────▼───────────┐
-           │ Dedicated VPS / Cloud│  <─── Persistent Disk for HLS Transcoding
-           │ (Render / EC2 / Droplet)     & Background FFmpeg Worker Queue
-           └──────────┬───────────┘
-                      │
-           ┌──────────▼───────────┐
-           │    MongoDB Atlas     │  <─── High Availability Database
-           │   & GridFS Cluster   │       & Binary Document Store
-           └──────────────────────┘
-```
+## 👨‍💻 Author &amp; Intellectual Property
 
-1. **Frontend Deployment (Vercel)**:
-   - Root directory: `client`
-   - Build command: `npm run build`
-   - Output directory: `dist`
-   - Environment variable: `VITE_API_URL=https://your-backend-api.com`
-
-2. **Backend Deployment (Dedicated VPS or Render Web Service)**:
-   - Multi-quality HLS transcoding with `fluent-ffmpeg` requires continuous CPU cycles and disk writes.
-   - **Recommendation**: Deploy backend to a host with persistent storage (AWS EC2, DigitalOcean Droplet, Hetzner, or Render Web Service with Persistent Disks).
-   - Ensure environment variables (`MONGODB_URI`, `JWT_SECRET`, `CLIENT_URL`) are configured in the cloud dashboard.
-
----
-
-## 🤝 Contributing & Code of Conduct
-
-Contributions make the open-source community an inspiring place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
-
-1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes (`git commit -m 'feat: Add some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
----
-
-## 👨‍💻 Author & Intellectual Property
-
-- **Lead Architect & Developer**: **Shubham Gayke**
-- **Platform**: Mentore Solution LMS
+- **Lead Architect &amp; Developer**: **Shubham Gayke**
+- **Platform**: **Mentore Solution LMS**
 - **Copyright**: © 2026 **Shubham Gayke**. All Rights Reserved.
 
 ---
 
-## 📄 License
-
-Distributed under the **MIT License**. See [`LICENSE`](LICENSE) for more details.  
-*Copyright © 2026 Shubham Gayke. All Rights Reserved.*
-
 <div align="center">
-  <sub>Crafted with passion by <b>Shubham Gayke</b> • © 2026 All Rights Reserved</sub>
+  <img src="docs/assets/footer-wave.svg" alt="Crafted by Shubham Gayke — © 2026 All Rights Reserved" width="100%" />
 </div>

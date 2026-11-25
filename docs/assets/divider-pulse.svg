@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 22" width="1100" height="22">
+  <defs>
+    <linearGradient id="div-line" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#06B6D4" stop-opacity="0"/>
+      <stop offset="50%" stop-color="#0E3052" stop-opacity="1"/>
+      <stop offset="100%" stop-color="#06B6D4" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="div-pulse" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#22D3EE" stop-opacity="0"/>
+      <stop offset="50%" stop-color="#22D3EE" stop-opacity="1"/>
+      <stop offset="100%" stop-color="#818CF8" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <rect x="0" y="10" width="1100" height="1.5" fill="url(#div-line)"/>
+  <rect x="-140" y="9" width="140" height="3.5" rx="2" fill="url(#div-pulse)">
+    <animate attributeName="x" from="-140" to="1100" dur="3.8s" repeatCount="indefinite"/>
+  </rect>
+  <circle cx="550" cy="11" r="3" fill="#071729" stroke="#22D3EE" stroke-width="1.2">
+    <animate attributeName="r" values="2.5;4;2.5" dur="3.8s" repeatCount="indefinite"/>
+  </circle>
+</svg>

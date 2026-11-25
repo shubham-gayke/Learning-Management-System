@@ -1,278 +1,321 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1140 820" width="1140" height="820">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1140 870" width="1140" height="870">
   <defs>
-    <!-- Background Gradient -->
     <linearGradient id="arch-bg" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#080C15"/>
-      <stop offset="40%" stop-color="#0D1527"/>
-      <stop offset="100%" stop-color="#060911"/>
+      <stop offset="0%" stop-color="#030D17"/>
+      <stop offset="50%" stop-color="#061526"/>
+      <stop offset="100%" stop-color="#020810"/>
     </linearGradient>
 
-    <!-- Header Gradient -->
     <linearGradient id="arch-header" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" stop-color="#38BDF8"/>
-      <stop offset="35%" stop-color="#818CF8"/>
+      <stop offset="0%" stop-color="#22D3EE"/>
+      <stop offset="50%" stop-color="#38BDF8"/>
       <stop offset="100%" stop-color="#34D399"/>
     </linearGradient>
 
-    <!-- Layer Card Gradients (3D Glassmorphism) -->
-    <linearGradient id="tier1-grad" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#14243D" stop-opacity="0.85"/>
-      <stop offset="100%" stop-color="#0B1322" stop-opacity="0.95"/>
+    <linearGradient id="arch-t1" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#0B223C"/>
+      <stop offset="100%" stop-color="#061322"/>
     </linearGradient>
-    <linearGradient id="tier2-grad" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#182138" stop-opacity="0.85"/>
-      <stop offset="100%" stop-color="#0B111D" stop-opacity="0.95"/>
+    <linearGradient id="arch-t2" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#111C3B"/>
+      <stop offset="100%" stop-color="#070E20"/>
     </linearGradient>
-    <linearGradient id="tier3-grad" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#1C2038" stop-opacity="0.85"/>
-      <stop offset="100%" stop-color="#0D0F1C" stop-opacity="0.95"/>
+    <linearGradient id="arch-t3" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#19183B"/>
+      <stop offset="100%" stop-color="#0B0B1E"/>
     </linearGradient>
-    <linearGradient id="tier4-grad" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#11292B" stop-opacity="0.85"/>
-      <stop offset="100%" stop-color="#081416" stop-opacity="0.95"/>
-    </linearGradient>
-
-    <!-- Sub-module Gradients -->
-    <linearGradient id="box-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#1E293B" stop-opacity="0.8"/>
-      <stop offset="100%" stop-color="#0F172A" stop-opacity="0.95"/>
+    <linearGradient id="arch-t4" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#0A2729"/>
+      <stop offset="100%" stop-color="#041315"/>
     </linearGradient>
 
-    <!-- Flow Arrow Gradients -->
-    <linearGradient id="flow-down" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#38BDF8"/>
-      <stop offset="100%" stop-color="#818CF8"/>
+    <linearGradient id="arch-card" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0D223A"/>
+      <stop offset="100%" stop-color="#071324"/>
     </linearGradient>
 
-    <!-- Filters -->
-    <filter id="tier-shadow" x="-5%" y="-5%" width="110%" height="120%">
-      <feDropShadow dx="0" dy="10" stdDeviation="10" flood-color="#000000" flood-opacity="0.7"/>
-      <feDropShadow dx="0" dy="1" stdDeviation="2" flood-color="#38BDF8" flood-opacity="0.12"/>
+    <filter id="arch-shadow" x="-5%" y="-5%" width="112%" height="122%">
+      <feDropShadow dx="0" dy="10" stdDeviation="10" flood-color="#000000" flood-opacity="0.75"/>
+    </filter>
+    <filter id="arch-node-shadow" x="-8%" y="-8%" width="118%" height="126%">
+      <feDropShadow dx="0" dy="5" stdDeviation="5" flood-color="#000000" flood-opacity="0.6"/>
     </filter>
 
-    <filter id="box-glow" x="-10%" y="-10%" width="120%" height="120%">
-      <feDropShadow dx="0" dy="4" stdDeviation="5" flood-color="#000000" flood-opacity="0.5"/>
-    </filter>
-
-    <pattern id="arch-grid" width="28" height="28" patternUnits="userSpaceOnUse">
-      <path d="M 28 0 L 0 0 0 28" fill="none" stroke="#1E293B" stroke-width="0.7" stroke-opacity="0.35"/>
-      <circle cx="0" cy="0" r="1" fill="#38BDF8" fill-opacity="0.2"/>
+    <pattern id="arch-grid" width="30" height="30" patternUnits="userSpaceOnUse">
+      <path d="M 30 0 L 0 0 0 30" fill="none" stroke="#0E3052" stroke-width="0.7" stroke-opacity="0.4"/>
     </pattern>
   </defs>
 
   <style>
-    .arch-title { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; font-weight: 800; }
-    .arch-sub   { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; }
-    .arch-mono  { font-family: 'JetBrains Mono', Consolas, monospace; }
+    .at { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; font-weight: 800; }
+    .as { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; }
+    .am { font-family: 'JetBrains Mono', Consolas, monospace; }
+    .flow-dash { stroke-dasharray: 7 5; animation: archDash 1.4s linear infinite; }
+    .flow-dash-rev { stroke-dasharray: 7 5; animation: archDashRev 1.4s linear infinite; }
+    @keyframes archDash { to { stroke-dashoffset: -24; } }
+    @keyframes archDashRev { to { stroke-dashoffset: 24; } }
   </style>
 
-  <!-- Background Base -->
-  <rect width="1140" height="820" rx="20" fill="url(#arch-bg)" stroke="#1E293B" stroke-width="1.5"/>
-  <rect width="1140" height="820" rx="20" fill="url(#arch-grid)"/>
+  <!-- Base Canvas -->
+  <rect width="1140" height="870" rx="20" fill="url(#arch-bg)" stroke="#0E3052" stroke-width="1.5"/>
+  <rect width="1140" height="870" rx="20" fill="url(#arch-grid)"/>
 
-  <!-- Top Ambient Glows -->
-  <circle cx="570" cy="20" r="300" fill="#38BDF8" opacity="0.08" filter="blur(30px)"/>
-  <circle cx="1000" cy="400" r="250" fill="#10B981" opacity="0.05" filter="blur(30px)"/>
-  <circle cx="100" cy="500" r="250" fill="#818CF8" opacity="0.05" filter="blur(30px)"/>
+  <!-- Header -->
+  <g transform="translate(50, 36)">
+    <rect x="0" y="0" width="44" height="44" rx="11" fill="#071729" stroke="#22D3EE" stroke-width="1.4"/>
+    <circle cx="22" cy="22" r="10" fill="none" stroke="#22D3EE" stroke-width="1.6" stroke-dasharray="18 8">
+      <animateTransform attributeName="transform" type="rotate" from="0 22 22" to="360 22 22" dur="8s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="22" cy="22" r="3.5" fill="#22D3EE"/>
 
-  <!-- HEADER -->
-  <g transform="translate(50, 40)">
-    <rect x="0" y="0" width="42" height="42" rx="10" fill="#0E2238" stroke="#38BDF8" stroke-width="1.4"/>
-    <path d="M12 28 L21 13 L30 28 Z M16 23 H26" fill="none" stroke="#38BDF8" stroke-width="2" stroke-linejoin="round"/>
-    
-    <text x="56" y="20" fill="url(#arch-header)" class="arch-title" font-size="21" letter-spacing="1.2">MENTORE SOLUTION LMS — ENTERPRISE SYSTEM ARCHITECTURE</text>
-    <text x="56" y="38" fill="#94A3B8" class="arch-sub" font-size="12.5">End-to-End Distributed Stack: Reactive Client SPA, Cryptographic Gateway, Microservices, and Persistence Engine</text>
+    <text x="58" y="21" fill="url(#arch-header)" class="at" font-size="21" letter-spacing="1">MENTORE SOLUTION LMS — LIVE SYSTEM ARCHITECTURE</text>
+    <text x="58" y="39" fill="#94A3B8" class="as" font-size="12.5">Animated Multi-Tier Architecture: React 18 SPA, Security Gatekeeper, FFmpeg Worker Queue, Socket.IO &amp; MongoDB GridFS</text>
   </g>
 
-  <!-- ========================================== -->
-  <!-- TIER 1: CLIENT EXPERIENCE LAYER (y = 95)    -->
-  <!-- ========================================== -->
-  <g transform="translate(50, 95)" filter="url(#tier-shadow)">
-    <!-- Main Tier Enclosure -->
-    <rect width="1040" height="130" rx="14" fill="url(#tier1-grad)" stroke="#0284C7" stroke-width="1.2"/>
-    <!-- Top glowing accent -->
-    <rect x="14" y="0" width="1012" height="2" fill="#38BDF8" rx="1"/>
+  <!-- ==================== TIER 1 ==================== -->
+  <g transform="translate(50, 100)" filter="url(#arch-shadow)">
+    <!-- 3D Extruded Bottom Rim -->
+    <rect x="6" y="8" width="1032" height="132" rx="14" fill="#04101D" stroke="#083344" stroke-width="1"/>
+    <!-- Main Card -->
+    <rect width="1040" height="132" rx="14" fill="url(#arch-t1)" stroke="#0284C7" stroke-width="1.3"/>
+    <rect x="16" y="0" width="1008" height="2.5" rx="1" fill="#22D3EE"/>
 
-    <!-- Tier Label -->
-    <rect x="20" y="12" width="280" height="22" rx="6" fill="#0369A1" fill-opacity="0.3"/>
-    <text x="30" y="27" fill="#38BDF8" class="arch-mono" font-size="11" font-weight="700">TIER 1 • FRONTEND REACT 18 SPA</text>
-    <text x="960" y="27" fill="#64748B" class="arch-mono" font-size="10" text-anchor="end">Vite 6 • Tailwind v4 • TanStack Query</text>
+    <!-- Header Strip -->
+    <circle cx="28" cy="23" r="4" fill="#22D3EE">
+      <animate attributeName="opacity" values="1;0.3;1" dur="1.8s" repeatCount="indefinite"/>
+    </circle>
+    <text x="40" y="27" fill="#22D3EE" class="am" font-size="11" font-weight="700">TIER 1 • CLIENT EXPERIENCE LAYER (REACT 18 + VITE 6 + TAILWIND V4)</text>
+    <text x="1020" y="27" fill="#64748B" class="am" font-size="10" text-anchor="end">TanStack Query v5 • React Router v7</text>
 
-    <!-- Sub Modules -->
-    <!-- Module 1A -->
-    <g transform="translate(20, 42)" filter="url(#box-glow)">
-      <rect width="235" height="74" rx="8" fill="url(#box-grad)" stroke="#334155" stroke-width="1"/>
-      <text x="14" y="24" fill="#F8FAFC" class="arch-title" font-size="13">Student Portal</text>
-      <text x="14" y="42" fill="#94A3B8" class="arch-sub" font-size="11">Dashboard, Batch Guard &amp; Nav</text>
-      <text x="14" y="58" fill="#38BDF8" class="arch-mono" font-size="9.5">GridFS PDF &amp; Notes Reader</text>
+    <!-- 1A Student Portal -->
+    <g transform="translate(20, 42)" filter="url(#arch-node-shadow)">
+      <rect width="235" height="76" rx="9" fill="url(#arch-card)" stroke="#0E3052" stroke-width="1.2"/>
+      <text x="14" y="24" fill="#F8FAFC" class="at" font-size="13">Student Portal</text>
+      <text x="14" y="42" fill="#94A3B8" class="as" font-size="11">Batches, Job Portal &amp; Notes</text>
+      <text x="14" y="60" fill="#38BDF8" class="am" font-size="9.5">GridFS PDF &amp; Private Notes</text>
     </g>
 
-    <!-- Module 1B -->
-    <g transform="translate(275, 42)" filter="url(#box-glow)">
-      <rect width="245" height="74" rx="8" fill="url(#box-grad)" stroke="#0284C7" stroke-width="1.2"/>
-      <text x="14" y="24" fill="#F8FAFC" class="arch-title" font-size="13">Custom VLC Player</text>
-      <text x="14" y="42" fill="#94A3B8" class="arch-sub" font-size="11">HLS.js Adaptive Bitrate (144p-1080p)</text>
-      <text x="14" y="58" fill="#F59E0B" class="arch-mono" font-size="9.5">Dynamic Floating Watermark</text>
+    <!-- 1B Custom VLC Player -->
+    <g transform="translate(275, 42)" filter="url(#arch-node-shadow)">
+      <rect width="245" height="76" rx="9" fill="url(#arch-card)" stroke="#0284C7" stroke-width="1.2"/>
+      <text x="14" y="24" fill="#F8FAFC" class="at" font-size="13">Custom VLC Player</text>
+      <text x="14" y="42" fill="#94A3B8" class="as" font-size="11">HLS.js Adaptive (144p-1080p)</text>
+      <!-- Mini animated watermark dot inside player -->
+      <rect x="14" y="50" width="215" height="16" rx="4" fill="#030D17" stroke="#0E3052" stroke-width="0.8"/>
+      <text x="20" y="61" fill="#FBBF24" class="am" font-size="9">
+        Watermark Live
+        <animate attributeName="x" values="20;115;20" dur="5s" repeatCount="indefinite"/>
+      </text>
     </g>
 
-    <!-- Module 1C -->
-    <g transform="translate(540, 42)" filter="url(#box-glow)">
-      <rect width="245" height="74" rx="8" fill="url(#box-grad)" stroke="#F43F5E" stroke-width="1.2"/>
-      <text x="14" y="24" fill="#F8FAFC" class="arch-title" font-size="13">AI Proctoring Suite</text>
-      <text x="14" y="42" fill="#94A3B8" class="arch-sub" font-size="11">TensorFlow.js &amp; COCO-SSD Vision</text>
-      <text x="14" y="58" fill="#FB7185" class="arch-mono" font-size="9.5">Lockdown &amp; Tab-Blur Telemetry</text>
+    <!-- 1C AI Proctoring Suite -->
+    <g transform="translate(540, 42)" filter="url(#arch-node-shadow)">
+      <rect width="245" height="76" rx="9" fill="url(#arch-card)" stroke="#E11D48" stroke-width="1.2"/>
+      <text x="14" y="24" fill="#F8FAFC" class="at" font-size="13">AI Exam Proctor</text>
+      <text x="14" y="42" fill="#94A3B8" class="as" font-size="11">TensorFlow.js + COCO-SSD</text>
+      <text x="14" y="60" fill="#FB7185" class="am" font-size="9.5">Webcam Phone &amp; Tab Lockdown</text>
+      <circle cx="222" cy="20" r="4" fill="#FB7185">
+        <animate attributeName="opacity" values="1;0.2;1" dur="1.2s" repeatCount="indefinite"/>
+      </circle>
     </g>
 
-    <!-- Module 1D -->
-    <g transform="translate(805, 42)" filter="url(#box-glow)">
-      <rect width="215" height="74" rx="8" fill="url(#box-grad)" stroke="#334155" stroke-width="1"/>
-      <text x="14" y="24" fill="#F8FAFC" class="arch-title" font-size="13">Trainer &amp; Admin Suite</text>
-      <text x="14" y="42" fill="#94A3B8" class="arch-sub" font-size="11">Google Drive Ingestion &amp; Exams</text>
-      <text x="14" y="58" fill="#34D399" class="arch-mono" font-size="9.5">Batch Manager &amp; Job Portal</text>
-    </g>
-  </g>
-
-  <!-- INTER-TIER 1->2 CONNECTOR (y = 232) -->
-  <g transform="translate(50, 230)">
-    <line x1="280" y1="0" x2="280" y2="40" stroke="#38BDF8" stroke-width="1.8" stroke-dasharray="4 3"/>
-    <line x1="780" y1="0" x2="780" y2="40" stroke="#818CF8" stroke-width="1.8" stroke-dasharray="4 3"/>
-
-    <!-- Connector Badges -->
-    <rect x="200" y="8" width="160" height="22" rx="11" fill="#0F172A" stroke="#38BDF8" stroke-width="1"/>
-    <text x="280" y="23" fill="#38BDF8" class="arch-mono" font-size="10" font-weight="700" text-anchor="middle">HTTPS / REST JSON API</text>
-
-    <rect x="700" y="8" width="160" height="22" rx="11" fill="#0F172A" stroke="#818CF8" stroke-width="1"/>
-    <text x="780" y="23" fill="#A5B4FC" class="arch-mono" font-size="10" font-weight="700" text-anchor="middle">WSS / SOCKET.IO EVENTS</text>
-  </g>
-
-  <!-- ========================================== -->
-  <!-- TIER 2: API GATEWAY & SECURITY (y = 275)    -->
-  <!-- ========================================== -->
-  <g transform="translate(50, 275)" filter="url(#tier-shadow)">
-    <rect width="1040" height="130" rx="14" fill="url(#tier2-grad)" stroke="#4F46E5" stroke-width="1.2"/>
-    <rect x="14" y="0" width="1012" height="2" fill="#818CF8" rx="1"/>
-
-    <rect x="20" y="12" width="310" height="22" rx="6" fill="#3730A3" fill-opacity="0.3"/>
-    <text x="30" y="27" fill="#A5B4FC" class="arch-mono" font-size="11" font-weight="700">TIER 2 • API GATEWAY &amp; SECURITY LAYER</text>
-    <text x="960" y="27" fill="#64748B" class="arch-mono" font-size="10" text-anchor="end">Express.js 4.21 • Helmet • Mongo Sanitize</text>
-
-    <!-- Module 2A -->
-    <g transform="translate(20, 42)" filter="url(#box-glow)">
-      <rect width="320" height="74" rx="8" fill="url(#box-grad)" stroke="#4338CA" stroke-width="1"/>
-      <text x="14" y="24" fill="#F8FAFC" class="arch-title" font-size="13">Identity &amp; Auth Guard</text>
-      <text x="14" y="42" fill="#94A3B8" class="arch-sub" font-size="11">JWT Bearer Sessions • Bcrypt.js Hashing</text>
-      <text x="14" y="58" fill="#A5B4FC" class="arch-mono" font-size="9.5">Single-Device Active Session Invalidator</text>
-    </g>
-
-    <!-- Module 2B -->
-    <g transform="translate(360, 42)" filter="url(#box-glow)">
-      <rect width="320" height="74" rx="8" fill="url(#box-grad)" stroke="#059669" stroke-width="1.2"/>
-      <text x="14" y="24" fill="#F8FAFC" class="arch-title" font-size="13">Mandatory 2FA Engine</text>
-      <text x="14" y="42" fill="#94A3B8" class="arch-sub" font-size="11">RFC 6238 TOTP (otpauth &amp; qrcode)</text>
-      <text x="14" y="58" fill="#34D399" class="arch-mono" font-size="9.5">Google Authenticator • Locked for Students</text>
-    </g>
-
-    <!-- Module 2C -->
-    <g transform="translate(700, 42)" filter="url(#box-glow)">
-      <rect width="320" height="74" rx="8" fill="url(#box-grad)" stroke="#0284C7" stroke-width="1.2"/>
-      <text x="14" y="24" fill="#F8FAFC" class="arch-title" font-size="13">Stream Gatekeeper</text>
-      <text x="14" y="42" fill="#94A3B8" class="arch-sub" font-size="11">Batch Authorization (req.user.batch check)</text>
-      <text x="14" y="58" fill="#38BDF8" class="arch-mono" font-size="9.5">Ephemeral AES-128 Key Server (/api/stream)</text>
+    <!-- 1D Trainer Suite -->
+    <g transform="translate(805, 42)" filter="url(#arch-node-shadow)">
+      <rect width="215" height="76" rx="9" fill="url(#arch-card)" stroke="#0E3052" stroke-width="1.2"/>
+      <text x="14" y="24" fill="#F8FAFC" class="at" font-size="13">Trainer Studio</text>
+      <text x="14" y="42" fill="#94A3B8" class="as" font-size="11">Drive Ingestion &amp; Marks Matrix</text>
+      <text x="14" y="60" fill="#34D399" class="am" font-size="9.5">Exams, Jobs &amp; Email Whitelist</text>
     </g>
   </g>
 
-  <!-- INTER-TIER 2->3 CONNECTOR (y = 412) -->
-  <g transform="translate(50, 410)">
-    <line x1="350" y1="0" x2="350" y2="40" stroke="#818CF8" stroke-width="1.8" stroke-dasharray="4 3"/>
-    <line x1="720" y1="0" x2="720" y2="40" stroke="#C084FC" stroke-width="1.8" stroke-dasharray="4 3"/>
+  <!-- CONNECTOR 1 -> 2 (ANIMATED DATA PACKETS) -->
+  <g transform="translate(50, 240)">
+    <line x1="190" y1="0" x2="190" y2="54" stroke="#22D3EE" stroke-width="2" class="flow-dash"/>
+    <line x1="400" y1="0" x2="400" y2="54" stroke="#38BDF8" stroke-width="2" class="flow-dash"/>
+    <line x1="870" y1="0" x2="870" y2="54" stroke="#818CF8" stroke-width="2" class="flow-dash-rev"/>
 
-    <rect x="420" y="8" width="220" height="22" rx="11" fill="#0F172A" stroke="#818CF8" stroke-width="1"/>
-    <text x="530" y="23" fill="#C084FC" class="arch-mono" font-size="10" font-weight="700" text-anchor="middle">ASYNC QUEUE &amp; SERVICE BUS</text>
+    <!-- Moving glowing orbs -->
+    <circle r="4" fill="#22D3EE">
+      <animateMotion path="M 190,0 L 190,54" dur="1.5s" repeatCount="indefinite"/>
+    </circle>
+    <circle r="4" fill="#38BDF8">
+      <animateMotion path="M 400,54 L 400,0" dur="1.7s" repeatCount="indefinite"/>
+    </circle>
+    <circle r="4" fill="#A5B4FC">
+      <animateMotion path="M 870,0 L 870,54" dur="1.3s" repeatCount="indefinite"/>
+    </circle>
+    <circle r="4" fill="#34D399">
+      <animateMotion path="M 870,54 L 870,0" dur="1.6s" repeatCount="indefinite"/>
+    </circle>
+
+    <rect x="195" y="15" width="190" height="24" rx="12" fill="#030D17" stroke="#22D3EE" stroke-width="1.1"/>
+    <text x="290" y="31" fill="#22D3EE" class="am" font-size="10" font-weight="700" text-anchor="middle">HTTPS / REST JSON + HLS KEYS</text>
+
+    <rect x="640" y="15" width="215" height="24" rx="12" fill="#030D17" stroke="#818CF8" stroke-width="1.1"/>
+    <text x="747" y="31" fill="#A5B4FC" class="am" font-size="10" font-weight="700" text-anchor="middle">WSS BI-DIRECTIONAL SOCKETS</text>
   </g>
 
-  <!-- ========================================== -->
-  <!-- TIER 3: SERVICES & PROCESSING (y = 455)    -->
-  <!-- ========================================== -->
-  <g transform="translate(50, 455)" filter="url(#tier-shadow)">
-    <rect width="1040" height="130" rx="14" fill="url(#tier3-grad)" stroke="#7C3AED" stroke-width="1.2"/>
-    <rect x="14" y="0" width="1012" height="2" fill="#A855F7" rx="1"/>
+  <!-- ==================== TIER 2 ==================== -->
+  <g transform="translate(50, 294)" filter="url(#arch-shadow)">
+    <rect x="6" y="8" width="1032" height="132" rx="14" fill="#050B18" stroke="#1E1B4B" stroke-width="1"/>
+    <rect width="1040" height="132" rx="14" fill="url(#arch-t2)" stroke="#6366F1" stroke-width="1.3"/>
+    <rect x="16" y="0" width="1008" height="2.5" rx="1" fill="#818CF8"/>
 
-    <rect x="20" y="12" width="310" height="22" rx="6" fill="#5B21B6" fill-opacity="0.3"/>
-    <text x="30" y="27" fill="#C084FC" class="arch-mono" font-size="11" font-weight="700">TIER 3 • CORE SERVICES &amp; WORKERS</text>
-    <text x="960" y="27" fill="#64748B" class="arch-mono" font-size="10" text-anchor="end">Fluent-FFmpeg • P-Queue Concurrency • Google APIs</text>
+    <circle cx="28" cy="23" r="4" fill="#818CF8">
+      <animate attributeName="opacity" values="1;0.3;1" dur="2s" repeatCount="indefinite"/>
+    </circle>
+    <text x="40" y="27" fill="#A5B4FC" class="am" font-size="11" font-weight="700">TIER 2 • EXPRESS API GATEWAY &amp; ZERO-TRUST SECURITY</text>
+    <text x="1020" y="27" fill="#64748B" class="am" font-size="10" text-anchor="end">Helmet • Mongo-Sanitize • Zod • Rate-Limit</text>
 
-    <!-- Module 3A -->
-    <g transform="translate(20, 42)" filter="url(#box-glow)">
-      <rect width="320" height="74" rx="8" fill="url(#box-grad)" stroke="#7C3AED" stroke-width="1"/>
-      <text x="14" y="24" fill="#F8FAFC" class="arch-title" font-size="13">Google Drive Ingestion</text>
-      <text x="14" y="42" fill="#94A3B8" class="arch-sub" font-size="11">Service Account (Drive API v3)</text>
-      <text x="14" y="58" fill="#C084FC" class="arch-mono" font-size="9.5">Automated OBS Stream Downloads</text>
+    <!-- 2A Auth Guard -->
+    <g transform="translate(20, 42)" filter="url(#arch-node-shadow)">
+      <rect width="320" height="76" rx="9" fill="url(#arch-card)" stroke="#4338CA" stroke-width="1.2"/>
+      <text x="14" y="24" fill="#F8FAFC" class="at" font-size="13">Session &amp; Auth Guard</text>
+      <text x="14" y="42" fill="#94A3B8" class="as" font-size="11">HTTP-Only JWT • Bcryptjs</text>
+      <text x="14" y="60" fill="#A5B4FC" class="am" font-size="9.5">Single-Device activeSessionId Lock</text>
     </g>
 
-    <!-- Module 3B -->
-    <g transform="translate(360, 42)" filter="url(#box-glow)">
-      <rect width="320" height="74" rx="8" fill="url(#box-grad)" stroke="#2563EB" stroke-width="1.2"/>
-      <text x="14" y="24" fill="#F8FAFC" class="arch-title" font-size="13">FFmpeg Transcoder Pipeline</text>
-      <text x="14" y="42" fill="#94A3B8" class="arch-sub" font-size="11">P-Queue Worker (Concurrency: 1)</text>
-      <text x="14" y="58" fill="#60A5FA" class="arch-mono" font-size="9.5">Multi-Bitrate AES-128 HLS Packaging</text>
+    <!-- 2B 2FA Engine -->
+    <g transform="translate(360, 42)" filter="url(#arch-node-shadow)">
+      <rect width="320" height="76" rx="9" fill="url(#arch-card)" stroke="#10B981" stroke-width="1.2"/>
+      <text x="14" y="24" fill="#F8FAFC" class="at" font-size="13">TOTP 2FA Authority</text>
+      <text x="14" y="42" fill="#94A3B8" class="as" font-size="11">RFC 6238 (otpauth + qrcode)</text>
+      <text x="14" y="60" fill="#34D399" class="am" font-size="9.5">Mandatory Student Lock (403 on Disable)</text>
+      <!-- Spinning lock indicator -->
+      <circle cx="296" cy="22" r="8" fill="none" stroke="#10B981" stroke-width="1.5" stroke-dasharray="14 6">
+        <animateTransform attributeName="transform" type="rotate" from="0 296 22" to="360 296 22" dur="5s" repeatCount="indefinite"/>
+      </circle>
     </g>
 
-    <!-- Module 3C -->
-    <g transform="translate(700, 42)" filter="url(#box-glow)">
-      <rect width="320" height="74" rx="8" fill="url(#box-grad)" stroke="#059669" stroke-width="1"/>
-      <text x="14" y="24" fill="#F8FAFC" class="arch-title" font-size="13">Real-Time Event Engine</text>
-      <text x="14" y="42" fill="#94A3B8" class="arch-sub" font-size="11">Socket.IO Room-Based Clusters</text>
-      <text x="14" y="58" fill="#34D399" class="arch-mono" font-size="9.5">Q&amp;A Threads, Transcoding % &amp; Badges</text>
-    </g>
-  </g>
-
-  <!-- INTER-TIER 3->4 CONNECTOR (y = 592) -->
-  <g transform="translate(50, 590)">
-    <line x1="300" y1="0" x2="300" y2="40" stroke="#A855F7" stroke-width="1.8" stroke-dasharray="4 3"/>
-    <line x1="750" y1="0" x2="750" y2="40" stroke="#10B981" stroke-width="1.8" stroke-dasharray="4 3"/>
-
-    <rect x="430" y="8" width="200" height="22" rx="11" fill="#0F172A" stroke="#10B981" stroke-width="1"/>
-    <text x="530" y="23" fill="#34D399" class="arch-mono" font-size="10" font-weight="700" text-anchor="middle">PERSISTENCE &amp; STORAGE I/O</text>
-  </g>
-
-  <!-- ========================================== -->
-  <!-- TIER 4: PERSISTENCE & STORAGE (y = 635)    -->
-  <!-- ========================================== -->
-  <g transform="translate(50, 635)" filter="url(#tier-shadow)">
-    <rect width="1040" height="130" rx="14" fill="url(#tier4-grad)" stroke="#059669" stroke-width="1.2"/>
-    <rect x="14" y="0" width="1012" height="2" fill="#10B981" rx="1"/>
-
-    <rect x="20" y="12" width="310" height="22" rx="6" fill="#064E3B" fill-opacity="0.3"/>
-    <text x="30" y="27" fill="#34D399" class="arch-mono" font-size="11" font-weight="700">TIER 4 • DATA PERSISTENCE &amp; STORAGE</text>
-    <text x="960" y="27" fill="#64748B" class="arch-mono" font-size="10" text-anchor="end">MongoDB 7+ • Mongoose 8.7 • GridFS • S3/R2 Ready</text>
-
-    <!-- Module 4A -->
-    <g transform="translate(20, 42)" filter="url(#box-glow)">
-      <rect width="320" height="74" rx="8" fill="url(#box-grad)" stroke="#059669" stroke-width="1"/>
-      <text x="14" y="24" fill="#F8FAFC" class="arch-title" font-size="13">MongoDB Atlas Cluster</text>
-      <text x="14" y="42" fill="#94A3B8" class="arch-sub" font-size="11">Users, Batches, Lectures, Q&amp;A</text>
-      <text x="14" y="58" fill="#34D399" class="arch-mono" font-size="9.5">Exams, Violations &amp; Job Listings</text>
-    </g>
-
-    <!-- Module 4B -->
-    <g transform="translate(360, 42)" filter="url(#box-glow)">
-      <rect width="320" height="74" rx="8" fill="url(#box-grad)" stroke="#10B981" stroke-width="1.2"/>
-      <text x="14" y="24" fill="#F8FAFC" class="arch-title" font-size="13">MongoDB GridFS Bucket</text>
-      <text x="14" y="42" fill="#94A3B8" class="arch-sub" font-size="11">Binary Storage for Lecture Notes &amp; PDFs</text>
-      <text x="14" y="58" fill="#6EE7B7" class="arch-mono" font-size="9.5">Magic-Byte MIME Security Scanner</text>
-    </g>
-
-    <!-- Module 4C -->
-    <g transform="translate(700, 42)" filter="url(#box-glow)">
-      <rect width="320" height="74" rx="8" fill="url(#box-grad)" stroke="#0284C7" stroke-width="1.2"/>
-      <text x="14" y="24" fill="#F8FAFC" class="arch-title" font-size="13">Encrypted HLS Vault</text>
-      <text x="14" y="42" fill="#94A3B8" class="arch-sub" font-size="11">AES-128 Rendition Segments (.ts files)</text>
-      <text x="14" y="58" fill="#38BDF8" class="arch-mono" font-size="9.5">Pluggable: Local / AWS S3 / Cloudflare R2</text>
+    <!-- 2C Stream Gatekeeper -->
+    <g transform="translate(700, 42)" filter="url(#arch-node-shadow)">
+      <rect width="320" height="76" rx="9" fill="url(#arch-card)" stroke="#0284C7" stroke-width="1.2"/>
+      <text x="14" y="24" fill="#F8FAFC" class="at" font-size="13">AES-128 Key Gatekeeper</text>
+      <text x="14" y="42" fill="#94A3B8" class="as" font-size="11">Strict Batch Verification Middleware</text>
+      <text x="14" y="60" fill="#38BDF8" class="am" font-size="9.5">GET /api/stream/:id/key (no-store)</text>
     </g>
   </g>
 
-  <!-- Bottom Footer Branding -->
-  <text x="570" y="795" fill="#475569" class="arch-mono" font-size="11" text-anchor="middle">
-    MENTORE SOLUTION LMS • HIGH-AVAILABILITY MULTI-TENANT EDUCATIONAL ARCHITECTURE
+  <!-- CONNECTOR 2 -> 3 -->
+  <g transform="translate(50, 434)">
+    <line x1="250" y1="0" x2="250" y2="54" stroke="#A855F7" stroke-width="2" class="flow-dash"/>
+    <line x1="520" y1="0" x2="520" y2="54" stroke="#60A5FA" stroke-width="2" class="flow-dash"/>
+    <line x1="860" y1="0" x2="860" y2="54" stroke="#34D399" stroke-width="2" class="flow-dash"/>
+
+    <circle r="4" fill="#C084FC">
+      <animateMotion path="M 250,0 L 250,54" dur="1.4s" repeatCount="indefinite"/>
+    </circle>
+    <circle r="4" fill="#60A5FA">
+      <animateMotion path="M 520,0 L 520,54" dur="1.8s" repeatCount="indefinite"/>
+    </circle>
+    <circle r="4" fill="#34D399">
+      <animateMotion path="M 860,0 L 860,54" dur="1.2s" repeatCount="indefinite"/>
+    </circle>
+
+    <rect x="415" y="15" width="210" height="24" rx="12" fill="#030D17" stroke="#A855F7" stroke-width="1.1"/>
+    <text x="520" y="31" fill="#C084FC" class="am" font-size="10" font-weight="700" text-anchor="middle">ASYNC P-QUEUE &amp; EVENT BUS</text>
+  </g>
+
+  <!-- ==================== TIER 3 ==================== -->
+  <g transform="translate(50, 488)" filter="url(#arch-shadow)">
+    <rect x="6" y="8" width="1032" height="132" rx="14" fill="#0A091A" stroke="#4C1D95" stroke-width="1"/>
+    <rect width="1040" height="132" rx="14" fill="url(#arch-t3)" stroke="#7C3AED" stroke-width="1.3"/>
+    <rect x="16" y="0" width="1008" height="2.5" rx="1" fill="#A855F7"/>
+
+    <circle cx="28" cy="23" r="4" fill="#C084FC">
+      <animate attributeName="opacity" values="1;0.3;1" dur="1.6s" repeatCount="indefinite"/>
+    </circle>
+    <text x="40" y="27" fill="#C084FC" class="am" font-size="11" font-weight="700">TIER 3 • BACKGROUND WORKERS &amp; REAL-TIME MICROSERVICES</text>
+    <text x="1020" y="27" fill="#64748B" class="am" font-size="10" text-anchor="end">Node.js 20+ Non-Blocking Runtime</text>
+
+    <!-- 3A Google Drive -->
+    <g transform="translate(20, 42)" filter="url(#arch-node-shadow)">
+      <rect width="320" height="76" rx="9" fill="url(#arch-card)" stroke="#7C3AED" stroke-width="1.2"/>
+      <text x="14" y="24" fill="#F8FAFC" class="at" font-size="13">Google Drive Ingestion</text>
+      <text x="14" y="42" fill="#94A3B8" class="as" font-size="11">Service Account (Drive API v3)</text>
+      <text x="14" y="60" fill="#C084FC" class="am" font-size="9.5">Zero Client Drive Link Exposure</text>
+    </g>
+
+    <!-- 3B FFmpeg Pipeline with Animated Progress Bar -->
+    <g transform="translate(360, 42)" filter="url(#arch-node-shadow)">
+      <rect width="320" height="76" rx="9" fill="url(#arch-card)" stroke="#2563EB" stroke-width="1.2"/>
+      <text x="14" y="24" fill="#F8FAFC" class="at" font-size="13">FFmpeg HLS Transcoder</text>
+      <text x="14" y="40" fill="#94A3B8" class="as" font-size="11">P-Queue (1 Job) • FFprobe + FFmpeg</text>
+      <!-- Live progress bar -->
+      <rect x="14" y="51" width="240" height="7" rx="3.5" fill="#030D17" stroke="#1E3A8A" stroke-width="0.8"/>
+      <rect x="14" y="51" width="240" height="7" rx="3.5" fill="#38BDF8">
+        <animate attributeName="width" values="10;240;240;10" keyTimes="0;0.75;0.9;1" dur="4.5s" repeatCount="indefinite"/>
+      </rect>
+      <text x="262" y="58" fill="#38BDF8" class="am" font-size="9">HLS</text>
+    </g>
+
+    <!-- 3C Socket.IO -->
+    <g transform="translate(700, 42)" filter="url(#arch-node-shadow)">
+      <rect width="320" height="76" rx="9" fill="url(#arch-card)" stroke="#059669" stroke-width="1.2"/>
+      <text x="14" y="24" fill="#F8FAFC" class="at" font-size="13">Socket.IO Cluster</text>
+      <text x="14" y="42" fill="#94A3B8" class="as" font-size="11">Batch Rooms &amp; Private Threads</text>
+      <text x="14" y="60" fill="#34D399" class="am" font-size="9.5">Timestamp Q&amp;A, Jobs &amp; Progress %</text>
+    </g>
+  </g>
+
+  <!-- CONNECTOR 3 -> 4 -->
+  <g transform="translate(50, 628)">
+    <line x1="200" y1="0" x2="200" y2="54" stroke="#10B981" stroke-width="2" class="flow-dash"/>
+    <line x1="520" y1="0" x2="520" y2="54" stroke="#14B8A6" stroke-width="2" class="flow-dash"/>
+    <line x1="860" y1="0" x2="860" y2="54" stroke="#38BDF8" stroke-width="2" class="flow-dash"/>
+
+    <circle r="4" fill="#34D399">
+      <animateMotion path="M 200,0 L 200,54" dur="1.5s" repeatCount="indefinite"/>
+    </circle>
+    <circle r="4" fill="#2DD4BF">
+      <animateMotion path="M 520,0 L 520,54" dur="1.9s" repeatCount="indefinite"/>
+    </circle>
+    <circle r="4" fill="#38BDF8">
+      <animateMotion path="M 860,0 L 860,54" dur="1.3s" repeatCount="indefinite"/>
+    </circle>
+
+    <rect x="415" y="15" width="210" height="24" rx="12" fill="#030D17" stroke="#10B981" stroke-width="1.1"/>
+    <text x="520" y="31" fill="#34D399" class="am" font-size="10" font-weight="700" text-anchor="middle">MONGOOSE ODM &amp; STORAGE I/O</text>
+  </g>
+
+  <!-- ==================== TIER 4 ==================== -->
+  <g transform="translate(50, 682)" filter="url(#arch-shadow)">
+    <rect x="6" y="8" width="1032" height="132" rx="14" fill="#031214" stroke="#064E3B" stroke-width="1"/>
+    <rect width="1040" height="132" rx="14" fill="url(#arch-t4)" stroke="#10B981" stroke-width="1.3"/>
+    <rect x="16" y="0" width="1008" height="2.5" rx="1" fill="#10B981"/>
+
+    <circle cx="28" cy="23" r="4" fill="#10B981">
+      <animate attributeName="opacity" values="1;0.3;1" dur="2.1s" repeatCount="indefinite"/>
+    </circle>
+    <text x="40" y="27" fill="#34D399" class="am" font-size="11" font-weight="700">TIER 4 • DATA PERSISTENCE &amp; ENCRYPTED STORAGE LAYER</text>
+    <text x="1020" y="27" fill="#64748B" class="am" font-size="10" text-anchor="end">MongoDB 7+ • GridFS • Local / S3 / R2</text>
+
+    <!-- 4A MongoDB Atlas -->
+    <g transform="translate(20, 42)" filter="url(#arch-node-shadow)">
+      <rect width="320" height="76" rx="9" fill="url(#arch-card)" stroke="#059669" stroke-width="1.2"/>
+      <text x="14" y="24" fill="#F8FAFC" class="at" font-size="13">MongoDB Atlas Database</text>
+      <text x="14" y="42" fill="#94A3B8" class="as" font-size="11">12 Schemas (Users, Exams, Jobs)</text>
+      <text x="14" y="60" fill="#34D399" class="am" font-size="9.5">Indexed Queries &amp; Batch Analytics</text>
+    </g>
+
+    <!-- 4B GridFS -->
+    <g transform="translate(360, 42)" filter="url(#arch-node-shadow)">
+      <rect width="320" height="76" rx="9" fill="url(#arch-card)" stroke="#14B8A6" stroke-width="1.2"/>
+      <text x="14" y="24" fill="#F8FAFC" class="at" font-size="13">MongoDB GridFS Vault</text>
+      <text x="14" y="42" fill="#94A3B8" class="as" font-size="11">PDF Study Docs &amp; Course Images</text>
+      <text x="14" y="60" fill="#5EEAD4" class="am" font-size="9.5">Magic-Byte MIME Verification</text>
+    </g>
+
+    <!-- 4C Encrypted HLS Depot -->
+    <g transform="translate(700, 42)" filter="url(#arch-node-shadow)">
+      <rect width="320" height="76" rx="9" fill="url(#arch-card)" stroke="#0284C7" stroke-width="1.2"/>
+      <text x="14" y="24" fill="#F8FAFC" class="at" font-size="13">AES-128 HLS Depot</text>
+      <text x="14" y="42" fill="#94A3B8" class="as" font-size="11">Encrypted .ts Chunks &amp; Keys</text>
+      <text x="14" y="60" fill="#38BDF8" class="am" font-size="9.5">Modular S3 / Cloudflare R2 Driver</text>
+    </g>
+  </g>
+
+  <text x="570" y="848" fill="#475569" class="am" font-size="11" text-anchor="middle">
+    MENTORE SOLUTION LMS • REAL-TIME TELEMETRY &amp; CRYPTOGRAPHIC STREAMING PIPELINE
   </text>
 </svg>

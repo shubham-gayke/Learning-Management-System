@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1140 150" width="1140" height="150">
+  <defs>
+    <linearGradient id="fw-bg" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#030D17"/>
+      <stop offset="50%" stop-color="#061D33"/>
+      <stop offset="100%" stop-color="#030D17"/>
+    </linearGradient>
+    <linearGradient id="fw-wave1" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#06B6D4" stop-opacity="0.35"/>
+      <stop offset="50%" stop-color="#0EA5E9" stop-opacity="0.45"/>
+      <stop offset="100%" stop-color="#3B82F6" stop-opacity="0.35"/>
+    </linearGradient>
+    <linearGradient id="fw-wave2" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#0891B2" stop-opacity="0.25"/>
+      <stop offset="50%" stop-color="#22D3EE" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#6366F1" stop-opacity="0.25"/>
+    </linearGradient>
+    <clipPath id="fw-clip">
+      <rect width="1140" height="150" rx="16"/>
+    </clipPath>
+  </defs>
+  <style>
+    .fwt { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; font-weight: 800; }
+    .fwm { font-family: 'JetBrains Mono', Consolas, monospace; }
+  </style>
+
+  <g clip-path="url(#fw-clip)">
+    <rect width="1140" height="150" fill="url(#fw-bg)"/>
+
+    <!-- Animated Wave 1 (Seamless 2280px loop) -->
+    <g>
+      <animateTransform attributeName="transform" type="translate" from="0 0" to="-1140 0" dur="11s" repeatCount="indefinite"/>
+      <path d="M0,75 C285,30 285,120 570,75 C855,30 855,120 1140,75 C1425,30 1425,120 1710,75 C1995,30 1995,120 2280,75 L2280,150 L0,150 Z" fill="url(#fw-wave1)"/>
+    </g>
+
+    <!-- Animated Wave 2 (Offset slower reverse-feeling loop) -->
+    <g>
+      <animateTransform attributeName="transform" type="translate" from="-1140 0" to="0 0" dur="15s" repeatCount="indefinite"/>
+      <path d="M0,90 C285,130 285,50 570,90 C855,130 855,50 1140,90 C1425,130 1425,50 1710,90 C1995,130 1995,50 2280,90 L2280,150 L0,150 Z" fill="url(#fw-wave2)"/>
+    </g>
+
+    <text x="570" y="54" fill="#F8FAFC" class="fwt" font-size="16" text-anchor="middle" letter-spacing="1.2">
+      CRAFTED WITH PASSION BY <tspan fill="#22D3EE">SHUBHAM GAYKE</tspan>
+    </text>
+    <text x="570" y="76" fill="#94A3B8" class="fwm" font-size="11" text-anchor="middle">
+      MENTORE SOLUTION LMS • © 2026 SHUBHAM GAYKE • ALL RIGHTS RESERVED
+    </text>
+  </g>
+</svg>
