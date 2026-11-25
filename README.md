@@ -43,55 +43,15 @@ Traditional LMS setups suffer from video piracy, unauthorized account sharing, a
 
 ## 🏛️ System Architecture
 
-```mermaid
-flowchart TD
-    subgraph Frontend["Frontend Layer (React 18 + Vite 6 + Tailwind CSS)"]
-        direction TB
-        UI_Student["Student & Exam Portal"]
-        UI_Player["Custom VLC Video Player"]
-        UI_Trainer["Trainer Dashboard & Suite"]
-    end
+<div align="center">
 
-    subgraph Security["API Gateway & Security (Express.js)"]
-        direction TB
-        MW_Auth["JWT & 2FA TOTP Guard"]
-        MW_RateLimit["Rate Limiting & Sanitization"]
-        MW_StreamAuth["Stream Authentication & Key Server"]
-    end
+![Mentore Solution LMS — Enterprise System Architecture](docs/assets/system-architecture.svg)
 
-    subgraph Services["Core Application Services"]
-        direction TB
-        SRV_Video["Video Transcoder (Fluent-FFmpeg & P-Queue)"]
-        SRV_Socket["Real-Time Engine (Socket.IO)"]
-        SRV_Drive["Google Drive API v3 Ingestion"]
-    end
+</div>
 
-    subgraph Storage["Persistence & Storage Layer"]
-        direction TB
-        DB_Mongo[("MongoDB Atlas Database")]
-        DB_GridFS[("MongoDB GridFS (Study Notes & PDFs)")]
-        DIR_HLS["Encrypted HLS Storage (AES-128)"]
-    end
-
-    UI_Student -->|"REST API (HTTPS)"| MW_Auth
-    UI_Player -->|"Stream & Key Requests"| MW_StreamAuth
-    UI_Trainer -->|"Admin & Upload APIs"| MW_Auth
-
-    UI_Student -.->|"Live Q&A & Telemetry (WSS)"| SRV_Socket
-    UI_Trainer -.->|"Progress & Alerts (WSS)"| SRV_Socket
-
-    MW_Auth --> MW_RateLimit
-    MW_RateLimit --> Services
-    MW_StreamAuth -->|"Fetch AES Key"| DIR_HLS
-
-    SRV_Drive -->|"Download Video"| SRV_Video
-    SRV_Video -->|"Generate HLS Segments"| DIR_HLS
-    SRV_Video -->|"Update Lecture Status"| DB_Mongo
-    Services --> DB_Mongo
-    Services --> DB_GridFS
-```
-
-### 🔒 Cryptographic HLS Key Exchange & Player Sequence
+<details>
+<summary><b>🔍 View Cryptographic HLS Key Exchange & Player Sequence</b></summary>
+<br>
 
 ```mermaid
 sequenceDiagram
@@ -117,6 +77,8 @@ sequenceDiagram
     Student->>Storage: Download Encrypted Segment (.ts)
     Student->>Student: In-Memory Decryption via Web Cryptography API & Canvas Watermark Render
 ```
+
+</details>
 
 ---
 
@@ -175,31 +137,11 @@ Every component in Mentore Solution LMS has been meticulously selected for perfo
 
 ## 🛡️ Security & DRM Architecture
 
-```
-┌────────────────────────────────────────────────────────────────────────┐
-│                        LAYERED SECURITY MATRIX                         │
-├────────────────────────────────┬───────────────────────────────────────┤
-│ Threat Vector                  │ LMS Mitigation Strategy               │
-├────────────────────────────────┼───────────────────────────────────────┤
-│ Direct MP4 Video Piracy        │ AES-128 HLS chunking; zero raw URLs;  │
-│                                │ Right-click & DevTools download blocks│
-├────────────────────────────────┼───────────────────────────────────────┤
-│ Unauthorized Screen Recording  │ Dynamic floating watermark with name  │
-│                                │ and email randomly shifting positions │
-├────────────────────────────────┼───────────────────────────────────────┤
-│ Account Credential Sharing     │ Single-session enforcement via        │
-│                                │ activeSessionId; invalidates old tabs │
-├────────────────────────────────┼───────────────────────────────────────┤
-│ Credential Compromise          │ Mandatory 2FA (TOTP RFC 6238)         │
-│                                │ Authenticator app required on login   │
-├────────────────────────────────┼───────────────────────────────────────┤
-│ Cross-Batch Unauthorized Access│ Strict route-level enrollment check;  │
-│                                │ Stream tokens locked to batch ID      │
-├────────────────────────────────┼───────────────────────────────────────┤
-│ Exam Misconduct & Cheating     │ AI proctoring, webcam telemetry,      │
-│                                │ tab blur alerts, fullscreen lockdown  │
-└────────────────────────────────┴───────────────────────────────────────┘
-```
+<div align="center">
+
+![Layered Defense & Zero-Trust Security Matrix](docs/assets/security-matrix.svg)
+
+</div>
 
 ---
 

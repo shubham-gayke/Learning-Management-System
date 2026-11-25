@@ -1,0 +1,278 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1140 820" width="1140" height="820">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="arch-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#080C15"/>
+      <stop offset="40%" stop-color="#0D1527"/>
+      <stop offset="100%" stop-color="#060911"/>
+    </linearGradient>
+
+    <!-- Header Gradient -->
+    <linearGradient id="arch-header" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#38BDF8"/>
+      <stop offset="35%" stop-color="#818CF8"/>
+      <stop offset="100%" stop-color="#34D399"/>
+    </linearGradient>
+
+    <!-- Layer Card Gradients (3D Glassmorphism) -->
+    <linearGradient id="tier1-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#14243D" stop-opacity="0.85"/>
+      <stop offset="100%" stop-color="#0B1322" stop-opacity="0.95"/>
+    </linearGradient>
+    <linearGradient id="tier2-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#182138" stop-opacity="0.85"/>
+      <stop offset="100%" stop-color="#0B111D" stop-opacity="0.95"/>
+    </linearGradient>
+    <linearGradient id="tier3-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1C2038" stop-opacity="0.85"/>
+      <stop offset="100%" stop-color="#0D0F1C" stop-opacity="0.95"/>
+    </linearGradient>
+    <linearGradient id="tier4-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#11292B" stop-opacity="0.85"/>
+      <stop offset="100%" stop-color="#081416" stop-opacity="0.95"/>
+    </linearGradient>
+
+    <!-- Sub-module Gradients -->
+    <linearGradient id="box-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1E293B" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#0F172A" stop-opacity="0.95"/>
+    </linearGradient>
+
+    <!-- Flow Arrow Gradients -->
+    <linearGradient id="flow-down" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#38BDF8"/>
+      <stop offset="100%" stop-color="#818CF8"/>
+    </linearGradient>
+
+    <!-- Filters -->
+    <filter id="tier-shadow" x="-5%" y="-5%" width="110%" height="120%">
+      <feDropShadow dx="0" dy="10" stdDeviation="10" flood-color="#000000" flood-opacity="0.7"/>
+      <feDropShadow dx="0" dy="1" stdDeviation="2" flood-color="#38BDF8" flood-opacity="0.12"/>
+    </filter>
+
+    <filter id="box-glow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="4" stdDeviation="5" flood-color="#000000" flood-opacity="0.5"/>
+    </filter>
+
+    <pattern id="arch-grid" width="28" height="28" patternUnits="userSpaceOnUse">
+      <path d="M 28 0 L 0 0 0 28" fill="none" stroke="#1E293B" stroke-width="0.7" stroke-opacity="0.35"/>
+      <circle cx="0" cy="0" r="1" fill="#38BDF8" fill-opacity="0.2"/>
+    </pattern>
+  </defs>
+
+  <style>
+    .arch-title { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; font-weight: 800; }
+    .arch-sub   { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; }
+    .arch-mono  { font-family: 'JetBrains Mono', Consolas, monospace; }
+  </style>
+
+  <!-- Background Base -->
+  <rect width="1140" height="820" rx="20" fill="url(#arch-bg)" stroke="#1E293B" stroke-width="1.5"/>
+  <rect width="1140" height="820" rx="20" fill="url(#arch-grid)"/>
+
+  <!-- Top Ambient Glows -->
+  <circle cx="570" cy="20" r="300" fill="#38BDF8" opacity="0.08" filter="blur(30px)"/>
+  <circle cx="1000" cy="400" r="250" fill="#10B981" opacity="0.05" filter="blur(30px)"/>
+  <circle cx="100" cy="500" r="250" fill="#818CF8" opacity="0.05" filter="blur(30px)"/>
+
+  <!-- HEADER -->
+  <g transform="translate(50, 40)">
+    <rect x="0" y="0" width="42" height="42" rx="10" fill="#0E2238" stroke="#38BDF8" stroke-width="1.4"/>
+    <path d="M12 28 L21 13 L30 28 Z M16 23 H26" fill="none" stroke="#38BDF8" stroke-width="2" stroke-linejoin="round"/>
+    
+    <text x="56" y="20" fill="url(#arch-header)" class="arch-title" font-size="21" letter-spacing="1.2">MENTORE SOLUTION LMS — ENTERPRISE SYSTEM ARCHITECTURE</text>
+    <text x="56" y="38" fill="#94A3B8" class="arch-sub" font-size="12.5">End-to-End Distributed Stack: Reactive Client SPA, Cryptographic Gateway, Microservices, and Persistence Engine</text>
+  </g>
+
+  <!-- ========================================== -->
+  <!-- TIER 1: CLIENT EXPERIENCE LAYER (y = 95)    -->
+  <!-- ========================================== -->
+  <g transform="translate(50, 95)" filter="url(#tier-shadow)">
+    <!-- Main Tier Enclosure -->
+    <rect width="1040" height="130" rx="14" fill="url(#tier1-grad)" stroke="#0284C7" stroke-width="1.2"/>
+    <!-- Top glowing accent -->
+    <rect x="14" y="0" width="1012" height="2" fill="#38BDF8" rx="1"/>
+
+    <!-- Tier Label -->
+    <rect x="20" y="12" width="280" height="22" rx="6" fill="#0369A1" fill-opacity="0.3"/>
+    <text x="30" y="27" fill="#38BDF8" class="arch-mono" font-size="11" font-weight="700">TIER 1 • FRONTEND REACT 18 SPA</text>
+    <text x="960" y="27" fill="#64748B" class="arch-mono" font-size="10" text-anchor="end">Vite 6 • Tailwind v4 • TanStack Query</text>
+
+    <!-- Sub Modules -->
+    <!-- Module 1A -->
+    <g transform="translate(20, 42)" filter="url(#box-glow)">
+      <rect width="235" height="74" rx="8" fill="url(#box-grad)" stroke="#334155" stroke-width="1"/>
+      <text x="14" y="24" fill="#F8FAFC" class="arch-title" font-size="13">Student Portal</text>
+      <text x="14" y="42" fill="#94A3B8" class="arch-sub" font-size="11">Dashboard, Batch Guard &amp; Nav</text>
+      <text x="14" y="58" fill="#38BDF8" class="arch-mono" font-size="9.5">GridFS PDF &amp; Notes Reader</text>
+    </g>
+
+    <!-- Module 1B -->
+    <g transform="translate(275, 42)" filter="url(#box-glow)">
+      <rect width="245" height="74" rx="8" fill="url(#box-grad)" stroke="#0284C7" stroke-width="1.2"/>
+      <text x="14" y="24" fill="#F8FAFC" class="arch-title" font-size="13">Custom VLC Player</text>
+      <text x="14" y="42" fill="#94A3B8" class="arch-sub" font-size="11">HLS.js Adaptive Bitrate (144p-1080p)</text>
+      <text x="14" y="58" fill="#F59E0B" class="arch-mono" font-size="9.5">Dynamic Floating Watermark</text>
+    </g>
+
+    <!-- Module 1C -->
+    <g transform="translate(540, 42)" filter="url(#box-glow)">
+      <rect width="245" height="74" rx="8" fill="url(#box-grad)" stroke="#F43F5E" stroke-width="1.2"/>
+      <text x="14" y="24" fill="#F8FAFC" class="arch-title" font-size="13">AI Proctoring Suite</text>
+      <text x="14" y="42" fill="#94A3B8" class="arch-sub" font-size="11">TensorFlow.js &amp; COCO-SSD Vision</text>
+      <text x="14" y="58" fill="#FB7185" class="arch-mono" font-size="9.5">Lockdown &amp; Tab-Blur Telemetry</text>
+    </g>
+
+    <!-- Module 1D -->
+    <g transform="translate(805, 42)" filter="url(#box-glow)">
+      <rect width="215" height="74" rx="8" fill="url(#box-grad)" stroke="#334155" stroke-width="1"/>
+      <text x="14" y="24" fill="#F8FAFC" class="arch-title" font-size="13">Trainer &amp; Admin Suite</text>
+      <text x="14" y="42" fill="#94A3B8" class="arch-sub" font-size="11">Google Drive Ingestion &amp; Exams</text>
+      <text x="14" y="58" fill="#34D399" class="arch-mono" font-size="9.5">Batch Manager &amp; Job Portal</text>
+    </g>
+  </g>
+
+  <!-- INTER-TIER 1->2 CONNECTOR (y = 232) -->
+  <g transform="translate(50, 230)">
+    <line x1="280" y1="0" x2="280" y2="40" stroke="#38BDF8" stroke-width="1.8" stroke-dasharray="4 3"/>
+    <line x1="780" y1="0" x2="780" y2="40" stroke="#818CF8" stroke-width="1.8" stroke-dasharray="4 3"/>
+
+    <!-- Connector Badges -->
+    <rect x="200" y="8" width="160" height="22" rx="11" fill="#0F172A" stroke="#38BDF8" stroke-width="1"/>
+    <text x="280" y="23" fill="#38BDF8" class="arch-mono" font-size="10" font-weight="700" text-anchor="middle">HTTPS / REST JSON API</text>
+
+    <rect x="700" y="8" width="160" height="22" rx="11" fill="#0F172A" stroke="#818CF8" stroke-width="1"/>
+    <text x="780" y="23" fill="#A5B4FC" class="arch-mono" font-size="10" font-weight="700" text-anchor="middle">WSS / SOCKET.IO EVENTS</text>
+  </g>
+
+  <!-- ========================================== -->
+  <!-- TIER 2: API GATEWAY & SECURITY (y = 275)    -->
+  <!-- ========================================== -->
+  <g transform="translate(50, 275)" filter="url(#tier-shadow)">
+    <rect width="1040" height="130" rx="14" fill="url(#tier2-grad)" stroke="#4F46E5" stroke-width="1.2"/>
+    <rect x="14" y="0" width="1012" height="2" fill="#818CF8" rx="1"/>
+
+    <rect x="20" y="12" width="310" height="22" rx="6" fill="#3730A3" fill-opacity="0.3"/>
+    <text x="30" y="27" fill="#A5B4FC" class="arch-mono" font-size="11" font-weight="700">TIER 2 • API GATEWAY &amp; SECURITY LAYER</text>
+    <text x="960" y="27" fill="#64748B" class="arch-mono" font-size="10" text-anchor="end">Express.js 4.21 • Helmet • Mongo Sanitize</text>
+
+    <!-- Module 2A -->
+    <g transform="translate(20, 42)" filter="url(#box-glow)">
+      <rect width="320" height="74" rx="8" fill="url(#box-grad)" stroke="#4338CA" stroke-width="1"/>
+      <text x="14" y="24" fill="#F8FAFC" class="arch-title" font-size="13">Identity &amp; Auth Guard</text>
+      <text x="14" y="42" fill="#94A3B8" class="arch-sub" font-size="11">JWT Bearer Sessions • Bcrypt.js Hashing</text>
+      <text x="14" y="58" fill="#A5B4FC" class="arch-mono" font-size="9.5">Single-Device Active Session Invalidator</text>
+    </g>
+
+    <!-- Module 2B -->
+    <g transform="translate(360, 42)" filter="url(#box-glow)">
+      <rect width="320" height="74" rx="8" fill="url(#box-grad)" stroke="#059669" stroke-width="1.2"/>
+      <text x="14" y="24" fill="#F8FAFC" class="arch-title" font-size="13">Mandatory 2FA Engine</text>
+      <text x="14" y="42" fill="#94A3B8" class="arch-sub" font-size="11">RFC 6238 TOTP (otpauth &amp; qrcode)</text>
+      <text x="14" y="58" fill="#34D399" class="arch-mono" font-size="9.5">Google Authenticator • Locked for Students</text>
+    </g>
+
+    <!-- Module 2C -->
+    <g transform="translate(700, 42)" filter="url(#box-glow)">
+      <rect width="320" height="74" rx="8" fill="url(#box-grad)" stroke="#0284C7" stroke-width="1.2"/>
+      <text x="14" y="24" fill="#F8FAFC" class="arch-title" font-size="13">Stream Gatekeeper</text>
+      <text x="14" y="42" fill="#94A3B8" class="arch-sub" font-size="11">Batch Authorization (req.user.batch check)</text>
+      <text x="14" y="58" fill="#38BDF8" class="arch-mono" font-size="9.5">Ephemeral AES-128 Key Server (/api/stream)</text>
+    </g>
+  </g>
+
+  <!-- INTER-TIER 2->3 CONNECTOR (y = 412) -->
+  <g transform="translate(50, 410)">
+    <line x1="350" y1="0" x2="350" y2="40" stroke="#818CF8" stroke-width="1.8" stroke-dasharray="4 3"/>
+    <line x1="720" y1="0" x2="720" y2="40" stroke="#C084FC" stroke-width="1.8" stroke-dasharray="4 3"/>
+
+    <rect x="420" y="8" width="220" height="22" rx="11" fill="#0F172A" stroke="#818CF8" stroke-width="1"/>
+    <text x="530" y="23" fill="#C084FC" class="arch-mono" font-size="10" font-weight="700" text-anchor="middle">ASYNC QUEUE &amp; SERVICE BUS</text>
+  </g>
+
+  <!-- ========================================== -->
+  <!-- TIER 3: SERVICES & PROCESSING (y = 455)    -->
+  <!-- ========================================== -->
+  <g transform="translate(50, 455)" filter="url(#tier-shadow)">
+    <rect width="1040" height="130" rx="14" fill="url(#tier3-grad)" stroke="#7C3AED" stroke-width="1.2"/>
+    <rect x="14" y="0" width="1012" height="2" fill="#A855F7" rx="1"/>
+
+    <rect x="20" y="12" width="310" height="22" rx="6" fill="#5B21B6" fill-opacity="0.3"/>
+    <text x="30" y="27" fill="#C084FC" class="arch-mono" font-size="11" font-weight="700">TIER 3 • CORE SERVICES &amp; WORKERS</text>
+    <text x="960" y="27" fill="#64748B" class="arch-mono" font-size="10" text-anchor="end">Fluent-FFmpeg • P-Queue Concurrency • Google APIs</text>
+
+    <!-- Module 3A -->
+    <g transform="translate(20, 42)" filter="url(#box-glow)">
+      <rect width="320" height="74" rx="8" fill="url(#box-grad)" stroke="#7C3AED" stroke-width="1"/>
+      <text x="14" y="24" fill="#F8FAFC" class="arch-title" font-size="13">Google Drive Ingestion</text>
+      <text x="14" y="42" fill="#94A3B8" class="arch-sub" font-size="11">Service Account (Drive API v3)</text>
+      <text x="14" y="58" fill="#C084FC" class="arch-mono" font-size="9.5">Automated OBS Stream Downloads</text>
+    </g>
+
+    <!-- Module 3B -->
+    <g transform="translate(360, 42)" filter="url(#box-glow)">
+      <rect width="320" height="74" rx="8" fill="url(#box-grad)" stroke="#2563EB" stroke-width="1.2"/>
+      <text x="14" y="24" fill="#F8FAFC" class="arch-title" font-size="13">FFmpeg Transcoder Pipeline</text>
+      <text x="14" y="42" fill="#94A3B8" class="arch-sub" font-size="11">P-Queue Worker (Concurrency: 1)</text>
+      <text x="14" y="58" fill="#60A5FA" class="arch-mono" font-size="9.5">Multi-Bitrate AES-128 HLS Packaging</text>
+    </g>
+
+    <!-- Module 3C -->
+    <g transform="translate(700, 42)" filter="url(#box-glow)">
+      <rect width="320" height="74" rx="8" fill="url(#box-grad)" stroke="#059669" stroke-width="1"/>
+      <text x="14" y="24" fill="#F8FAFC" class="arch-title" font-size="13">Real-Time Event Engine</text>
+      <text x="14" y="42" fill="#94A3B8" class="arch-sub" font-size="11">Socket.IO Room-Based Clusters</text>
+      <text x="14" y="58" fill="#34D399" class="arch-mono" font-size="9.5">Q&amp;A Threads, Transcoding % &amp; Badges</text>
+    </g>
+  </g>
+
+  <!-- INTER-TIER 3->4 CONNECTOR (y = 592) -->
+  <g transform="translate(50, 590)">
+    <line x1="300" y1="0" x2="300" y2="40" stroke="#A855F7" stroke-width="1.8" stroke-dasharray="4 3"/>
+    <line x1="750" y1="0" x2="750" y2="40" stroke="#10B981" stroke-width="1.8" stroke-dasharray="4 3"/>
+
+    <rect x="430" y="8" width="200" height="22" rx="11" fill="#0F172A" stroke="#10B981" stroke-width="1"/>
+    <text x="530" y="23" fill="#34D399" class="arch-mono" font-size="10" font-weight="700" text-anchor="middle">PERSISTENCE &amp; STORAGE I/O</text>
+  </g>
+
+  <!-- ========================================== -->
+  <!-- TIER 4: PERSISTENCE & STORAGE (y = 635)    -->
+  <!-- ========================================== -->
+  <g transform="translate(50, 635)" filter="url(#tier-shadow)">
+    <rect width="1040" height="130" rx="14" fill="url(#tier4-grad)" stroke="#059669" stroke-width="1.2"/>
+    <rect x="14" y="0" width="1012" height="2" fill="#10B981" rx="1"/>
+
+    <rect x="20" y="12" width="310" height="22" rx="6" fill="#064E3B" fill-opacity="0.3"/>
+    <text x="30" y="27" fill="#34D399" class="arch-mono" font-size="11" font-weight="700">TIER 4 • DATA PERSISTENCE &amp; STORAGE</text>
+    <text x="960" y="27" fill="#64748B" class="arch-mono" font-size="10" text-anchor="end">MongoDB 7+ • Mongoose 8.7 • GridFS • S3/R2 Ready</text>
+
+    <!-- Module 4A -->
+    <g transform="translate(20, 42)" filter="url(#box-glow)">
+      <rect width="320" height="74" rx="8" fill="url(#box-grad)" stroke="#059669" stroke-width="1"/>
+      <text x="14" y="24" fill="#F8FAFC" class="arch-title" font-size="13">MongoDB Atlas Cluster</text>
+      <text x="14" y="42" fill="#94A3B8" class="arch-sub" font-size="11">Users, Batches, Lectures, Q&amp;A</text>
+      <text x="14" y="58" fill="#34D399" class="arch-mono" font-size="9.5">Exams, Violations &amp; Job Listings</text>
+    </g>
+
+    <!-- Module 4B -->
+    <g transform="translate(360, 42)" filter="url(#box-glow)">
+      <rect width="320" height="74" rx="8" fill="url(#box-grad)" stroke="#10B981" stroke-width="1.2"/>
+      <text x="14" y="24" fill="#F8FAFC" class="arch-title" font-size="13">MongoDB GridFS Bucket</text>
+      <text x="14" y="42" fill="#94A3B8" class="arch-sub" font-size="11">Binary Storage for Lecture Notes &amp; PDFs</text>
+      <text x="14" y="58" fill="#6EE7B7" class="arch-mono" font-size="9.5">Magic-Byte MIME Security Scanner</text>
+    </g>
+
+    <!-- Module 4C -->
+    <g transform="translate(700, 42)" filter="url(#box-glow)">
+      <rect width="320" height="74" rx="8" fill="url(#box-grad)" stroke="#0284C7" stroke-width="1.2"/>
+      <text x="14" y="24" fill="#F8FAFC" class="arch-title" font-size="13">Encrypted HLS Vault</text>
+      <text x="14" y="42" fill="#94A3B8" class="arch-sub" font-size="11">AES-128 Rendition Segments (.ts files)</text>
+      <text x="14" y="58" fill="#38BDF8" class="arch-mono" font-size="9.5">Pluggable: Local / AWS S3 / Cloudflare R2</text>
+    </g>
+  </g>
+
+  <!-- Bottom Footer Branding -->
+  <text x="570" y="795" fill="#475569" class="arch-mono" font-size="11" text-anchor="middle">
+    MENTORE SOLUTION LMS • HIGH-AVAILABILITY MULTI-TENANT EDUCATIONAL ARCHITECTURE
+  </text>
+</svg>
